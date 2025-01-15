@@ -11,17 +11,33 @@
             margin: 0;
         }
         .navbar {
-            background-color: #007bff;
+            background: linear-gradient(90deg, #2c3e50, #34495e);
             color: white;
         }
         .navbar a {
             color: white;
+            transition: color 0.3s;
+            cursor: pointer; /* Ensure hand cursor on hover */
+        }
+        .navbar a:hover {
+            color: #f39c12;
         }
         .content {
             padding: 20px;
         }
         .card {
             margin: 15px 0;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #34495e, #2c3e50);
+            border: none;
+            transition: background 0.3s, transform 0.2s;
+            cursor: pointer; /* Ensure hand cursor on hover */
+        }
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #2c3e50, #34495e);
+            border: none;
+            transform: scale(1.05);
         }
     </style>
 </head>
