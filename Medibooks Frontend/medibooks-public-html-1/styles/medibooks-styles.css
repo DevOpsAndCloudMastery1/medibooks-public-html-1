@@ -1,0 +1,57 @@
+body {
+    background-color: #f8f9fa;
+    margin: 0;
+}
+
+.navbar {
+    background: linear-gradient(90deg, #2c3e50, #34495e);
+    color: white;
+}
+
+.navbar a {
+    color: white;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.navbar a:hover {
+    color: #f39c12;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.2);
+}
+
+.content {
+    padding: 20px;
+}
+
+.card {
+    margin: 15px 0;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #34495e, #2c3e50);
+    border: none;
+    transition: background 0.3s, transform 0.2s;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, #2c3e50, #34495e);
+    border: none;
+    transform: scale(1.05);
+}
