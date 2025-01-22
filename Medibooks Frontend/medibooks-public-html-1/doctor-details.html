@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctors Search</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Same styles as previously */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Doctors Search</h1>
+        <nav>
+            <a href="home.html">Home</a>
+        </nav>
+    </header>
+    <main>
+        <h2>List of Doctors</h2>
+
+        <!-- Search Bar -->
+        <input type="text" id="searchBar" placeholder="Search by name or specialization...">
+
+        <!-- Doctors Table -->
+        <table id="doctorTable">
+            <tr>
+                <td>
+                    <img src="images/doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
+                    <h3>Dr. John Smith</h3>
+                    <p>Cardiologist</p>
+                    <a href="doctor-details.html">More Details</a>
+                </td>
+                <td>
+                    <img src="images/doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
+                    <h3>Dr. Emma Davis</h3>
+                    <p>Neurologist</p>
+                    <a href="doctor-details.html">More Details</a>
+                </td>
+                <td>
+                    <img src="images/doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
+                    <h3>Dr. Michael Brown</h3>
+                    <p>Pediatrician</p>
+                    <a href="doctor-details.html">More Details</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="images/doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
+                    <h3>Dr. Olivia Wilson</h3>
+                    <p>Orthopedic Surgeon</p>
+                    <a href="doctor-details.html">More Details</a>
+                </td>
+                <td>
+                    <img src="images/doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
+                    <h3>Dr. Liam Johnson</h3>
+                    <p>Dermatologist</p>
+                    <a href="doctor-details.html">More Details</a>
+                </td>
+                <td>
+                    <img src="images/doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
+                    <h3>Dr. Sophia Martinez</h3>
+                    <p>Gynecologist</p>
+                    <a href="doctor-details.html">More Details</a>
+                </td>
+            </tr>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2025 MediBooks</p>
+    </footer>
+
+    <script>
+        // Search function
+        const searchBar = document.getElementById('searchBar');
+        searchBar.addEventListener('input', function() {
+            const filter = searchBar.value.toLowerCase();
+            const rows = document.querySelectorAll('#doctorTable tr');
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                let match = false;
+
+                cells.forEach(cell => {
+                    if (cell.textContent.toLowerCase().includes(filter)) {
+                        match = true;
+                    }
+                });
+
+                if (match) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
