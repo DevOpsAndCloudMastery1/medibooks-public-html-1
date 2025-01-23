@@ -116,27 +116,27 @@ body {
 
 /* Example for doctor image paths */
 .doctor1 {
-    background-image: url('/home/ubuntuuser/myproject/Medibooks Frontend/medibooks-public-html-1/images/doctor1.jpg');
+    background-image: url('/images /doctor1.jpg');
 }
 
 .doctor2 {
-    background-image: url('/home/ubuntuuser/myproject/Medibooks Frontend/medibooks-public-html-1/images/doctor2.jpg');
+    background-image: url('/images /doctor2.jpg');
 }
 
 .doctor3 {
-    background-image: url('/home/ubuntuuser/myproject/Medibooks Frontend/medibooks-public-html-1/images/doctor3.jpg');
+    background-image: url('/images /doctor3.jpg');
 }
 
 .doctor4 {
-    background-image: url('/home/ubuntuuser/myproject/Medibooks Frontend/medibooks-public-html-1/images/doctor4.jpg');
+    background-image: url('/images /doctor4.jpg');
 }
 
 .doctor5 {
-    background-image: url('/home/ubuntuuser/myproject/Medibooks Frontend/medibooks-public-html-1/images/doctor5.jpg');
+    background-image: url('/images /doctor5.jpg');
 }
 
 .doctor6 {
-    background-image: url('/home/ubuntuuser/myproject/Medibooks Frontend/medibooks-public-html-1/images/doctor6.jpg');
+    background-image: url('/images /doctor6.jpg');
 }
 
 .doctor-card h3 {
