@@ -6,94 +6,180 @@
     <title>Doctors Search</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Same styles as previously */
+        /* Add some quick styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+        main {
+            padding: 1rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        td {
+            text-align: center;
+            padding: 1rem;
+        }
+        .doctor-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .doctor-details {
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .doctor-details img {
+            float: left;
+            margin-right: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #007bff;
+            color: #fff;
+            position: sticky;
+            bottom: 0;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Doctors Search</h1>
-        <nav>
-            <a href="home.html">Home</a>
-        </nav>
     </header>
+
     <main>
-        <h2>List of Doctors</h2>
+        <section>
+            <h2>List of Doctors</h2>
+            <table>
+                <tr>
+                    <td>
+                        <img src="images/doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
+                        <h3>Dr. John Smith</h3>
+                        <p>Specialization: Cardiologist</p>
+                        <a href="#doctor1">More Details</a>
+                    </td>
+                    <td>
+                        <img src="images/doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
+                        <h3>Dr. Emma Davis</h3>
+                        <p>Specialization: Neurologist</p>
+                        <a href="#doctor2">More Details</a>
+                    </td>
+                    <td>
+                        <img src="images/doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
+                        <h3>Dr. Michael Brown</h3>
+                        <p>Specialization: Pediatrician</p>
+                        <a href="#doctor3">More Details</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="images/doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
+                        <h3>Dr. Olivia Wilson</h3>
+                        <p>Specialization: Orthopedic Surgeon</p>
+                        <a href="#doctor4">More Details</a>
+                    </td>
+                    <td>
+                        <img src="images/doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
+                        <h3>Dr. Liam Johnson</h3>
+                        <p>Specialization: Dermatologist</p>
+                        <a href="#doctor5">More Details</a>
+                    </td>
+                    <td>
+                        <img src="images/doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
+                        <h3>Dr. Sophia Martinez</h3>
+                        <p>Specialization: Gynecologist</p>
+                        <a href="#doctor6">More Details</a>
+                    </td>
+                </tr>
+            </table>
+        </section>
 
-        <!-- Search Bar -->
-        <input type="text" id="searchBar" placeholder="Search by name or specialization...">
+        <!-- Doctor Details -->
+        <section id="doctor1" class="doctor-details">
+            <h2>Dr. John Smith</h2>
+            <img src="images/doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
+            <p><strong>Specialization:</strong> Cardiologist</p>
+            <p><strong>Experience:</strong> 15 years</p>
+            <p><strong>Location:</strong> MediHealth Hospital, New York</p>
+            <p>Dr. John Smith is a renowned cardiologist specializing in advanced heart care and minimally invasive surgeries.</p>
+        </section>
 
-        <!-- Doctors Table -->
-        <table id="doctorTable">
-            <tr>
-                <td>
-                    <img src="images/doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
-                    <h3>Dr. John Smith</h3>
-                    <p>Cardiologist</p>
-                    <a href="doctor-details.html">More Details</a>
-                </td>
-                <td>
-                    <img src="images/doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
-                    <h3>Dr. Emma Davis</h3>
-                    <p>Neurologist</p>
-                    <a href="doctor-details.html">More Details</a>
-                </td>
-                <td>
-                    <img src="images/doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
-                    <h3>Dr. Michael Brown</h3>
-                    <p>Pediatrician</p>
-                    <a href="doctor-details.html">More Details</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src="images/doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
-                    <h3>Dr. Olivia Wilson</h3>
-                    <p>Orthopedic Surgeon</p>
-                    <a href="doctor-details.html">More Details</a>
-                </td>
-                <td>
-                    <img src="images/doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
-                    <h3>Dr. Liam Johnson</h3>
-                    <p>Dermatologist</p>
-                    <a href="doctor-details.html">More Details</a>
-                </td>
-                <td>
-                    <img src="images/doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
-                    <h3>Dr. Sophia Martinez</h3>
-                    <p>Gynecologist</p>
-                    <a href="doctor-details.html">More Details</a>
-                </td>
-            </tr>
-        </table>
+        <section id="doctor2" class="doctor-details">
+            <h2>Dr. Emma Davis</h2>
+            <img src="images/doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
+            <p><strong>Specialization:</strong> Neurologist</p>
+            <p><strong>Experience:</strong> 10 years</p>
+            <p><strong>Location:</strong> NeuroCare Clinic, Chicago</p>
+            <p>Dr. Emma Davis specializes in treating complex neurological disorders, including epilepsy, migraines, and neurodegenerative diseases.</p>
+        </section>
+
+        <section id="doctor3" class="doctor-details">
+            <h2>Dr. Michael Brown</h2>
+            <img src="images/doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
+            <p><strong>Specialization:</strong> Pediatrician</p>
+            <p><strong>Experience:</strong> 8 years</p>
+            <p><strong>Location:</strong> Happy Kids Pediatrics, Los Angeles</p>
+            <p>Dr. Michael Brown focuses on providing compassionate care for children of all ages, with expertise in child nutrition and immunizations.</p>
+        </section>
+
+        <section id="doctor4" class="doctor-details">
+            <h2>Dr. Olivia Wilson</h2>
+            <img src="images/doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
+            <p><strong>Specialization:</strong> Orthopedic Surgeon</p>
+            <p><strong>Experience:</strong> 12 years</p>
+            <p><strong>Location:</strong> Advanced Orthopedic Center, San Francisco</p>
+            <p>Dr. Olivia Wilson specializes in joint replacement and sports injuries.</p>
+        </section>
+
+        <section id="doctor5" class="doctor-details">
+            <h2>Dr. Liam Johnson</h2>
+            <img src="images/doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
+            <p><strong>Specialization:</strong> Dermatologist</p>
+            <p><strong>Experience:</strong> 9 years</p>
+            <p><strong>Location:</strong> SkinCare Specialists, Miami</p>
+            <p>Dr. Liam Johnson treats acne, eczema, and skin cancer, ensuring healthy skin for his patients.</p>
+        </section>
+
+        <section id="doctor6" class="doctor-details">
+            <h2>Dr. Sophia Martinez</h2>
+            <img src="images/doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
+            <p><strong>Specialization:</strong> Gynecologist</p>
+            <p><strong>Experience:</strong> 14 years</p>
+            <p><strong>Location:</strong> Women’s Wellness Center, Houston</p>
+            <p>Dr. Sophia Martinez specializes in women's health, including prenatal care and fertility treatments.</p>
+        </section>
     </main>
+
     <footer>
         <p>&copy; 2025 MediBooks</p>
     </footer>
-
-    <script>
-        // Search function
-        const searchBar = document.getElementById('searchBar');
-        searchBar.addEventListener('input', function() {
-            const filter = searchBar.value.toLowerCase();
-            const rows = document.querySelectorAll('#doctorTable tr');
-
-            rows.forEach(row => {
-                const cells = row.querySelectorAll('td');
-                let match = false;
-
-                cells.forEach(cell => {
-                    if (cell.textContent.toLowerCase().includes(filter)) {
-                        match = true;
-                    }
-                });
-
-                if (match) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        });
-    </script>
 </body>
 </html>

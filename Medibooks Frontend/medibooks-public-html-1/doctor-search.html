@@ -3,64 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctors Search</title> <!-- Updated page title -->
-    <link rel="stylesheet" href="styles.css"> <!-- Assuming you have a shared stylesheet -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-        }
-        header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        header nav a {
-            color: white;
-            margin: 0 10px;
-            text-decoration: none;
-        }
-        main {
-            padding: 20px;
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            margin: 20px 0;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 15px;
-            text-align: left;
-        }
-        .doctor-photo {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
-        input[type="text"] {
-            width: 80%;
-            padding: 10px;
-            margin: 20px auto;
-            display: block;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
+    <title>Doctors Search</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -70,50 +14,48 @@
         </nav>
     </header>
     <main>
-        <h2>List of Doctors</h2>
-
         <!-- Search Bar -->
-        <input type="text" id="searchBar" placeholder="Search by name or specialization..." style="width: 80%; margin: 20px auto; display: block; padding: 10px;">
+        <input type="text" id="searchBar" placeholder="Search by name or specialization..." style="margin-bottom: 20px; width: 80%; padding: 10px;">
 
         <!-- Doctors Table -->
         <table id="doctorTable">
             <tr>
                 <td>
-                    <img src="doctor1.jpg" alt="Doctor 1" class="doctor-photo">
+                    <img src="images/doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
                     <h3>Dr. John Smith</h3>
                     <p>Cardiologist</p>
                     <a href="doctor-details.html">More Details</a>
                 </td>
                 <td>
-                    <img src="doctor2.jpg" alt="Doctor 2" class="doctor-photo">
-                    <h3>Dr. Jane Doe</h3>
-                    <p>Pediatrician</p>
+                    <img src="images/doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
+                    <h3>Dr. Emma Davis</h3>
+                    <p>Neurologist</p>
                     <a href="doctor-details.html">More Details</a>
                 </td>
                 <td>
-                    <img src="doctor3.jpg" alt="Doctor 3" class="doctor-photo">
-                    <h3>Dr. Alan Brown</h3>
-                    <p>Orthopedic</p>
+                    <img src="images/doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
+                    <h3>Dr. Michael Brown</h3>
+                    <p>Pediatrician</p>
                     <a href="doctor-details.html">More Details</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <img src="doctor4.jpg" alt="Doctor 4" class="doctor-photo">
-                    <h3>Dr. Emily White</h3>
+                    <img src="images/doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
+                    <h3>Dr. Olivia Wilson</h3>
+                    <p>Orthopedic Surgeon</p>
+                    <a href="doctor-details.html">More Details</a>
+                </td>
+                <td>
+                    <img src="images/doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
+                    <h3>Dr. Liam Johnson</h3>
                     <p>Dermatologist</p>
                     <a href="doctor-details.html">More Details</a>
                 </td>
                 <td>
-                    <img src="doctor5.jpg" alt="Doctor 5" class="doctor-photo">
-                    <h3>Dr. Michael Green</h3>
-                    <p>Neurologist</p>
-                    <a href="doctor-details.html">More Details</a>
-                </td>
-                <td>
-                    <img src="doctor6.jpg" alt="Doctor 6" class="doctor-photo">
-                    <h3>Dr. Sarah Brown</h3>
-                    <p>General Physician</p>
+                    <img src="images/doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
+                    <h3>Dr. Sophia Martinez</h3>
+                    <p>Gynecologist</p>
                     <a href="doctor-details.html">More Details</a>
                 </td>
             </tr>
@@ -123,8 +65,8 @@
         <p>&copy; 2025 MediBooks</p>
     </footer>
 
+    <!-- JavaScript for Search -->
     <script>
-        // Search function for filtering the doctor list
         const searchBar = document.getElementById('searchBar');
         searchBar.addEventListener('input', function() {
             const filter = searchBar.value.toLowerCase();
