@@ -1,15 +1,24 @@
+/* Global Styles */
 body {
     background-color: #f8f9fa;
     margin: 0;
+    font-family: Arial, sans-serif;
 }
 
+/* Navbar Styles */
 .navbar {
     background: linear-gradient(90deg, #2c3e50, #34495e);
     color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .navbar a {
     color: white;
+    text-decoration: none;
+    margin: 0 10px;
     transition: color 0.3s;
     cursor: pointer;
 }
@@ -35,18 +44,28 @@ body {
     transform: scale(1.2);
 }
 
+/* Content Styles */
 .content {
     padding: 20px;
 }
 
 .card {
     margin: 15px 0;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
 }
 
 /* Button Styles */
 .btn-primary {
     background: linear-gradient(90deg, #34495e, #2c3e50);
     border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
     transition: background 0.3s, transform 0.2s;
     cursor: pointer;
 }
@@ -56,17 +75,20 @@ body {
     transform: scale(1.05);
 }
 
-/* New Styles for Doctor Search Page */
+/* Doctor Search Page Styles */
 .table {
     width: 100%;
     margin: 20px 0;
     border-collapse: collapse;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
 }
 
 .table th, .table td {
     border: 1px solid #dee2e6;
     padding: 12px;
     text-align: center;
+    font-size: 0.9rem;
 }
 
 .table th {
@@ -74,9 +96,14 @@ body {
     color: white;
 }
 
+/* Doctor Card Styles */
 .doctor-card {
     text-align: center;
     padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
 }
 
 .doctor-card img {
@@ -84,16 +111,44 @@ body {
     height: 100px;
     border-radius: 50%;
     margin-bottom: 10px;
+    border: 2px solid #f39c12;
+}
+
+/* Example for doctor image paths */
+.doctor1 {
+    background-image: url('/home/ubuntuuser/myproject/Medibooks Frontend/medibooks-public-html-1/images/doctor1.jpg');
+}
+
+.doctor2 {
+    background-image: url('/home/ubuntuuser/myproject/Medibooks Frontend/medibooks-public-html-1/images/doctor2.jpg');
+}
+
+.doctor3 {
+    background-image: url('/home/ubuntuuser/myproject/Medibooks Frontend/medibooks-public-html-1/images/doctor3.jpg');
+}
+
+.doctor4 {
+    background-image: url('/home/ubuntuuser/myproject/Medibooks Frontend/medibooks-public-html-1/images/doctor4.jpg');
+}
+
+.doctor5 {
+    background-image: url('/home/ubuntuuser/myproject/Medibooks Frontend/medibooks-public-html-1/images/doctor5.jpg');
+}
+
+.doctor6 {
+    background-image: url('/home/ubuntuuser/myproject/Medibooks Frontend/medibooks-public-html-1/images/doctor6.jpg');
 }
 
 .doctor-card h3 {
     font-size: 1.25rem;
     margin-bottom: 5px;
+    color: #2c3e50;
 }
 
 .doctor-card p {
     color: #6c757d;
     margin-bottom: 15px;
+    font-size: 0.9rem;
 }
 
 .btn-details {
@@ -102,8 +157,10 @@ body {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    transition: background 0.3s;
+    font-size: 0.9rem;
     text-decoration: none;
+    transition: background 0.3s;
+    display: inline-block;
 }
 
 .btn-details:hover {
