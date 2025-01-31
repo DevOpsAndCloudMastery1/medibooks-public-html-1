@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment - Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #34495e;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+
+        .calendar {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .calendar select {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #34495e;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: #2c3e50;
+        }
+
+        .confirmation {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .confirmation p {
+            margin: 10px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Book an Appointment</h2>
+        <div id="booking-form">
+            <!-- Calendar Section -->
+            <div class="calendar">
+                <label for="appointment-date">Select Date:</label>
+                <input type="date" id="appointment-date">
+
+                <label for="appointment-time">Select Time:</label>
+                <select id="appointment-time">
+                    <option value="">--Select Time--</option>
+                    <option value="10:00 AM">10:00 AM</option>
+                    <option value="11:00 AM">11:00 AM</option>
+                    <option value="2:00 PM">2:00 PM</option>
+                    <option value="4:00 PM">4:00 PM</option>
+                </select>
+            </div>
+
+            <!-- Patient Information Form -->
+            <div class="form-group">
+                <label for="patient-name">Name:</label>
+                <input type="text" id="patient-name" placeholder="Enter your name">
+            </div>
+
+            <div class="form-group">
+                <label for="patient-email">Email:</label>
+                <input type="email" id="patient-email" placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label for="patient-phone">Phone:</label>
+                <input type="tel" id="patient-phone" placeholder="Enter your phone number">
+            </div>
+
+            <div class="form-group">
+                <label for="patient-notes">Additional Notes:</label>
+                <textarea id="patient-notes" rows="3" placeholder="Optional notes..."></textarea>
+            </div>
+
+            <button class="btn" onclick="submitAppointment()">Book Appointment</button>
+        </div>
+
+        <!-- Confirmation Section -->
+        <div id="confirmation" class="hidden">
+            <h2>Appointment Confirmed!</h2>
+            <div class="confirmation">
+                <p><strong>Date:</strong> <span id="confirm-date"></span></p>
+                <p><strong>Time:</strong> <span id="confirm-time"></span></p>
+                <p><strong>Name:</strong> <span id="confirm-name"></span></p>
+                <p><strong>Email:</strong> <span id="confirm-email"></span></p>
+                <p><strong>Phone:</strong> <span id="confirm-phone"></span></p>
+                <p><strong>Notes:</strong> <span id="confirm-notes"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function submitAppointment() {
+            // Get form values
+            const date = document.getElementById('appointment-date').value;
+            const time = document.getElementById('appointment-time').value;
+            const name = document.getElementById('patient-name').value;
+            const email = document.getElementById('patient-email').value;
+            const phone = document.getElementById('patient-phone').value;
+            const notes = document.getElementById('patient-notes').value;
+
+            // Validation
+            if (!date || !time || !name || !email || !phone) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+
+            // Show confirmation section
+            document.getElementById('booking-form').classList.add('hidden');
+            document.getElementById('confirmation').classList.remove('hidden');
+
+            // Populate confirmation details
+            document.getElementById('confirm-date').innerText = date;
+            document.getElementById('confirm-time').innerText = time;
+            document.getElementById('confirm-name').innerText = name;
+            document.getElementById('confirm-email').innerText = email;
+            document.getElementById('confirm-phone').innerText = phone;
+            document.getElementById('confirm-notes').innerText = notes || 'None';
+        }
+    </script>
+
+<script>
+    // Pre-fill the doctor's name if it's stored in local storage
+    document.addEventListener('DOMContentLoaded', function () {
+        const doctorName = localStorage.getItem('selectedDoctor');
+        if (doctorName) {
+            document.getElementById('doctor-name').value = doctorName;
+            localStorage.removeItem('selectedDoctor'); // Clear after use
+        }
+    });
+</script>
+
+</body>
+</html>
