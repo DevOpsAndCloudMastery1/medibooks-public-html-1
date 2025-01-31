@@ -105,18 +105,23 @@
 
             <!-- Patient Information Form -->
             <div class="form-group">
+                <label for="doctor-name">Doctor:</label>
+                <input type="text" id="doctor-name" readonly>
+            </div>
+
+            <div class="form-group">
                 <label for="patient-name">Name:</label>
-                <input type="text" id="patient-name" placeholder="Enter your name">
+                <input type="text" id="patient-name" placeholder="Enter your name" required>
             </div>
 
             <div class="form-group">
                 <label for="patient-email">Email:</label>
-                <input type="email" id="patient-email" placeholder="Enter your email">
+                <input type="email" id="patient-email" placeholder="Enter your email" required>
             </div>
 
             <div class="form-group">
                 <label for="patient-phone">Phone:</label>
-                <input type="tel" id="patient-phone" placeholder="Enter your phone number">
+                <input type="tel" id="patient-phone" placeholder="Enter your phone number" required>
             </div>
 
             <div class="form-group">
@@ -133,6 +138,7 @@
             <div class="confirmation">
                 <p><strong>Date:</strong> <span id="confirm-date"></span></p>
                 <p><strong>Time:</strong> <span id="confirm-time"></span></p>
+                <p><strong>Doctor:</strong> <span id="confirm-doctor"></span></p>
                 <p><strong>Name:</strong> <span id="confirm-name"></span></p>
                 <p><strong>Email:</strong> <span id="confirm-email"></span></p>
                 <p><strong>Phone:</strong> <span id="confirm-phone"></span></p>
@@ -142,10 +148,25 @@
     </div>
 
     <script>
+        // Extract query parameter from URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Set the doctor name if available in the query parameter
+        window.onload = function () {
+            const doctorName = getQueryParam('doctor');
+            if (doctorName) {
+                document.getElementById('doctor-name').value = doctorName;
+            }
+        };
+
         function submitAppointment() {
             // Get form values
             const date = document.getElementById('appointment-date').value;
             const time = document.getElementById('appointment-time').value;
+            const doctor = document.getElementById('doctor-name').value;
             const name = document.getElementById('patient-name').value;
             const email = document.getElementById('patient-email').value;
             const phone = document.getElementById('patient-phone').value;
@@ -164,23 +185,12 @@
             // Populate confirmation details
             document.getElementById('confirm-date').innerText = date;
             document.getElementById('confirm-time').innerText = time;
+            document.getElementById('confirm-doctor').innerText = doctor;
             document.getElementById('confirm-name').innerText = name;
             document.getElementById('confirm-email').innerText = email;
             document.getElementById('confirm-phone').innerText = phone;
             document.getElementById('confirm-notes').innerText = notes || 'None';
         }
     </script>
-
-<script>
-    // Pre-fill the doctor's name if it's stored in local storage
-    document.addEventListener('DOMContentLoaded', function () {
-        const doctorName = localStorage.getItem('selectedDoctor');
-        if (doctorName) {
-            document.getElementById('doctor-name').value = doctorName;
-            localStorage.removeItem('selectedDoctor'); // Clear after use
-        }
-    });
-</script>
-
 </body>
 </html>

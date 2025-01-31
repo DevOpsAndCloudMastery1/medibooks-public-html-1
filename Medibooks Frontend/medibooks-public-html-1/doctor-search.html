@@ -25,18 +25,21 @@
                     <h3>Dr. John Smith</h3>
                     <p>Cardiologist</p>
                     <a href="doctor-details.html">More Details</a>
+                    <button onclick="bookAppointment('Dr. John Smith')">Book Appointment</button>
                 </td>
                 <td>
                     <img src="/images /doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
                     <h3>Dr. Emma Davis</h3>
                     <p>Neurologist</p>
                     <a href="doctor-details.html">More Details</a>
+                    <button onclick="bookAppointment('Dr. Emma Davis')">Book Appointment</button>
                 </td>
                 <td>
                     <img src="/images /doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
                     <h3>Dr. Michael Brown</h3>
                     <p>Pediatrician</p>
                     <a href="doctor-details.html">More Details</a>
+                    <button onclick="bookAppointment('Dr. Michael Brown')">Book Appointment</button>
                 </td>
             </tr>
             <tr>
@@ -44,18 +47,22 @@
                     <img src="/images /doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
                     <h3>Dr. Olivia Wilson</h3>
                     <p>Orthopedic Surgeon</p>
+                    <button onclick="bookAppointment('Dr. Olivia Wilson')">Book Appointment</button>
                     <a href="doctor-details.html">More Details</a>
+
                 </td>
                 <td>
                     <img src="/images /doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
                     <h3>Dr. Liam Johnson</h3>
                     <p>Dermatologist</p>
+                    <button onclick="bookAppointment('Dr. Liam Johnson')">Book Appointment</button>
                     <a href="doctor-details.html">More Details</a>
                 </td>
                 <td>
                     <img src="/images /doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
                     <h3>Dr. Sophia Martinez</h3>
                     <p>Gynecologist</p>
+                    <button onclick="bookAppointment('Dr. Sophia Martinez')">Book Appointment</button>
                     <a href="doctor-details.html">More Details</a>
                 </td>
             </tr>
@@ -64,6 +71,12 @@
     <footer>
         <p>&copy; 2025 MediBooks</p>
     </footer>
+
+    <script>
+        function bookAppointment(doctorName) {
+            window.location.href = `appointment-booking.html?doctor=${encodeURIComponent(doctorName)}`;
+        }
+    </script>
 
     <!-- JavaScript for Search -->
     <script>
