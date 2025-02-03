@@ -5,70 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctors Search</title>
     <link rel="stylesheet" href="styles/medibooks-styles.css">
-    <style>
-        /* Add some quick styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            color: #333;
-        }
-        header {
-            background-color: #007bff;
-            color: #fff;
-            padding: 1rem;
-            text-align: center;
-        }
-        main {
-            padding: 1rem;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        td {
-            text-align: center;
-            padding: 1rem;
-        }
-        .doctor-photo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .doctor-details {
-            margin: 2rem 0;
-            padding: 1rem;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .doctor-details img {
-            float: left;
-            margin-right: 1rem;
-        }
-        footer {
-            text-align: center;
-            padding: 1rem;
-            background-color: #007bff;
-            color: #fff;
-            position: sticky;
-            bottom: 0;
-        }
-        a {
-            text-decoration: none;
-            color: #007bff;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -84,18 +20,21 @@
                         <img src="/images /doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
                         <h3>Dr. John Smith</h3>
                         <p>Specialization: Cardiologist</p>
+                        <button onclick="bookAppointment('Dr. John Smith')">Book Appointment</button>
                         <a href="#doctor1">More Details</a>
                     </td>
                     <td>
                         <img src="/images /doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
                         <h3>Dr. Emma Davis</h3>
                         <p>Specialization: Neurologist</p>
+                        <button onclick="bookAppointment('Dr. Emma Davis')">Book Appointment</button>
                         <a href="#doctor2">More Details</a>
                     </td>
                     <td>
                         <img src="/images /doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
                         <h3>Dr. Michael Brown</h3>
                         <p>Specialization: Pediatrician</p>
+                        <button onclick="bookAppointment('Dr. Michael Brown')">Book Appointment</button>
                         <a href="#doctor3">More Details</a>
                     </td>
                 </tr>
@@ -104,18 +43,21 @@
                         <img src="/images /doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
                         <h3>Dr. Olivia Wilson</h3>
                         <p>Specialization: Orthopedic Surgeon</p>
+                        <button onclick="bookAppointment('Dr. Olivia Wilson')">Book Appointment</button>
                         <a href="#doctor4">More Details</a>
                     </td>
                     <td>
                         <img src="/images /doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
                         <h3>Dr. Liam Johnson</h3>
                         <p>Specialization: Dermatologist</p>
+                        <button onclick="bookAppointment('Dr. Liam Johnson')">Book Appointment</button>
                         <a href="#doctor5">More Details</a>
                     </td>
                     <td>
                         <img src="/images /doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
                         <h3>Dr. Sophia Martinez</h3>
                         <p>Specialization: Gynecologist</p>
+                        <button onclick="bookAppointment('Dr. Sophia Martinez')">Book Appointment</button>
                         <a href="#doctor6">More Details</a>
                     </td>
                 </tr>
@@ -130,6 +72,7 @@
             <p><strong>Experience:</strong> 15 years</p>
             <p><strong>Location:</strong> MediHealth Hospital, New York</p>
             <p>Dr. John Smith is a renowned cardiologist specializing in advanced heart care and minimally invasive surgeries.</p>
+            <button onclick="fillAppointmentForm('Dr. John Smith')">Book Appointment</button>
         </section>
 
         <section id="doctor2" class="doctor-details">
@@ -139,6 +82,7 @@
             <p><strong>Experience:</strong> 10 years</p>
             <p><strong>Location:</strong> NeuroCare Clinic, Chicago</p>
             <p>Dr. Emma Davis specializes in treating complex neurological disorders, including epilepsy, migraines, and neurodegenerative diseases.</p>
+            <button onclick="fillAppointmentForm('Dr. Emma Davis')">Book Appointment</button>
         </section>
 
         <section id="doctor3" class="doctor-details">
@@ -148,6 +92,7 @@
             <p><strong>Experience:</strong> 8 years</p>
             <p><strong>Location:</strong> Happy Kids Pediatrics, Los Angeles</p>
             <p>Dr. Michael Brown focuses on providing compassionate care for children of all ages, with expertise in child nutrition and immunizations.</p>
+            <button onclick="fillAppointmentForm('Dr. Michael Brown')">Book Appointment</button>
         </section>
 
         <section id="doctor4" class="doctor-details">
@@ -157,6 +102,7 @@
             <p><strong>Experience:</strong> 12 years</p>
             <p><strong>Location:</strong> Advanced Orthopedic Center, San Francisco</p>
             <p>Dr. Olivia Wilson specializes in joint replacement and sports injuries.</p>
+            <button onclick="fillAppointmentForm('Dr. Olivia Wilson')">Book Appointment</button>
         </section>
 
         <section id="doctor5" class="doctor-details">
@@ -166,6 +112,7 @@
             <p><strong>Experience:</strong> 9 years</p>
             <p><strong>Location:</strong> SkinCare Specialists, Miami</p>
             <p>Dr. Liam Johnson treats acne, eczema, and skin cancer, ensuring healthy skin for his patients.</p>
+            <button onclick="fillAppointmentForm('Dr. Liam Johnson')">Book Appointment</button>
         </section>
 
         <section id="doctor6" class="doctor-details">
@@ -175,11 +122,57 @@
             <p><strong>Experience:</strong> 14 years</p>
             <p><strong>Location:</strong> Women’s Wellness Center, Houston</p>
             <p>Dr. Sophia Martinez specializes in women's health, including prenatal care and fertility treatments.</p>
+            <button onclick="fillAppointmentForm('Dr. Sophia Martinez')">Book Appointment</button>
+        </section>
+
+        
+        <!-- Appointment Form -->
+        <section id="appointment-form">
+            <h2>Book an Appointment</h2>
+            <form>
+                <label for="doctor-name">Doctor</label>
+                <input type="text" id="doctor-name" name="doctor-name" readonly>
+                <label for="patient-name">Your Name</label>
+                <input type="text" id="patient-name" name="patient-name" placeholder="Enter your name" required>
+                <label for="email">Your Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <label for="appointment-date">Appointment Date</label>
+                <input type="date" id="appointment-date" name="appointment-date" required>
+                <button type="submit">Submit</button>
+            </form>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2025 MediBooks</p>
     </footer>
+
+    <script>
+    // Redirect to appointment booking page with doctor's name as a query parameter
+    function bookAppointment(doctorName) {
+        window.location.href = `appointment-booking.html?doctor=${encodeURIComponent(doctorName)}`;
+    }
+
+    // Extract query parameter from URL to prefill the doctor's name in the form
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Automatically fill the doctor name in the form if available
+    document.addEventListener("DOMContentLoaded", function () {
+        const doctorName = getQueryParam('doctor');
+        const doctorSelect = document.getElementById('doctor');
+
+        if (doctorName && doctorSelect) {
+            for (let option of doctorSelect.options) {
+                if (option.value === doctorName) {
+                    doctorSelect.value = doctorName;
+                    break;
+                }
+            }
+        }
+    });
+</script>
 </body>
 </html>

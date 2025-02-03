@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment - Booking</title>
     <link rel="stylesheet" href="styles/medibooks-styles.css"> 
+    <style>
+        .hidden { display: none; }
+        .container { max-width: 600px; margin: auto; }
+        .form-group { margin-bottom: 10px; }
+        .btn { padding: 10px 20px; cursor: pointer; background-color: #28a745; color: white; border: none; }
+    </style>
 </head>
 <body>
     <header>
@@ -19,12 +25,14 @@
         <h2>Book an Appointment</h2>
         <div id="booking-form">
             <!-- Calendar Section -->
-            <div class="calendar">
+            <div class="form-group">
                 <label for="appointment-date">Select Date:</label>
-                <input type="date" id="appointment-date">
+                <input type="date" id="appointment-date" required>
+            </div>
 
+            <div class="form-group">
                 <label for="appointment-time">Select Time:</label>
-                <select id="appointment-time">
+                <select id="appointment-time" required>
                     <option value="">--Select Time--</option>
                     <option value="10:00 AM">10:00 AM</option>
                     <option value="11:00 AM">11:00 AM</option>
@@ -85,12 +93,12 @@
             return urlParams.get(param);
         }
 
-        // Set the doctor name if available in the query parameter
+        // Populate doctor name if query param exists
         window.onload = function () {
             const doctorName = getQueryParam('doctor');
             if (doctorName) {
                 document.getElementById('doctor-name').value = doctorName;
-                document.getElementById('doctor-details-link').href = `doctor-details.html?doctor=${encodeURIComponent(doctorName)}`; 
+                document.getElementById('doctor-details-link').href = `doctor-details.html?doctor=${encodeURIComponent(doctorName)}`;
             }
         };
 
@@ -102,7 +110,7 @@
             const name = document.getElementById('patient-name').value;
             const email = document.getElementById('patient-email').value;
             const phone = document.getElementById('patient-phone').value;
-            const notes = document.getElementById('patient-notes').value;
+            const notes = document.getElementById('patient-notes').value.trim();
 
             // Validation
             if (!date || !time || !name || !email || !phone) {
@@ -110,14 +118,14 @@
                 return;
             }
 
-            // Show confirmation section
+            // Hide form and show confirmation
             document.getElementById('booking-form').classList.add('hidden');
             document.getElementById('confirmation').classList.remove('hidden');
 
             // Populate confirmation details
             document.getElementById('confirm-date').innerText = date;
             document.getElementById('confirm-time').innerText = time;
-            document.getElementById('confirm-doctor').innerText = doctor;
+            document.getElementById('confirm-doctor').innerText = doctor || "Not Selected";
             document.getElementById('confirm-name').innerText = name;
             document.getElementById('confirm-email').innerText = email;
             document.getElementById('confirm-phone').innerText = phone;
