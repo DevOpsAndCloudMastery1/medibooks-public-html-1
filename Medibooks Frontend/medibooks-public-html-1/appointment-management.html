@@ -62,5 +62,146 @@
             alert(`Cancelling appointment on ${date} at ${time}`);
         }
     </script>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Doctors Search</title>
+        <link rel="stylesheet" href="styles/medibooks-styles.css">
+    </head>
+    <body>
+        <header>
+            <h1>Doctors Search</h1>
+            <nav>
+                <a href="home.html">Home</a>
+            </nav>
+        </header>
+    
+        <main>
+            <section>
+                <h2>Find a Doctor</h2>
+                <div class="search-container">
+                    <input type="text" id="search-doctor" placeholder="Search by name or specialty...">
+                </div>
+    
+                <h2>Doctors List</h2>
+                <table id="doctorTable">
+                    <tr>
+                        <td>
+                            <img src="images /doctor1.jpg" class="doctor-photo" alt="Dr. John Smith">
+                            <h3>Dr. John Smith</h3>
+                            <p>Cardiologist</p>
+                            <a href="doctor-details.html">More Details</a>
+                            <button onclick="bookAppointment('Dr. John Smith')">Book Appointment</button>
+                        </td>
+                        <td>
+                            <img src="images /doctor2.jpg" class="doctor-photo" alt="Dr. Emma Davis">
+                            <h3>Dr. Emma Davis</h3>
+                            <p>Neurologist</p>
+                            <a href="doctor-details.html">More Details</a>
+                            <button onclick="bookAppointment('Dr. Emma Davis')">Book Appointment</button>
+                        </td>
+                        <td>
+                            <img src="images /doctor3.jpg" class="doctor-photo" alt="Dr. Michael Brown">
+                            <h3>Dr. Michael Brown</h3>
+                            <p>Pediatrician</p>
+                            <a href="doctor-details.html">More Details</a>
+                            <button onclick="bookAppointment('Dr. Michael Brown')">Book Appointment</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="images /doctor4.jpg" class="doctor-photo" alt="Dr. Olivia Wilson">
+                            <h3>Dr. Olivia Wilson</h3>
+                            <p>Orthopedic Surgeon</p>
+                            <a href="doctor-details.html">More Details</a>
+                            <button onclick="bookAppointment('Dr. Olivia Wilson')">Book Appointment</button>
+                        </td>
+                        <td>
+                            <img src="images /doctor5.jpg" class="doctor-photo" alt="Dr. Liam Johnson">
+                            <h3>Dr. Liam Johnson</h3>
+                            <p>Dermatologist</p>
+                            <a href="doctor-details.html">More Details</a>
+                            <button onclick="bookAppointment('Dr. Liam Johnson')">Book Appointment</button>
+                        </td>
+                        <td>
+                            <img src="images /doctor6.jpg" class="doctor-photo" alt="Dr. Sophia Martinez">
+                            <h3>Dr. Sophia Martinez</h3>
+                            <p>Gynecologist</p>
+                            <a href="doctor-details.html">More Details</a>
+                            <button onclick="bookAppointment('Dr. Sophia Martinez')">Book Appointment</button>
+                        </td>
+                    </tr>
+                </table>
+    
+                <h2>Book an Appointment</h2>
+                <form id="appointment-form">
+                    <label for="doctor">Select Doctor:</label>
+                    <select id="doctor" name="doctor">
+                        <option value="Dr. John Smith - Cardiologist">Dr. John Smith - Cardiologist</option>
+                        <option value="Dr. Emma Davis - Neurologist">Dr. Emma Davis - Neurologist</option>
+                        <option value="Dr. Michael Brown - Pediatrician">Dr. Michael Brown - Pediatrician</option>
+                        <option value="Dr. Olivia Wilson - Orthopedic Surgeon">Dr. Olivia Wilson - Orthopedic Surgeon</option>
+                        <option value="Dr. Liam Johnson - Dermatologist">Dr. Liam Johnson - Dermatologist</option>
+                        <option value="Dr. Sophia Martinez - Gynecologist">Dr. Sophia Martinez - Gynecologist</option>
+                    </select>
+                    <label for="patient-name">Your Name:</label>
+                    <input type="text" id="patient-name" name="patient-name" required>
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="appointment-date">Appointment Date:</label>
+                    <input type="date" id="appointment-date" name="appointment-date" required>
+                    <button type="submit">Submit</button>
+                </form>
+    
+                <div id="confirmation" style="display: none;">
+                    <h2>Appointment Confirmed!</h2>
+                    <p><strong>Doctor:</strong> <span id="confirm-doctor"></span></p>
+                    <p><strong>Name:</strong> <span id="confirm-name"></span></p>
+                    <p><strong>Email:</strong> <span id="confirm-email"></span></p>
+                    <p><strong>Date:</strong> <span id="confirm-date"></span></p>
+                </div>
+            </section>
+        </main>
+    
+        <footer>
+            <p>&copy; 2025 MediBooks</p>
+        </footer>
+    
+        <script>
+            function bookAppointment(doctorName) {
+                window.location.href = `appointment-booking.html?doctor=${encodeURIComponent(doctorName)}`;
+            }
+    
+            document.getElementById("appointment-form").addEventListener("submit", function(event) {
+                event.preventDefault();
+                document.getElementById("confirmation").style.display = "block";
+                document.getElementById("confirm-doctor").innerText = document.getElementById("doctor").value;
+                document.getElementById("confirm-name").innerText = document.getElementById("patient-name").value;
+                document.getElementById("confirm-email").innerText = document.getElementById("email").value;
+                document.getElementById("confirm-date").innerText = document.getElementById("appointment-date").value;
+            });
+    
+            document.getElementById("search-doctor").addEventListener("input", function() {
+                const filter = this.value.toLowerCase();
+                const rows = document.querySelectorAll('#doctorTable tr');
+    
+                rows.forEach(row => {
+                    let match = false;
+                    row.querySelectorAll('td').forEach(cell => {
+                        if (cell.textContent.toLowerCase().includes(filter)) {
+                            match = true;
+                        }
+                    });
+    
+                    row.style.display = match ? '' : 'none';
+                });
+            });
+        </script>
+        <script src="server.js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>
+    
 </body>
 </html>
