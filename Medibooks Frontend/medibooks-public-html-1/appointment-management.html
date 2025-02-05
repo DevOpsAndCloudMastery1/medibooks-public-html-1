@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Appointments</title>
+    <link rel="stylesheet" href="styles/medibooks-styles.css">
+</head>
+<body>
+    <header>
+        <h1>Manage Your Appointments</h1>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="doctor-search.html">Find a Doctor</a>
+            <a href="appointment-booking.html">Book an Appointment</a>
+            <a href="user-profile.html">My Profile</a>
+        </nav>
+    </header>
+
+    <div class="appointments-container">
+        <h2>Active Appointments</h2>
+        <ul id="active-appointments"></ul>
+
+        <h2>Past Appointments</h2>
+        <ul id="past-appointments"></ul>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const activeAppointments = [
+                { doctor: "Dr. John Smith", date: "2025-02-10", time: "10:00 AM", status: "Confirmed" },
+                { doctor: "Dr. Emma Davis", date: "2025-02-15", time: "2:00 PM", status: "Confirmed" }
+            ];
+            
+            const pastAppointments = [
+                { doctor: "Dr. Michael Brown", date: "2025-01-20", time: "3:00 PM", status: "Completed" }
+            ];
+
+            function populateAppointments(listId, appointments) {
+                const list = document.getElementById(listId);
+                list.innerHTML = ""; // Clear previous data
+                appointments.forEach(appointment => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `<strong>${appointment.date} at ${appointment.time}</strong> with ${appointment.doctor} - ${appointment.status} 
+                        ${listId === "active-appointments" ? 
+                        `<button onclick="reschedule('${appointment.date}', '${appointment.time}')">Reschedule</button> 
+                        <button onclick="cancelAppointment('${appointment.date}', '${appointment.time}')">Cancel</button>` 
+                        : ''}`;
+                    list.appendChild(li);
+                });
+            }
+
+            populateAppointments("active-appointments", activeAppointments);
+            populateAppointments("past-appointments", pastAppointments);
+        });
+
+        function reschedule(date, time) {
+            alert(`Rescheduling appointment on ${date} at ${time}`);
+        }
+
+        function cancelAppointment(date, time) {
+            alert(`Cancelling appointment on ${date} at ${time}`);
+        }
+    </script>
+</body>
+</html>

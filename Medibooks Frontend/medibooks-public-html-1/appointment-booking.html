@@ -10,14 +10,17 @@
         .container { max-width: 600px; margin: auto; }
         .form-group { margin-bottom: 10px; }
         .btn { padding: 10px 20px; cursor: pointer; background-color: #28a745; color: white; border: none; }
+        .nav-links { margin-bottom: 20px; display: flex; justify-content: space-between; }
+        .nav-links a { text-decoration: none; color: #007bff; }
     </style>
 </head>
 <body>
     <header>
         <h1>Medibooks</h1>
-        <nav>
+        <nav class="nav-links">
             <a href="home.html">Home</a>
             <a href="doctor-search.html">Search Doctors</a>
+            <a href="user-profile.html">My Profile</a>
         </nav>
     </header>
 
@@ -40,6 +43,14 @@
                     <option value="4:00 PM">4:00 PM</option>
                 </select>
             </div>
+
+             <!-- Doctor Information -->
+             <div class="form-group">
+                <label for="doctor-name">Doctor:</label>
+                <input type="text" id="doctor-name" readonly>
+                <a id="doctor-details-link" href="doctor-details.html" target="_blank">View Doctor Details</a>  
+            </div>
+
 
             <!-- Patient Information Form -->
             <div class="form-group">
@@ -92,6 +103,26 @@
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
+
+        // Pre-fill doctor name and user info if available
+        window.onload = function () {
+            const doctorName = getQueryParam('doctor');
+            if (doctorName) {
+                document.getElementById('doctor-name').value = doctorName;
+                document.getElementById('doctor-details-link').href = `doctor-details.html?doctor=${encodeURIComponent(doctorName)}`;
+            }
+
+            // Simulated user data (Replace this with actual data from session/localStorage)
+            const user = {
+                name: "John Doe",
+                email: "johndoe@example.com",
+                phone: "+1234567890"
+            };
+
+            document.getElementById('patient-name').value = user.name;
+            document.getElementById('patient-email').value = user.email;
+            document.getElementById('patient-phone').value = user.phone;
+        };
 
         // Populate doctor name if query param exists
         window.onload = function () {

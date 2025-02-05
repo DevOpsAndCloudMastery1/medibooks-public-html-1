@@ -13,6 +13,7 @@
   "dependencies": {
     "browser": "^0.2.6",
     "browser-sync": "^3.0.3",
+    "express": "^4.21.2",
     "sync": "^0.2.5"
   }
 }
