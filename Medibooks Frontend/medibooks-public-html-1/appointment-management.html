@@ -131,24 +131,16 @@
             });
         }
 
-        let reschedulePicker = null; // Store Flatpickr instance
-
-function openReschedule(index) {
-    rescheduleIndex = index;
-    document.getElementById("reschedule-modal").style.display = "block";
-
-    // Destroy the existing instance if it exists
-    if (reschedulePicker) {
-        reschedulePicker.destroy();
+        function reschedule(index) {
+             const newDate = prompt("Enter a new date (YYYY-MM-DD):");
+            if (newDate) {
+                activeBookings[index].date = newDate;
+                alert("Appointment rescheduled successfully!");
+                document.getElementById("active-bookings").innerHTML = "";
+                loadBookings();
     }
-
-    // Initialize Flatpickr for rescheduling
-    reschedulePicker = flatpickr("#new-appointment-date", {
-        enableTime: true,
-        dateFormat: "Y-m-d H:i",
-        defaultDate: activeBookings[index].date // Pre-fill existing date
-    });
 }
+
 
 
         function cancel(index) {
