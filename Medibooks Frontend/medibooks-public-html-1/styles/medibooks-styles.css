@@ -76,6 +76,36 @@ body {
 }
 
 /* Doctor Search Page Styles */
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    color: #2c3e50;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: 1px solid #dee2e6;
+    transition: background 0.3s;
+}
+
+.pagination a:hover {
+    background: #2c3e50;
+    color: white;
+}
+
 .table {
     width: 100%;
     margin: 20px 0;
@@ -114,31 +144,6 @@ body {
     border: 2px solid #f39c12;
 }
 
-/* Example for doctor image paths */
-.doctor1 {
-    background-image: url('/images /doctor1.jpg');
-}
-
-.doctor2 {
-    background-image: url('/images /doctor2.jpg');
-}
-
-.doctor3 {
-    background-image: url('/images /doctor3.jpg');
-}
-
-.doctor4 {
-    background-image: url('/images /doctor4.jpg');
-}
-
-.doctor5 {
-    background-image: url('/images /doctor5.jpg');
-}
-
-.doctor6 {
-    background-image: url('/images /doctor6.jpg');
-}
-
 .doctor-card h3 {
     font-size: 1.25rem;
     margin-bottom: 5px;
@@ -164,5 +169,84 @@ body {
 }
 
 .btn-details:hover {
+    background: #d35400;
+}
+
+/* Doctor Image Paths */
+.doctor1, .doctor2, .doctor3, .doctor4, .doctor5, .doctor6 {
+    background-size: cover;
+    background-position: center;
+}
+
+.doctor1 { background-image: url('/images /doctor1.jpg'); }
+.doctor2 { background-image: url('/images /doctor2.jpg'); }
+.doctor3 { background-image: url('/images /doctor3.jpg'); }
+.doctor4 { background-image: url('/images /doctor4.jpg'); }
+.doctor5 { background-image: url('/images /doctor5.jpg'); }
+.doctor6 { background-image: url('/images /doctor6.jpg'); }
+
+/* Appointment Booking Styles */
+.appointment-form {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-form input, .appointment-form select, .appointment-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Appointment Management Styles */
+.status-pending {
+    color: orange;
+    font-weight: bold;
+}
+
+.status-confirmed {
+    color: green;
+    font-weight: bold;
+}
+
+.status-canceled {
+    color: red;
+    font-weight: bold;
+}
+
+/* Doctor Reviews Page */
+.review-card {
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+}
+
+.review-card .stars {
+    color: #f39c12;
+}
+
+.review-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+}
+
+.review-form button {
+    background: #f39c12;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.review-form button:hover {
     background: #d35400;
 }

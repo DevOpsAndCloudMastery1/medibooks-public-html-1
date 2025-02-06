@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile - MediBooks</title>
     <link href="styles/medibooks-styles.css" rel="stylesheet">
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js" defer></script>
     </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -21,10 +22,10 @@
                         <a class="nav-link" href="home.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">My Bookings</a>
+                        <a class="nav-link" href="appointment-management.html">My Bookings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Profile</a>
+                        <a class="nav-link active" aria-current="page" href="user-profile-edit.html">Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="login.html">Sign Out</a>
@@ -46,12 +47,93 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Booking History</h5>
-                <p class="card-text">View all your past bookings and appointments.</p>
-                <a href="#" class="btn btn-primary">View History</a>
+                <h5 class="card-title">Upcoming Appointments</h5>
+                <ul id="upcoming-appointments"></ul>
+                <a href="doctor-search.html" class="btn btn-primary mt-3">Find a Doctor</a> <!-- Doctor Search -->   
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Past Appointments</h5>
+                <ul id="past-appointments"></ul>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">My Reviews</h5>
+                <a href="doctor-reviews.html" class="btn btn-primary">View My Reviews</a>
             </div>
         </div>
     </div>
-    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+    <div id="reschedule-modal" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h3>Reschedule Appointment</h3>
+        <label for="new-appointment-date">New Date & Time:</label>
+        <input type="text" id="new-appointment-date">
+        <button onclick="confirmReschedule()">Confirm</button>
+        <button onclick="closeRescheduleModal()">Cancel</button>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            flatpickr("#new-appointment-date", { enableTime: true, dateFormat: "Y-m-d H:i" });
+            loadAppointments();
+        });
+
+        let upcomingAppointments = [
+            { doctor: "Dr. John Smith - Cardiologist", date: "2025-02-10 14:00" }
+        ];
+        let pastAppointments = [
+            { doctor: "Dr. Michael Brown - Pediatrician", date: "2025-01-06 10:30" }
+        ];
+        let rescheduleIndex = null;
+
+        function loadAppointments() {
+            const upcomingList = document.getElementById("upcoming-appointments");
+            upcomingList.innerHTML = "";
+            upcomingAppointments.forEach((booking, index) => {
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `<a href="doctor-detail.html?doctor=${encodeURIComponent(booking.doctor)}">${booking.doctor}</a> - ${booking.date} 
+                    <button onclick="openReschedule(${index})">Reschedule</button>
+                    <button onclick="cancelAppointment(${index})">Cancel</button>`;
+                upcomingList.appendChild(listItem);
+    });
+
+            const pastList = document.getElementById("past-appointments");
+            pastList.innerHTML = "";
+            pastAppointments.forEach((booking) => {
+                const listItem = document.createElement("li");
+                 listItem.innerHTML = `<a href="doctor-detail.html?doctor=${encodeURIComponent(booking.doctor)}">${booking.doctor}</a> - ${booking.date}
+                    <a href="doctor-reviews.html" class="btn btn-secondary">Leave Review</a>`;
+                pastList.appendChild(listItem);
+            });
+        }
+
+        function openReschedule(index) {
+            rescheduleIndex = index;
+            document.getElementById("reschedule-modal").style.display = "block";
+            flatpickr("#new-appointment-date", { enableTime: true, dateFormat: "Y-m-d H:i" });
+        }
+
+        function confirmReschedule() {
+            const newDate = document.getElementById("new-appointment-date").value;
+            if (newDate) {
+                upcomingAppointments[rescheduleIndex].date = newDate;
+                loadAppointments();
+                alert("Appointment rescheduled successfully!");
+                closeRescheduleModal();
+            }
+        }
+
+        function closeRescheduleModal() {
+            document.getElementById("reschedule-modal").style.display = "none";
+        }
+
+        function cancelAppointment(index) {
+            if (confirm("Are you sure you want to cancel this appointment?")) {
+                upcomingAppointments.splice(index, 1);
+                loadAppointments();
+                alert("Appointment canceled successfully!");
+            }
+        }
+    </script>
 </body>
 </html>
