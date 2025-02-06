@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctors Search</title>
     <link rel="stylesheet" href="styles/medibooks-styles.css">
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <header>
-        <h1>Doctors Search</h1>
+        <h1>MediBooks - Find Your Doctor</h1>
         <nav>
             <a href="home.html">Home</a>
         </nav>
@@ -16,61 +17,65 @@
 
     <main>
         <section>
-            <h2>Find a Doctor</h2>
+            <h2>Search for a Doctor</h2>
             <div class="search-container">
                 <input type="text" id="search-doctor" placeholder="Search by name or specialty...">
             </div>
+        </section>
 
+        <section>
             <h2>Doctors List</h2>
-            <table id="doctorTable">
+            <table id="doctor-table">
                 <tr>
-                    <td>
+                    <td class="doctor-card">
                         <img src="images /doctor1.jpg" class="doctor-photo" alt="Dr. John Smith">
-                        <h3>Dr. John Smith</h3>
-                        <p>Cardiologist</p>
-                        <a href="doctor-details.html">More Details</a>
+                        <h3 class="doctor-name">Dr. John Smith</h3>
+                        <p class="doctor-specialization">Cardiologist</p>
+                        <a href="doctor-details.html?doctor=Dr.%20John%20Smith" class="details-btn">More Details</a>
                         <button onclick="bookAppointment('Dr. John Smith')">Book Appointment</button>
                     </td>
-                    <td>
+                    <td class="doctor-card">
                         <img src="images /doctor2.jpg" class="doctor-photo" alt="Dr. Emma Davis">
-                        <h3>Dr. Emma Davis</h3>
-                        <p>Neurologist</p>
-                        <a href="doctor-details.html">More Details</a>
+                        <h3 class="doctor-name">Dr. Emma Davis</h3>
+                        <p class="doctor-specialization">Neurologist</p>
+                        <a href="doctor-details.html?doctor=Dr.%20Emma%20Davis" class="details-btn">More Details</a>
                         <button onclick="bookAppointment('Dr. Emma Davis')">Book Appointment</button>
                     </td>
-                    <td>
+                    <td class="doctor-card">
                         <img src="images /doctor3.jpg" class="doctor-photo" alt="Dr. Michael Brown">
-                        <h3>Dr. Michael Brown</h3>
-                        <p>Pediatrician</p>
-                        <a href="doctor-details.html">More Details</a>
+                        <h3 class="doctor-name">Dr. Michael Brown</h3>
+                        <p class="doctor-specialization">Pediatrician</p>
+                        <a href="doctor-details.html?doctor=Dr.%20Michael%20Brown" class="details-btn">More Details</a>
                         <button onclick="bookAppointment('Dr. Michael Brown')">Book Appointment</button>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="doctor-card">
                         <img src="images /doctor4.jpg" class="doctor-photo" alt="Dr. Olivia Wilson">
-                        <h3>Dr. Olivia Wilson</h3>
-                        <p>Orthopedic Surgeon</p>
-                        <a href="doctor-details.html">More Details</a>
+                        <h3 class="doctor-name">Dr. Olivia Wilson</h3>
+                        <p class="doctor-specialization">Orthopedic Surgeon</p>
+                        <a href="doctor-details.html?doctor=Dr.%20Olivia%20Wilson" class="details-btn">More Details</a>
                         <button onclick="bookAppointment('Dr. Olivia Wilson')">Book Appointment</button>
                     </td>
-                    <td>
+                    <td class="doctor-card">
                         <img src="images /doctor5.jpg" class="doctor-photo" alt="Dr. Liam Johnson">
-                        <h3>Dr. Liam Johnson</h3>
-                        <p>Dermatologist</p>
-                        <a href="doctor-details.html">More Details</a>
+                        <h3 class="doctor-name">Dr. Liam Johnson</h3>
+                        <p class="doctor-specialization">Dermatologist</p>
+                        <a href="doctor-details.html?doctor=Dr.%20Liam%20Johnson" class="details-btn">More Details</a>
                         <button onclick="bookAppointment('Dr. Liam Johnson')">Book Appointment</button>
                     </td>
-                    <td>
+                    <td class="doctor-card">
                         <img src="images /doctor6.jpg" class="doctor-photo" alt="Dr. Sophia Martinez">
-                        <h3>Dr. Sophia Martinez</h3>
-                        <p>Gynecologist</p>
-                        <a href="doctor-details.html">More Details</a>
+                        <h3 class="doctor-name">Dr. Sophia Martinez</h3>
+                        <p class="doctor-specialization">Gynecologist</p>
+                        <a href="doctor-details.html?doctor=Dr.%20Sophia%20Martinez" class="details-btn">More Details</a>
                         <button onclick="bookAppointment('Dr. Sophia Martinez')">Book Appointment</button>
                     </td>
                 </tr>
             </table>
+        </section>
 
+        <section>
             <h2>Book an Appointment</h2>
             <form id="appointment-form">
                 <label for="doctor">Select Doctor:</label>
@@ -121,20 +126,13 @@
 
         document.getElementById("search-doctor").addEventListener("input", function() {
             const filter = this.value.toLowerCase();
-            const rows = document.querySelectorAll('#doctorTable tr');
+            const rows = document.querySelectorAll('#doctor-table td');
 
             rows.forEach(row => {
-                let match = false;
-                row.querySelectorAll('td').forEach(cell => {
-                    if (cell.textContent.toLowerCase().includes(filter)) {
-                        match = true;
-                    }
-                });
-
-                row.style.display = match ? '' : 'none';
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(filter) ? '' : 'none';
             });
         });
     </script>
-    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
