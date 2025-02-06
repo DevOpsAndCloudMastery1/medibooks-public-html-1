@@ -40,6 +40,7 @@
             <div class="form-group">
                 <label for="doctor-name">Doctor:</label>
                 <input type="text" id="doctor-name" readonly>
+                <a id="doctor-details-link" href="doctor-details.html" target="_blank">View Doctor Details</a>  
             </div>
 
             <div class="form-group">
@@ -57,12 +58,17 @@
                 <input type="tel" id="patient-phone" placeholder="Enter your phone number" required>
             </div>
 
+            <div class="form-group">
+                <label for="patient-notes">Additional Notes:</label>
+                <textarea id="patient-notes" rows="3" placeholder="Optional notes..."></textarea>
+            </div>
+
             <button class="btn" onclick="submitAppointment()">Book Appointment</button>
         </div>
     </div>
 
     <!-- Confirmation Section (Hidden by Default) -->
-    <div class="container hidden" id="confirmation-page" style="display: none;">
+    <div class="container" id="confirmation-page" style="display: none;">
         <h2>Appointment Confirmed!</h2>
         <div class="confirmation">
             <p><strong>Date:</strong> <span id="confirm-date"></span></p>
@@ -71,6 +77,7 @@
             <p><strong>Name:</strong> <span id="confirm-name"></span></p>
             <p><strong>Email:</strong> <span id="confirm-email"></span></p>
             <p><strong>Phone:</strong> <span id="confirm-phone"></span></p>
+            <p><strong>Notes:</strong> <span id="confirm-notes"></span></p>
         </div>
     </div>
 
@@ -82,6 +89,7 @@
             const name = document.getElementById('patient-name').value;
             const email = document.getElementById('patient-email').value;
             const phone = document.getElementById('patient-phone').value;
+            const notes = document.getElementById('patient-notes').value.trim();
 
             if (!date || !time || !name || !email || !phone) {
                 alert('Please fill out all required fields.');
@@ -99,6 +107,7 @@
             document.getElementById('confirm-name').innerText = name;
             document.getElementById('confirm-email').innerText = email;
             document.getElementById('confirm-phone').innerText = phone;
+            document.getElementById('confirm-notes').innerText = notes || 'None';
         }
     </script>
 
