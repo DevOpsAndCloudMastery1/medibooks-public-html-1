@@ -48,12 +48,6 @@
 
             <!-- Patient Information Form -->
             <div class="form-group">
-                <label for="doctor-name">Doctor:</label>
-                <input type="text" id="doctor-name" readonly>
-                <a id="doctor-details-link" href="doctor-details.html" target="_blank">View Doctor Details</a>  
-            </div>
-
-            <div class="form-group">
                 <label for="patient-name">Name:</label>
                 <input type="text" id="patient-name" placeholder="Enter your name" required>
             </div>
@@ -118,15 +112,7 @@
             document.getElementById('patient-phone').value = user.phone;
         };
 
-        // Populate doctor name if query param exists
-        window.onload = function () {
-            const doctorName = getQueryParam('doctor');
-            if (doctorName) {
-                document.getElementById('doctor-name').value = doctorName;
-                document.getElementById('doctor-details-link').href = `doctor-details.html?doctor=${encodeURIComponent(doctorName)}`;
-            }
-        };
-
+       
         function submitAppointment() {
             // Get form values
             const date = document.getElementById('appointment-date').value;
