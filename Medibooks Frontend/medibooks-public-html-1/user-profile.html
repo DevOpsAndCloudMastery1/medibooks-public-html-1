@@ -97,24 +97,33 @@
 
         function loadAppointments() {
             const upcomingList = document.getElementById("upcoming-appointments");
-            upcomingList.innerHTML = "";
+            const pastList = document.getElementById("past-appointments");
+
+            upcomingList.innerHTML = upcomingAppointments.length
+                ? ""
+                : "<li>No upcoming appointments.</li>";
+            pastList.innerHTML = pastAppointments.length
+                ? ""
+                : "<li>No past appointments.</li>";
+
             upcomingAppointments.forEach((booking, index) => {
                 const listItem = document.createElement("li");
                 listItem.innerHTML = `<a href="doctor-detail.html?doctor=${encodeURIComponent(booking.doctor)}">${booking.doctor}</a> - ${booking.date} 
                     <button onclick="openReschedule(${index})">Reschedule</button>
                     <button onclick="cancelAppointment(${index})">Cancel</button>`;
                 upcomingList.appendChild(listItem);
-    });
+            });
 
-            const pastList = document.getElementById("past-appointments");
-            pastList.innerHTML = "";
             pastAppointments.forEach((booking) => {
                 const listItem = document.createElement("li");
-                 listItem.innerHTML = `<a href="doctor-detail.html?doctor=${encodeURIComponent(booking.doctor)}">${booking.doctor}</a> - ${booking.date}
+                listItem.innerHTML = `<a href="doctor-detail.html?doctor=${encodeURIComponent(booking.doctor)}">${booking.doctor}</a> - ${booking.date}
                     <a href="doctor-reviews.html" class="btn btn-secondary">Leave Review</a>`;
                 pastList.appendChild(listItem);
             });
+
+            console.log("Appointments Loaded");
         }
+
 
         function openReschedule(index) {
             rescheduleIndex = index;
