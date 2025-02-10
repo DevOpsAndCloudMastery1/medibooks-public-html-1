@@ -116,6 +116,10 @@
             const activeList = document.getElementById("active-bookings");
             const pastList = document.getElementById("past-bookings");
 
+             // Clear lists before adding new items
+             activeList.innerHTML = "";
+            pastList.innerHTML = "";
+
             activeBookings.forEach((booking, index) => {
                 const listItem = document.createElement("li");
                 listItem.innerHTML = `${booking.doctor} - ${booking.date} at ${booking.time} - ${booking.status}
@@ -129,6 +133,11 @@
                 listItem.textContent = `${booking.doctor} - ${booking.date} at ${booking.time} - ${booking.status}`;
                 pastList.appendChild(listItem);
             });
+
+            // Save updated data
+            localStorage.setItem("activeBookings", JSON.stringify(activeBookings));
+            localStorage.setItem("pastBookings", JSON.stringify(pastBookings));
+        
         }
 
            function reschedule(index) {
