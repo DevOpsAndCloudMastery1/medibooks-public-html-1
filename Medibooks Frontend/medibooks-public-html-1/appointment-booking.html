@@ -6,70 +6,74 @@
     <title>Appointment Booking</title>
     <link rel="stylesheet" href="styles/medibooks-styles.css">
     <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        .hidden { display: none; }
-        .container { max-width: 600px; margin: auto; }
-        .form-group { margin-bottom: 10px; }
-        .btn { padding: 10px 20px; cursor: pointer; background-color: #28a745; color: white; border: none; }
-    </style>
 </head>
 <body>
-    <header>
-        <h1>Medibooks</h1>
-        <nav class="nav-links">
-            <a href="home.html">Home</a>
-            <a href="doctor-search.html">Search Doctors</a>
-            <a href="doctor-details.html">List of Doctors</a>
-            <a href="user-profile.html">My Profile</a>
-        </nav>
-    </header>
-
-    <div class="container" id="booking-page">
-        <h2>Book an Appointment</h2>
-        <div id="booking-form">
-            <div class="form-group">
-                <label for="appointment-date">Select Date:</label>
-                <input type="date" id="appointment-date" required>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home.html">MediBooks</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="doctor-search.html">Find a Doctor</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="appointment-booking.html">Book Appointment</a></li>
+                    <li class="nav-item"><a class="nav-link" href="appointment-management.html">My Bookings</a></li>
+                    <li class="nav-item"><a class="nav-link" href="user-profile-edit.html">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="doctor-reviews.html">My Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Sign Out</a></li>
+                </ul>
             </div>
+        </div>
+    </nav> 
+    
+    <div class="container content">
+        <h1 class="text-center mb-4">Book an Appointment</h1>
+        <div class="card">
+            <div class="card-body">
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="appointment-date">Select Date:</label>
+                        <input type="date" id="appointment-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-time">Select Time:</label>
+                        <select id="appointment-time" required>
+                            <option value="">--Select Time--</option>
+                            <option value="10:00 AM">10:00 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="2:00 PM">2:00 PM</option>
+                            <option value="4:00 PM">4:00 PM</option>
+                        </select>
+                    </div>
+                    <!-- Patient Information Form -->
+                    <div class="form-group">
+                        <label for="doctor-name">Doctor:</label>
+                        <input type="text" id="doctor-name" readonly>
+                        <a id="doctor-details-link" href="doctor-details.html" target="_blank">View Doctor Details</a>  
+                    </div>
 
-            <div class="form-group">
-                <label for="appointment-time">Select Time:</label>
-                <select id="appointment-time" required>
-                    <option value="">--Select Time--</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                </select>
-            </div>
-           <!-- Patient Information Form -->
-            <div class="form-group">
-                <label for="doctor-name">Doctor:</label>
-                <input type="text" id="doctor-name" readonly>
-                <a id="doctor-details-link" href="doctor-details.html" target="_blank">View Doctor Details</a>  
-            </div>
+                    <div class="form-group">
+                        <label for="patient-name">Name:</label>
+                        <input type="text" id="patient-name" placeholder="Enter your name" required>
+                    </div>
 
-            <div class="form-group">
-                <label for="patient-name">Name:</label>
-                <input type="text" id="patient-name" placeholder="Enter your name" required>
-            </div>
+                    <div class="form-group">
+                        <label for="patient-email">Email:</label>
+                        <input type="email" id="patient-email" placeholder="Enter your email" required>
+                    </div>
 
-            <div class="form-group">
-                <label for="patient-email">Email:</label>
-                <input type="email" id="patient-email" placeholder="Enter your email" required>
-            </div>
+                   <div class="form-group">
+                       <label for="patient-phone">Phone:</label>
+                       <input type="tel" id="patient-phone" placeholder="Enter your phone number" required>
+                   </div>
 
-            <div class="form-group">
-                <label for="patient-phone">Phone:</label>
-                <input type="tel" id="patient-phone" placeholder="Enter your phone number" required>
-            </div>
+                   <div class="form-group">
+                       <label for="patient-notes">Additional Notes:</label>
+                       <textarea id="patient-notes" rows="3" placeholder="Optional notes..."></textarea>
+                   </div>
 
-            <div class="form-group">
-                <label for="patient-notes">Additional Notes:</label>
-                <textarea id="patient-notes" rows="3" placeholder="Optional notes..."></textarea>
-            </div>
-
-            <button class="btn" onclick="submitAppointment()">Book Appointment</button>
+                   <button class="btn" onclick="submitAppointment()">Book Appointment</button>
+                </form>
+            </div> 
         </div>
     </div>
 
