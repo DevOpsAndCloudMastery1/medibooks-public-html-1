@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Doctors</title>
+    <link rel="stylesheet" href="../styles/medibooks-styles.css">
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <h2>Doctor Management</h2>
+    <input type="text" id="doctor-name" placeholder="Doctor Name">
+    <button onclick="addDoctor()">Add Doctor</button>
+
+    <ul id="doctor-list"></ul>
+
+    <script>
+        let doctors = JSON.parse(localStorage.getItem("doctors")) || [
+            { name: "Dr. John Smith" }
+        ];
+
+        function loadDoctors() {
+            const list = document.getElementById("doctor-list");
+            list.innerHTML = "";
+            doctors.forEach((doc, index) => {
+                list.innerHTML += `<li>${doc.name} 
+                    <button onclick="removeDoctor(${index})">Remove</button>
+                </li>`;
+            });
+        }
+
+        function addDoctor() {
+            let name = document.getElementById("doctor-name").value;
+            if (name) {
+                doctors.push({ name });
+                localStorage.setItem("doctors", JSON.stringify(doctors));
+                loadDoctors();
+            }
+        }
+
+        function removeDoctor(index) {
+            doctors.splice(index, 1);
+            localStorage.setItem("doctors", JSON.stringify(doctors));
+            loadDoctors();
+        }
+
+        loadDoctors();
+    </script>
+</body>
+</html>
