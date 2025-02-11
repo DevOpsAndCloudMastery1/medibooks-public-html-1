@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../styles/medibooks-styles.css">
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <h2>Admin Dashboard</h2>
+    <nav>
+        <ul>
+            <li><a href="admin-appointments.html">Manage Appointments</a></li>
+            <li><a href="admin-doctors.html">Manage Doctors</a></li>
+            <li><a href="admin-users.html">Manage Users</a></li>
+            <li><a href="admin-reports.html">View Reports</a></li>
+            <li><button onclick="logout()">Logout</button></li>
+        </ul>
+    </nav>
+
+    <script>
+        if (localStorage.getItem("adminLoggedIn") !== "true") {
+            window.location.href = "admin-login.html";
+        }
+
+        function logout() {
+            localStorage.removeItem("adminLoggedIn");
+            window.location.href = "admin-login.html";
+        }
+    </script>
+</body>
+</html>
