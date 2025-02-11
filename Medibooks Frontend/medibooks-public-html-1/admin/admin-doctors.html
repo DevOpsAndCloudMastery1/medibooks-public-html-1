@@ -70,25 +70,22 @@
 
         function loadDoctors() {
             const tableBody = document.querySelector("#doctor-table tbody");
-            tableBody.innerHTML = ""; // Clear existing table content
-            
+            tableBody.innerHTML = "";
             doctors.forEach((doc, index) => {
-                let row = `
+                tableBody.innerHTML += `
                     <tr>
-                        <td>${doc.name}</td>
-                        <td>${doc.specialization}</td>
-                        <td>${doc.location}</td>
+                        <td>${doc.name || "Unknown"}</td>
+                        <td>${doc.specialization || "Not Provided"}</td>
+                        <td>${doc.location || "Not Provided"}</td>
                         <td>
                             <button onclick="editDoctor(${index})">Edit</button>
                             <button onclick="removeDoctor(${index})">Remove</button>
-                            <a href="doctor-details.html?name=${encodeURIComponent(doc.name)}&specialization=${encodeURIComponent(doc.specialization)}&location=${encodeURIComponent(doc.location)}">View Details</a>
+                            <a href="../doctor-details.html?name=${encodeURIComponent(doc.name)}&specialization=${encodeURIComponent(doc.specialization)}&location=${encodeURIComponent(doc.location)}">View Details</a>
                         </td>
                     </tr>
                 `;
-                tableBody.innerHTML += row;
             });
-
-            localStorage.setItem("doctors", JSON.stringify(doctors)); // Update localStorage
+            localStorage.setItem("doctors", JSON.stringify(doctors));
         }
 
         function addDoctor() {
@@ -108,10 +105,10 @@
 
         function editDoctor(index) {
             const doctor = doctors[index];
-            const name = prompt("Enter new name", doctor.name);
-            const specialization = prompt("Enter new specialization", doctor.specialization);
-            const location = prompt("Enter new location", doctor.location);
-            
+            const name = prompt("Enter new name", doctor.name).trim();
+            const specialization = prompt("Enter new specialization", doctor.specialization).trim();
+            const location = prompt("Enter new location", doctor.location).trim();
+
             if (name && specialization && location) {
                 doctors[index] = { name, specialization, location };
                 localStorage.setItem("doctors", JSON.stringify(doctors));
