@@ -5,35 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Manage Appointments</title>
     <link rel="stylesheet" href="../styles/medibooks-styles.css">
-    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
 <body>
-    <h2>Appointment Management</h2>
-    <ul id="appointment-list"></ul>
+    <header>
+        <h1>Admin Appointment Management</h1>
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="admin-doctors.html">Manage Doctors</a>
+            <a href="admin-reports.html">Reports</a>
+            <a href="admin-users.html">Manage Users</a>
+            <a href="admin-login.html">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Appointment Management</h2>
+            <table id="appointment-table" border="1">
+                <thead>
+                    <tr>
+                        <th>Doctor</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Appointment data will be dynamically populated here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 MediBooks Admin</p>
+    </footer>
 
     <script>
-        let appointments = JSON.parse(localStorage.getItem("appointments")) || [
-            { doctor: "Dr. John Smith", date: "2025-02-15", status: "Pending" }
+        let appointments = JSON.parse(localStorage.getItem("activeBookings")) || [
+            { doctor: "Dr. John Smith", date: "2025-02-15", status: "Pending" },
+            { doctor: "Dr. Emma Davis", date: "2025-02-16", status: "Approved" }
         ];
 
+        // Function to load appointments into the table
         function loadAppointments() {
-            const list = document.getElementById("appointment-list");
-            list.innerHTML = "";
-            appointments.forEach((appt, index) => {
-                list.innerHTML += `<li>
-                    ${appt.doctor} - ${appt.date} - ${appt.status}
-                    <button onclick="updateStatus(${index}, 'Approved')">Approve</button>
-                    <button onclick="updateStatus(${index}, 'Cancelled')">Cancel</button>
-                </li>`;
+            const tableBody = document.querySelector("#appointment-table tbody");
+            tableBody.innerHTML = "";
+
+            appointments.forEach((appointment, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${appointment.doctor}</td>
+                    <td>${appointment.date}</td>
+                    <td>${appointment.status}</td>
+                    <td>
+                        <button onclick="updateStatus(${index}, 'Approved')">Approve</button>
+                        <button onclick="updateStatus(${index}, 'Cancelled')">Cancel</button>
+                        <button onclick="deleteAppointment(${index})">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
             });
         }
 
+        // Update appointment status
         function updateStatus(index, status) {
             appointments[index].status = status;
-            localStorage.setItem("appointments", JSON.stringify(appointments));
+            alert(`Appointment status updated to ${status}`);
+            localStorage.setItem("activeBookings", JSON.stringify(appointments));
             loadAppointments();
         }
 
+        // Delete appointment from the list
+        function deleteAppointment(index) {
+            if (confirm("Are you sure you want to delete this appointment?")) {
+                appointments.splice(index, 1);
+                alert("Appointment deleted successfully!");
+                localStorage.setItem("activeBookings", JSON.stringify(appointments));
+                loadAppointments();
+            }
+        }
+
+        // Load initial appointments on page load
         loadAppointments();
     </script>
 </body>
