@@ -5,26 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Manage Users</title>
     <link rel="stylesheet" href="../styles/medibooks-styles.css">
-    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
 <body>
-    <h2>User Management</h2>
-    <ul id="user-list"></ul>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../home.html">
+                <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> MediBooks
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="../user-profile.html">Manage Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../login.html">Sign Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container content mt-4">
+        <h2 class="text-center">User Management</h2>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Users List</h5>
+                <ul id="user-list" class="list-group"></ul>
+            </div>
+        </div>
+    </div>
 
     <script>
+        // Fetch users from localStorage or use sample data
         let users = JSON.parse(localStorage.getItem("users")) || [
-            { name: "Alice", status: "Active" }
+            { name: "Alice", status: "Active" },
+            { name: "Bob", status: "Inactive" },
+            { name: "Charlie", status: "Active" }
         ];
 
         function loadUsers() {
             const list = document.getElementById("user-list");
             list.innerHTML = "";
+
             users.forEach((user, index) => {
-                list.innerHTML += `<li>${user.name} - ${user.status}
-                    <button onclick="toggleUser(${index})">
+                const listItem = document.createElement("li");
+                listItem.className = "list-group-item d-flex justify-content-between align-items-center";
+
+                listItem.innerHTML = `
+                    <a href="user-profile.html?user=${encodeURIComponent(user.name)}" class="text-decoration-none">
+                        ${user.name}
+                    </a>
+                    <span class="badge bg-${user.status === "Active" ? "success" : "danger"}">
+                        ${user.status}
+                    </span>
+                    <button class="btn btn-sm btn-${user.status === "Active" ? "danger" : "success"}" onclick="toggleUser(${index})">
                         ${user.status === "Active" ? "Deactivate" : "Activate"}
                     </button>
-                </li>`;
+                `;
+
+                list.appendChild(listItem);
             });
         }
 
