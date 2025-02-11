@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Reports</title>
+    <link rel="stylesheet" href="../styles/medibooks-styles.css">
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <h1>Admin Panel - Reports</h1>
+            <nav>
+                <ul>
+                    <li><a href="admin-dashboard.html">Dashboard</a></li>
+                    <li><a href="admin-appointment.html">Appointments</a></li>
+                    <li><a href="admin-doctors.html">Doctors</a></li>
+                    <li><a href="admin-users.html">Users</a></li>
+                    <li><a href="admin-reports.html" class="active">Reports</a></li>
+                    <li><a href="admin-login.html">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="admin-main">
+            <section class="filter-section">
+                <h2>Filter Reports</h2>
+                <form id="filter-form">
+                    <label for="start-date">Start Date:</label>
+                    <input type="date" id="start-date" name="start-date">
+
+                    <label for="end-date">End Date:</label>
+                    <input type="date" id="end-date" name="end-date">
+
+                    <label for="category">Category:</label>
+                    <select id="category" name="category">
+                        <option value="appointments">Appointments</option>
+                        <option value="users">Users</option>
+                        <option value="doctors">Doctors</option>
+                        <option value="revenue">Revenue</option>
+                    </select>
+
+                    <button type="button" id="filter-btn">Apply Filter</button>
+                </form>
+            </section>
+
+            <section class="report-section">
+                <h2>Overview</h2>
+                <div class="report-cards">
+                    <div class="card">
+                        <h3>Total Appointments</h3>
+                        <p id="total-appointments">Loading...</p>
+                    </div>
+                    <div class="card">
+                        <h3>Total Users</h3>
+                        <p id="total-users">Loading...</p>
+                    </div>
+                    <div class="card">
+                        <h3>Total Doctors</h3>
+                        <p id="total-doctors">Loading...</p>
+                    </div>
+                    <div class="card">
+                        <h3>Total Revenue</h3>
+                        <p id="total-revenue">Loading...</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="chart-section">
+                <h2>Reports</h2>
+                <div class="chart-container">
+                    <canvas id="appointmentsChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="usersChart"></canvas>
+                </div>
+            </section>
+        </main>
+
+        <footer class="admin-footer">
+            <p>&copy; 2025 Admin Panel. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dummy data for cards (replace with actual API calls)
+        document.getElementById('total-appointments').innerText = 120;
+        document.getElementById('total-users').innerText = 450;
+        document.getElementById('total-doctors').innerText = 50;
+        document.getElementById('total-revenue').innerText = '€15,000';
+
+        // Chart.js: Appointments Over Time
+        const appointmentsCtx = document.getElementById('appointmentsChart').getContext('2d');
+        const appointmentsChart = new Chart(appointmentsCtx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                datasets: [{
+                    label: 'Appointments Over Time',
+                    data: [10, 20, 30, 40, 50, 60],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Months'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Number of Appointments'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart.js: Revenue Over Time
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        const revenueChart = new Chart(revenueCtx, {
+            type: 'bar',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                datasets: [{
+                    label: 'Revenue (€)',
+                    data: [3000, 4000, 3500, 4500, 5000, 5500],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Months'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Revenue (€)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart.js: User Growth
+        const usersCtx = document.getElementById('usersChart').getContext('2d');
+        const usersChart = new Chart(usersCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Active Users', 'Inactive Users'],
+                datasets: [{
+                    label: 'User Distribution',
+                    data: [350, 100],
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                }
+            }
+        });
+
+        // Filter button functionality (example)
+        document.getElementById('filter-btn').addEventListener('click', () => {
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+            const category = document.getElementById('category').value;
+
+            alert(`Filter applied: \nStart Date: ${startDate} \nEnd Date: ${endDate} \nCategory: ${category}`);
+            // Replace this alert with API call logic to fetch filtered data.
+        });
+    </script>
+</body>
+</html>
