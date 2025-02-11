@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Users</title>
+    <link rel="stylesheet" href="../styles/medibooks-styles.css">
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <h2>User Management</h2>
+    <ul id="user-list"></ul>
+
+    <script>
+        let users = JSON.parse(localStorage.getItem("users")) || [
+            { name: "Alice", status: "Active" }
+        ];
+
+        function loadUsers() {
+            const list = document.getElementById("user-list");
+            list.innerHTML = "";
+            users.forEach((user, index) => {
+                list.innerHTML += `<li>${user.name} - ${user.status}
+                    <button onclick="toggleUser(${index})">
+                        ${user.status === "Active" ? "Deactivate" : "Activate"}
+                    </button>
+                </li>`;
+            });
+        }
+
+        function toggleUser(index) {
+            users[index].status = users[index].status === "Active" ? "Inactive" : "Active";
+            localStorage.setItem("users", JSON.stringify(users));
+            loadUsers();
+        }
+
+        loadUsers();
+    </script>
+</body>
+</html>
