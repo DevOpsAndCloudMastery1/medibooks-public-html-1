@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Appointments</title>
+    <link rel="stylesheet" href="../styles/medibooks-styles.css">
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <h2>Appointment Management</h2>
+    <ul id="appointment-list"></ul>
+
+    <script>
+        let appointments = JSON.parse(localStorage.getItem("appointments")) || [
+            { doctor: "Dr. John Smith", date: "2025-02-15", status: "Pending" }
+        ];
+
+        function loadAppointments() {
+            const list = document.getElementById("appointment-list");
+            list.innerHTML = "";
+            appointments.forEach((appt, index) => {
+                list.innerHTML += `<li>
+                    ${appt.doctor} - ${appt.date} - ${appt.status}
+                    <button onclick="updateStatus(${index}, 'Approved')">Approve</button>
+                    <button onclick="updateStatus(${index}, 'Cancelled')">Cancel</button>
+                </li>`;
+            });
+        }
+
+        function updateStatus(index, status) {
+            appointments[index].status = status;
+            localStorage.setItem("appointments", JSON.stringify(appointments));
+            loadAppointments();
+        }
+
+        loadAppointments();
+    </script>
+</body>
+</html>
