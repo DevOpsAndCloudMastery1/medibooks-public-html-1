@@ -52,6 +52,11 @@
             { name: "Charlie", status: "Active" }
         ];
 
+        // Save users to localStorage if they are not already stored
+        if (!localStorage.getItem("users")) {
+            localStorage.setItem("users", JSON.stringify(users));
+        }
+
         function loadUsers() {
             const list = document.getElementById("user-list");
             list.innerHTML = "";
@@ -61,7 +66,7 @@
                 listItem.className = "list-group-item d-flex justify-content-between align-items-center";
 
                 listItem.innerHTML = `
-                    <a href="user-profile.html?user=${encodeURIComponent(user.name)}" class="text-decoration-none">
+                    <a href=../user-profile.html?user=${encodeURIComponent(user.name)}" class="text-decoration-none">
                         ${user.name}
                     </a>
                     <span class="badge bg-${user.status === "Active" ? "success" : "danger"}">
@@ -82,7 +87,10 @@
             loadUsers();
         }
 
-        loadUsers();
+        // Ensure the page loads users when it first runs
+        document.addEventListener("DOMContentLoaded", loadUsers);
+
+    
     </script>
 </body>
 </html>
