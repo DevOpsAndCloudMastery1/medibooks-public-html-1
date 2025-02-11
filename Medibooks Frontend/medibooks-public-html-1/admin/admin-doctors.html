@@ -70,9 +70,10 @@
 
         function loadDoctors() {
             const tableBody = document.querySelector("#doctor-table tbody");
-            tableBody.innerHTML = "";
+            tableBody.innerHTML = ""; // Clear existing table content
+            
             doctors.forEach((doc, index) => {
-                tableBody.innerHTML += `
+                let row = `
                     <tr>
                         <td>${doc.name}</td>
                         <td>${doc.specialization}</td>
@@ -80,18 +81,21 @@
                         <td>
                             <button onclick="editDoctor(${index})">Edit</button>
                             <button onclick="removeDoctor(${index})">Remove</button>
-                            <a href="doctor-details.html?doctor=${encodeURIComponent(doc.name)}">View Details</a>
+                            <a href="doctor-details.html?name=${encodeURIComponent(doc.name)}&specialization=${encodeURIComponent(doc.specialization)}&location=${encodeURIComponent(doc.location)}">View Details</a>
                         </td>
                     </tr>
                 `;
+                tableBody.innerHTML += row;
             });
+
+            localStorage.setItem("doctors", JSON.stringify(doctors)); // Update localStorage
         }
 
         function addDoctor() {
-            const name = document.getElementById("doctor-name").value;
-            const specialization = document.getElementById("doctor-specialization").value;
-            const location = document.getElementById("doctor-location").value;
-            
+            const name = document.getElementById("doctor-name").value.trim();
+            const specialization = document.getElementById("doctor-specialization").value.trim();
+            const location = document.getElementById("doctor-location").value.trim();
+
             if (name && specialization && location) {
                 doctors.push({ name, specialization, location });
                 localStorage.setItem("doctors", JSON.stringify(doctors));
