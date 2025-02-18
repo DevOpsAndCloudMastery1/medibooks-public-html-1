@@ -7,135 +7,137 @@
   <link rel="stylesheet" href="/styles/medibooks-styles.css">
   <script src="/js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
   <style>
-	body {
-  	font-family: Arial, sans-serif;
-  	display: flex;
-  	justify-content: center;
-  	align-items: center;
-  	height: 100vh;
-  	background-color: #f4f4f4;
-	}
-	.auth-container {
-  	background: white;
-  	padding: 20px;
-  	border-radius: 10px;
-  	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  	width: 300px;
-  	text-align: center;
-	}
-	input {
-  	width: 100%;
-  	padding: 10px;
-  	margin: 5px 0;
-  	border: 1px solid #ccc;
-  	border-radius: 5px;
-	}
-	button {
-  	width: 100%;
-  	padding: 10px;
-  	background: #28a745;
-  	color: white;
-  	border: none;
-  	border-radius: 5px;
-  	cursor: pointer;
-	}
-	button:hover {
-  	background: #218838;
-	}
-	p {
-  	font-size: 14px;
-	}
-	a {
-  	color: #007bff;
-  	cursor: pointer;
-	}
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+    .auth-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 320px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #218838;
+    }
+    p {
+      font-size: 14px;
+    }
+    a {
+      color: #007bff;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-
   <div class="auth-container">
-	<h2 id="formTitle">Login</h2>
+    <h2 id="formTitle">Login</h2>
 
-	<!-- Login Form -->
-	<form id="loginForm">
-  	<label for="loginEmail">Email:</label>
-  	<input type="email" id="loginEmail" required>
+    <!-- Login Form -->
+    <form id="loginForm">
+      <label for="loginEmail">Email:</label>
+      <input type="email" id="loginEmail" required>
 
-  	<label for="loginPassword">Password:</label>
-  	<input type="password" id="loginPassword" required>
+      <label for="loginPassword">Password:</label>
+      <input type="password" id="loginPassword" required>
 
-  	<button type="submit">Login</button>
-  	<p>Don't have an account? <a id="showSignup">Sign Up</a></p>
-	</form>
+      <p><a href="#">Forgot Password?</a></p>
+      <button type="submit">Login</button>
+      <p>Don't have an account? <a id="showSignup">Sign Up</a></p>
+    </form>
 
-	<!-- Signup Form (Hidden by Default) -->
-	<form id="signupForm" style="display: none;">
-  	<label for="signupName">Name:</label>
-  	<input type="text" id="signupName" required>
+    <!-- Signup Form (Hidden by Default) -->
+    <form id="signupForm" style="display: none;">
+      <label for="signupName">Name:</label>
+      <input type="text" id="signupName" required>
 
-  	<label for="signupEmail">Email:</label>
-  	<input type="email" id="signupEmail" required>
+      <label for="signupEmail">Email:</label>
+      <input type="email" id="signupEmail" required>
 
-  	<label for="signupPassword">Password:</label>
-  	<input type="password" id="signupPassword" required>
+      <label for="signupPhone">Phone:</label>
+      <input type="tel" id="signupPhone" required>
 
-  	<button type="submit">Sign Up</button>
-  	<p>Already have an account? <a id="showLogin">Login</a></p>
-	</form>
+      <label for="signupPassword">Password:</label>
+      <input type="password" id="signupPassword" required>
+
+      <button type="submit">Sign Up</button>
+      <p>Already have an account? <a id="showLogin">Login</a></p>
+    </form>
   </div>
 
   <script>
-	document.addEventListener("DOMContentLoaded", function () {
-  	const loginForm = document.getElementById("loginForm");
-  	const signupForm = document.getElementById("signupForm");
-  	const formTitle = document.getElementById("formTitle");
+    document.addEventListener("DOMContentLoaded", function () {
+      const loginForm = document.getElementById("loginForm");
+      const signupForm = document.getElementById("signupForm");
+      const formTitle = document.getElementById("formTitle");
 
-  	// Buttons to switch between forms
-  	document.getElementById("showSignup").addEventListener("click", function () {
-    	loginForm.style.display = "none";
-    	signupForm.style.display = "block";
-    	formTitle.textContent = "Sign Up";
-  	});
+      // Toggle between forms
+      document.getElementById("showSignup").addEventListener("click", function () {
+        loginForm.style.display = "none";
+        signupForm.style.display = "block";
+        formTitle.textContent = "Sign Up";
+      });
 
-  	document.getElementById("showLogin").addEventListener("click", function () {
-    	signupForm.style.display = "none";
-    	loginForm.style.display = "block";
-    	formTitle.textContent = "Login";
-  	});
+      document.getElementById("showLogin").addEventListener("click", function () {
+        signupForm.style.display = "none";
+        loginForm.style.display = "block";
+        formTitle.textContent = "Login";
+      });
 
-  	// Login Form Submission
-  	loginForm.addEventListener("submit", function (e) {
-    	e.preventDefault();
-    	const email = document.getElementById("loginEmail").value;
-    	const password = document.getElementById("loginPassword").value;
+      // Login Form Submission
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
 
-    	if (email && password) {
-      	alert("Login successful");
-      	window.location.href = "home.html"; // Redirect after login
-    	} else {
-      	alert("Please enter email and password");
-    	}
-  	});
+        if (email && password) {
+          alert("Login successful");
+          window.location.href = "home.html"; // Redirect after login
+        } else {
+          alert("Please enter email and password");
+        }
+      });
 
-  	// Signup Form Submission
-  	signupForm.addEventListener("submit", function (e) {
-    	e.preventDefault();
-    	const name = document.getElementById("signupName").value;
-    	const email = document.getElementById("signupEmail").value;
-    	const password = document.getElementById("signupPassword").value;
+      // Signup Form Submission
+      signupForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("signupName").value;
+        const email = document.getElementById("signupEmail").value;
+        const phone = document.getElementById("signupPhone").value;
+        const password = document.getElementById("signupPassword").value;
 
-    	if (name && email && password) {
-      	alert("Signup successful! Please login.");
-      	signupForm.style.display = "none";
-      	loginForm.style.display = "block";
-      	formTitle.textContent = "Login";
-    	} else {
-      	alert("Please fill all fields.");
-    	}
-  	});
-	});
+        if (name && email && phone && password) {
+          alert("Signup successful! Please login.");
+          signupForm.style.display = "none";
+          loginForm.style.display = "block";
+          formTitle.textContent = "Login";
+        } else {
+          alert("Please fill all fields.");
+        }
+      });
+    });
   </script>
-
 </body>
 </html>
-
