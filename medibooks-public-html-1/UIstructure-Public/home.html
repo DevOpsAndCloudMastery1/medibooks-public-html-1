@@ -79,9 +79,10 @@
   <div class="navbar">
     <div>Medibooks</div>
     <div>
+      <a href="home.html">Dashboard</a>
       <a href="my-bookings.html">My Bookings</a>
       <a href="profile.html">Profile</a>
-      <a href="#" id="logout">Sign Out</a>
+      <a href="logout.html">LogOut</a>
     </div>
   </div>
 
@@ -93,6 +94,11 @@
 
     <div class="search-section">
       <input type="text" placeholder="Search by specialization or location">
+      <select>
+        <option>Ratings</option>
+        <option>⭐⭐⭐⭐⭐</option>
+        <option>⭐⭐⭐⭐</option>
+      </select>
       <button>Search</button>
     </div>
 
@@ -174,7 +180,7 @@
   <script>
     document.getElementById("logout").addEventListener("click", function() {
       alert("You have been logged out.");
-      window.location.href = "home.html"; // Redirect to login page
+      window.location.href = "login.html"; // Redirect to login page
     });
   </script>
 </body>
