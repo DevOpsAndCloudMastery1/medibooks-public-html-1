@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking and Tracking</title>
+    <link rel="stylesheet" href="styles/medibooks-styles.css">
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Book and Manage Appointments</h1>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="user-profile.html">My Profile</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Available Doctors</h2>
+            <div class="doctor-list">
+                <div class="doctor-card">
+                    <img src="images /doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
+                    <h3>Dr. John Smith</h3>
+                    <p>Cardiologist</p>
+                    <button onclick="selectDoctor('Dr. John Smith - Cardiologist')">Book Appointment</button>
+                </div>
+                <div class="doctor-card">
+                    <img src="images /doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
+                    <h3>Dr. Emma Davis</h3>
+                    <p>Neurologist</p>
+                    <button onclick="selectDoctor('Dr. Emma Davis - Neurologist')">Book Appointment</button>
+                </div>
+                <div class="doctor-card">
+                    <img src="images /doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
+                    <h3>Dr. Michael Brown</h3>
+                    <p>Pediatrician</p>
+                    <button onclick="selectDoctor('Dr. Michael Brown - Pediatrician')">Book Appointment</button>
+                </div>
+                <div class="doctor-card">
+                    <img src="images /doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
+                    <h3>Dr. Olivia Wilson</h3>
+                    <p>Orthopedic Surgeon</p>
+                    <button onclick="selectDoctor('Dr. Olivia Wilson - Orthopedic Surgeon')">Book Appointment</button>
+                </div>
+                <div class="doctor-card">
+                    <img src="images /doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
+                    <h3>Dr. Liam Johnson</h3>
+                    <p>Dermatologist</p>
+                    <button onclick="selectDoctor('Dr. Liam Johnson - Dermatologist')">Book Appointment</button>
+                </div>
+                <div class="doctor-card">
+                    <img src="images /doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
+                    <h3>Dr. Sophia Martinez</h3>
+                    <p>Gynecologist</p>
+                    <button onclick="selectDoctor('Dr. Sophia Martinez - Gynecologist')">Book Appointment</button>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Book an Appointment</h2>
+            <form id="appointment-form">
+                <label for="doctor">Selected Doctor:</label>
+                <input type="text" id="doctor" name="doctor" readonly required>
+                <label for="patient-name">Your Name:</label>
+                <input type="text" id="patient-name" name="patient-name" required>
+                <label for="email">Your Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="appointment-date">Appointment Date:</label>
+                <input type="date" id="appointment-date" name="appointment-date" required>
+                <button type="submit">Submit</button>
+            </form>
+
+            <div id="confirmation" style="display: none;">
+                <h2>Appointment Confirmed!</h2>
+                <p><strong>Doctor:</strong> <span id="confirm-doctor"></span></p>
+                <p><strong>Name:</strong> <span id="confirm-name"></span></p>
+                <p><strong>Email:</strong> <span id="confirm-email"></span></p>
+                <p><strong>Date:</strong> <span id="confirm-date"></span></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Appointment Tracking and Management</h2>
+            <div id="appointment-tracking">
+                <h3>Active Bookings</h3>
+                <ul id="active-bookings">
+                    <!-- Active bookings will be dynamically populated -->
+                </ul>
+
+                <h3>Past Bookings</h3>
+                <ul id="past-bookings">
+                    <!-- Past bookings will be dynamically populated -->
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 MediBooks</p>
+    </footer>
+
+    <script>
+        const activeBookings = [
+            { doctor: "Dr. John Smith", date: "2025-02-15", time: "10:00 AM", status: "Confirmed" },
+            { doctor: "Dr. Emma Davis", date: "2025-02-20", time: "2:00 PM", status: "Confirmed" }
+        ];
+
+        const pastBookings = [
+            { doctor: "Dr. Michael Brown", date: "2025-01-10", time: "11:00 AM", status: "Completed" }
+        ];
+
+        function loadBookings() {
+            const activeList = document.getElementById("active-bookings");
+            const pastList = document.getElementById("past-bookings");
+
+             // Clear lists before adding new items
+             activeList.innerHTML = "";
+            pastList.innerHTML = "";
+
+            activeBookings.forEach((booking, index) => {
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `${booking.doctor} - ${booking.date} at ${booking.time} - ${booking.status}
+                    <button onclick="reschedule(${index})">Reschedule</button>
+                    <button onclick="cancel(${index})">Cancel</button>`;
+                activeList.appendChild(listItem);
+            });
+
+            pastBookings.forEach(booking => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${booking.doctor} - ${booking.date} at ${booking.time} - ${booking.status}`;
+                pastList.appendChild(listItem);
+            });
+
+            // Save updated data
+            localStorage.setItem("activeBookings", JSON.stringify(activeBookings));
+            localStorage.setItem("pastBookings", JSON.stringify(pastBookings));
+        
+        }
+
+           function reschedule(index) {
+                const newDate = prompt("Enter a new date (YYYY-MM-DD):");
+                if (newDate) {
+                    activeBookings[index].date = newDate;
+                    alert("Appointment rescheduled successfully!");
+                    document.getElementById("active-bookings").innerHTML = "";
+                    loadBookings();
+    }
+}
+
+
+
+
+        function cancel(index) {
+            if (confirm("Are you sure you want to cancel this appointment?")) {
+                activeBookings.splice(index, 1);
+                alert("Appointment canceled successfully!");
+                document.getElementById("active-bookings").innerHTML = "";
+                loadBookings();
+            }
+        }
+
+        document.getElementById("appointment-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const doctor = document.getElementById("doctor").value;
+            const name = document.getElementById("patient-name").value;
+            const email = document.getElementById("email").value;
+            const date = document.getElementById("appointment-date").value;
+
+            activeBookings.push({ doctor, date, time: "TBD", status: "Confirmed" });
+            alert("Appointment booked successfully!");
+            document.getElementById("appointment-form").reset();
+            document.getElementById("active-bookings").innerHTML = "";
+            loadBookings();
+        });
+
+        function selectDoctor(doctorName) {
+            document.getElementById("doctor").value = doctorName;
+            window.scrollTo({ top: document.getElementById("appointment-form").offsetTop, behavior: 'smooth' });
+        }
+
+        loadBookings();
+    </script>
+</body>
+</html>

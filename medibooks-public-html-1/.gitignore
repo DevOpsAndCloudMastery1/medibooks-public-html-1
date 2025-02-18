@@ -1,0 +1,15 @@
+# Node.js dependencies
+node_modules/
+
+# Lock file (optional: only ignore if using package.json for dependency management)
+# package-lock.json  
+
+# Editor & system files
+.vscode/
+.DS_Store
+*.log
+*.swp
+
+# Ignore all JS files except Bootstrap
+js/*
+!js/bootstrap-5.1.3-dist/
