@@ -12,16 +12,30 @@
 </head>
 <body>
   <div class="container mt-5">
-    <h2>Book Appointment with Dr. John Smith</h2>
+    <h2>Book Appointment</h2>
+
+    <!-- Doctor Selection Dropdown -->
+    <div class="mb-4">
+      <label for="doctorSelect" class="form-label">Select Doctor</label>
+      <select id="doctorSelect" class="form-control" onchange="onDoctorSelect()">
+        <option value="" disabled selected>Select a Doctor</option>
+        <option value="1">Dr. John Smith - Cardiologist</option>
+        <option value="2">Dr. Emma Davis - Neurologist</option>
+        <option value="3">Dr. Michael Brown - Pediatrician</option>
+        <option value="4">Dr. Olivia Wilson - Orthopedic Surgeon</option>
+        <option value="5">Dr. Liam Johnson - Dermatologist</option>
+        <option value="6">Dr. Sophia Martinez - Gynecologist</option>
+      </select>
+    </div>
 
     <!-- Calendar to choose date -->
-    <div class="mb-4">
+    <div class="mb-4" id="calendarSection" style="display: none;">
       <label for="appointmentDate" class="form-label">Select Appointment Date</label>
       <input type="text" id="appointmentDate" class="form-control" placeholder="Select Date">
     </div>
 
     <!-- Available Time Slots (Placeholder for now, will be updated with JavaScript) -->
-    <div class="mb-4" id="timeSlots">
+    <div class="mb-4" id="timeSlotsSection" style="display: none;">
       <label for="timeSlot" class="form-label">Available Time Slots</label>
       <select id="timeSlot" class="form-control">
         <option value="" disabled selected>Select a time slot</option>
@@ -29,7 +43,7 @@
     </div>
 
     <!-- Patient Information Form -->
-    <div class="patient-form mb-4">
+    <div class="patient-form mb-4" id="patientFormSection" style="display: none;">
       <input type="text" id="patientName" class="form-control mb-2" placeholder="Full Name" required>
       <input type="email" id="patientEmail" class="form-control mb-2" placeholder="Email" required>
       <input type="tel" id="patientPhone" class="form-control mb-2" placeholder="Phone Number" required>
@@ -39,7 +53,7 @@
     <!-- Confirmation Screen (Hidden initially) -->
     <div id="confirmationScreen" class="mb-4" style="display: none;">
       <h4>Confirm Your Appointment</h4>
-      <p><strong>Doctor:</strong> Dr. John Smith</p>
+      <p><strong>Doctor:</strong> <span id="confirmDoctor"></span></p>
       <p><strong>Date:</strong> <span id="confirmDate"></span></p>
       <p><strong>Time:</strong> <span id="confirmTime"></span></p>
       <p><strong>Name:</strong> <span id="confirmName"></span></p>
@@ -50,34 +64,95 @@
     </div>
 
     <!-- Submit Booking -->
-    <button class="btn btn-primary" id="submitButton">Next: Confirm Appointment</button>
+    <button class="btn btn-primary" id="submitButton" style="display: none;">Next: Confirm Appointment</button>
 
   </div>
 
   <script>
-    // Initialize flatpickr for calendar input
-    flatpickr("#appointmentDate", {
-      minDate: "today", // Disable past dates
-      onChange: function(selectedDates, dateStr, instance) {
-        // When a date is selected, show available time slots
-        showAvailableSlots(dateStr);
+    // Sample available time slots for each doctor (you can replace this with real data from your server)
+    const doctorAvailability = {
+      "1": {
+        name: "Dr. John Smith - Cardiologist",
+        slots: {
+          "2025-02-18": ["10:00 AM", "11:00 AM", "2:00 PM", "3:30 PM"],
+          "2025-02-19": ["9:00 AM", "12:00 PM", "3:00 PM"],
+        }
+      },
+      "2": {
+        name: "Dr. Emma Davis - Neurologist",
+        slots: {
+          "2025-02-18": ["8:00 AM", "1:00 PM", "4:00 PM"],
+          "2025-02-19": ["10:00 AM", "2:00 PM"],
+        }
+      },
+      "3": {
+        name: "Dr. Michael Brown - Pediatrician",
+        slots: {
+          "2025-02-18": ["9:00 AM", "1:00 PM", "4:00 PM"],
+        }
+      },
+      "4": {
+        name: "Dr. Olivia Wilson - Orthopedic Surgeon",
+        slots: {
+          "2025-02-18": ["11:00 AM", "2:00 PM", "3:30 PM"],
+        }
+      },
+      "5": {
+        name: "Dr. Liam Johnson - Dermatologist",
+        slots: {
+          "2025-02-18": ["10:30 AM", "1:30 PM", "4:30 PM"],
+        }
+      },
+      "6": {
+        name: "Dr. Sophia Martinez - Gynecologist",
+        slots: {
+          "2025-02-18": ["9:30 AM", "12:00 PM", "3:00 PM"],
+        }
       }
-    });
-
-    // Sample available time slots by date (in a real app, fetch from server)
-    const availableSlots = {
-      "2025-02-18": ["10:00 AM", "11:00 AM", "2:00 PM", "3:30 PM"],
-      "2025-02-19": ["9:00 AM", "12:00 PM", "3:00 PM"],
-      // Add more date-slot pairs as needed
     };
 
-    // Show available time slots based on selected date
-    function showAvailableSlots(date) {
+    // Handle doctor selection change
+    function onDoctorSelect() {
+      const doctorId = document.getElementById('doctorSelect').value;
+      if (doctorId) {
+        showCalendarSection();
+        showAvailableSlots(doctorId);
+      }
+    }
+
+    // Show calendar and available slots when doctor is selected
+    function showCalendarSection() {
+      document.getElementById('calendarSection').style.display = "block";
+    }
+
+    // Show available time slots for the selected doctor
+    function showAvailableSlots(doctorId) {
       const timeSlotSelect = document.getElementById('timeSlot');
       timeSlotSelect.innerHTML = "<option value='' disabled selected>Select a time slot</option>"; // Clear current slots
 
-      if (availableSlots[date]) {
-        availableSlots[date].forEach(slot => {
+      // Show the available slots for the selected doctor
+      const doctor = doctorAvailability[doctorId];
+      if (doctor) {
+        // Enable date picker
+        flatpickr("#appointmentDate", {
+          minDate: "today",
+          dateFormat: "Y-m-d", // Format for date input
+          onChange: function(selectedDates, dateStr) {
+            updateAvailableTimes(doctorId, dateStr);
+          }
+        });
+        document.getElementById('timeSlotsSection').style.display = "block";
+      }
+    }
+
+    // Update available time slots based on the selected date
+    function updateAvailableTimes(doctorId, selectedDate) {
+      const timeSlotSelect = document.getElementById('timeSlot');
+      timeSlotSelect.innerHTML = "<option value='' disabled selected>Select a time slot</option>"; // Clear current slots
+      const doctor = doctorAvailability[doctorId];
+      const slots = doctor.slots[selectedDate];
+      if (slots) {
+        slots.forEach(slot => {
           const option = document.createElement("option");
           option.value = slot;
           option.textContent = slot;
@@ -94,6 +169,8 @@
       const patientEmail = document.getElementById('patientEmail').value;
       const patientPhone = document.getElementById('patientPhone').value;
       const patientNotes = document.getElementById('patientNotes').value;
+      const doctorId = document.getElementById('doctorSelect').value;
+      const doctorName = doctorAvailability[doctorId].name;
 
       // Validate if all fields are filled
       if (!selectedDate || !selectedTime || !patientName || !patientEmail || !patientPhone) {
@@ -102,6 +179,7 @@
       }
 
       // Populate confirmation screen
+      document.getElementById('confirmDoctor').textContent = doctorName;
       document.getElementById('confirmDate').textContent = selectedDate;
       document.getElementById('confirmTime').textContent = selectedTime;
       document.getElementById('confirmName').textContent = patientName;
