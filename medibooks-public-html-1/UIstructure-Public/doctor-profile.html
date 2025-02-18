@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Profile - Medibooks</title>
+  <link rel="stylesheet" href="/styles/medibooks-styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div>Medibooks</div>
+    <div>
+      <a href="home.html">Home</a>
+      <a href="my-bookings.html">My Bookings</a>
+      <a href="profile.html">Profile</a>
+      <a href="logout.html">LogOut</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Doctor Profile Section -->
+    <div class="doctor-profile">
+      <div class="doctor-details">
+        <img src="/images /doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
+        <h2>Dr. John Smith</h2>
+        <p>Specialization: Cardiologist</p>
+        <p>Experience: 10 years</p>
+        <p>Rating: ⭐⭐⭐⭐⭐</p>
+      </div>
+
+      <h3>Reviews</h3>
+      <!-- Existing reviews displayed -->
+      <div class="review-section">
+        <p>Great doctor! Really helped me understand my condition better.</p>
+        <p>⭐⭐⭐⭐⭐</p>
+        <p>Highly recommend Dr. John for heart-related concerns.</p>
+        <p>⭐⭐⭐⭐</p>
+        <!-- Form to submit new reviews -->
+        <div class="review-form">
+          <textarea placeholder="Write your review..." rows="4"></textarea>
+          <button>Submit Review</button>
+        </div>
+      </div>
+
+      <h3>Availability</h3>
+      <!-- Calendar view for available slots -->
+      <div class="calendar-view">
+        <p>Select a date and time for your appointment:</p>
+        <!-- Placeholder calendar view (can be replaced with a JS calendar) -->
+        <div class="calendar">
+          <button>Select Date</button>
+        </div>
+      </div>
+
+      <button class="book-appointment-btn">Book Appointment</button>
+    </div>
+  </div>
+
+  <!-- Doctor Listings (Grid) Section -->
+  <div class="doctor-list">
+    <div class="doctor-card">
+      <img src="/images /doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
+      <h3>Dr. John Smith</h3>
+      <p>Cardiologist</p>
+      <p>⭐⭐⭐⭐⭐</p>
+      <div class="buttons">
+        <a href="doctor-details.html?id=1"><button>More Info</button></a>
+        <a href="booking.html?doctorId=1"><button>Book Appointment</button></a>
+      </div>
+      <a href="doctor-reviews.html?doctor=Dr.%20John%20Smith">Reviews</a>
+    </div>
+
+    <div class="doctor-card">
+      <img src="/images /doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
+      <h3>Dr. Emma Davis</h3>
+      <p>Neurologist</p>
+      <p>⭐⭐⭐⭐</p>
+      <div class="buttons">
+        <a href="doctor-details.html?id=2"><button>More Info</button></a>
+        <a href="booking.html?doctorId=2"><button>Book Appointment</button></a>
+      </div>
+      <a href="doctor-reviews.html?doctor=Dr.%20Emma%20Davis">Reviews</a>
+    </div>
+
+    <div class="doctor-card">
+      <img src="/images /doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
+      <h3>Dr. Michael Brown</h3>
+      <p>Pediatrician</p>
+      <p>⭐⭐⭐⭐</p>
+      <div class="buttons">
+        <a href="doctor-details.html?id=3"><button>More Info</button></a>
+        <a href="booking.html?doctorId=3"><button>Book Appointment</button></a>
+      </div>
+      <a href="doctor-reviews.html?doctor=Dr.%20Michael%20Brown">Reviews</a>
+    </div>
+
+    <div class="doctor-card">
+      <img src="/images /doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
+      <h3>Dr. Olivia Wilson</h3>
+      <p>Orthopedic Surgeon</p>
+      <p>⭐⭐⭐⭐⭐</p>
+      <div class="buttons">
+        <a href="doctor-details.html?id=4"><button>More Info</button></a>
+        <a href="booking.html?doctorId=4"><button>Book Appointment</button></a>
+      </div>
+      <a href="doctor-reviews.html?doctor=Dr.%20Olivia%20Wilson">Reviews</a>
+    </div>
+
+    <div class="doctor-card">
+      <img src="/images /doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
+      <h3>Dr. Liam Johnson</h3>
+      <p>Dermatologist</p>
+      <p>⭐⭐⭐⭐</p>
+      <div class="buttons">
+        <a href="doctor-details.html?id=5"><button>More Info</button></a>
+        <a href="booking.html?doctorId=5"><button>Book Appointment</button></a>
+      </div>
+      <a href="doctor-reviews.html?doctor=Dr.%20Liam%20Johnson">Reviews</a>
+    </div>
+
+    <div class="doctor-card">
+      <img src="/images /doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
+      <h3>Dr. Sophia Martinez</h3>
+      <p>Gynecologist</p>
+      <p>⭐⭐⭐⭐⭐</p>
+      <div class="buttons">
+        <a href="doctor-details.html?id=6"><button>More Info</button></a>
+        <a href="booking.html?doctorId=6"><button>Book Appointment</button></a>
+      </div>
+      <a href="doctor-reviews.html?doctor=Dr.%20Sophia%20Martinez">Reviews</a>
+    </div>
+  </div>
+
+  <script src="/js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
