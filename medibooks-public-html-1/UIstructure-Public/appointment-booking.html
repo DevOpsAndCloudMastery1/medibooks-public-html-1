@@ -3,218 +3,205 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book appointment - Medibooks</title>
+  <title>Book Appointment - Medibooks</title>
+  <link rel="stylesheet" href="/styles/medibooks-styles.css">
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.js"></script>
 </head>
 <body>
-
-  <div class="container mt-5">
-    <!-- Doctor Profile Section -->
-    <div class="doctor-profile" id="doctorProfileSection">
-      <div class="doctor-details" id="doctorDetails">
-        <!-- Doctor info will be loaded dynamically -->
-      </div>
-
-      <h3>Reviews</h3>
-      <!-- Review Section -->
-      <div class="review-section">
-        <p>Great doctor! Really helped me understand my condition better.</p>
-        <p>⭐⭐⭐⭐⭐</p>
-        <p>Highly recommend Dr. John for heart-related concerns.</p>
-        <p>⭐⭐⭐⭐</p>
-
-        <!-- Review Submission Form -->
-        <div class="review-form">
-          <textarea placeholder="Write your review..." rows="4" class="form-control"></textarea>
-          <button class="btn btn-primary mt-2">Submit Review</button>
-        </div>
-      </div>
-
-      <h3>Availability</h3>
-      <!-- Calendar View for Selecting Appointment Slot -->
-      <div class="calendar-view">
-        <p>Select a date and time for your appointment:</p>
-        <div id="calendar"></div>
-      </div>
-
-      <h3>Book Appointment</h3>
-      <!-- Patient Information Form -->
-      <form id="appointmentForm" class="mb-4" style="display: none;">
-        <div class="mb-3">
-          <label for="name" class="form-label">Name</label>
-          <input type="text" class="form-control" id="name" required>
-        </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" required>
-        </div>
-        <div class="mb-3">
-          <label for="phone" class="form-label">Phone</label>
-          <input type="tel" class="form-control" id="phone" required>
-        </div>
-        <div class="mb-3">
-          <label for="notes" class="form-label">Notes (Optional)</label>
-          <textarea class="form-control" id="notes"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Confirm Booking</button>
-      </form>
-
-      <!-- Confirmation Screen -->
-      <div id="confirmationScreen" style="display: none;">
-        <h4>Confirm Appointment</h4>
-        <p><strong>Name:</strong> <span id="confirmName"></span></p>
-        <p><strong>Email:</strong> <span id="confirmEmail"></span></p>
-        <p><strong>Phone:</strong> <span id="confirmPhone"></span></p>
-        <p><strong>Notes:</strong> <span id="confirmNotes"></span></p>
-        <p><strong>Selected Slot:</strong> <span id="confirmSlot"></span></p>
-        <button id="confirmButton" class="btn btn-success">Confirm</button>
+  <!-- Navbar -->
+  <div class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="home.html">Medibooks</a>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="home.html">Home</a>
+        <a class="nav-link" href="profile.html">Profile</a>
+        <a class="nav-link" href="logout.html">LogOut</a>
       </div>
     </div>
   </div>
 
+  <div class="container mt-4">
+    <h2>Book Appointment with Doctor</h2>
+
+    <!-- Calendar Section -->
+    <div class="calendar mb-4">
+      <label for="appointment-date" class="form-label">Select a date for your appointment</label>
+      <input type="date" id="appointment-date" class="form-control" required>
+      
+      <!-- Placeholder for available time slots -->
+      <div id="available-times">
+        <h5 class="mt-3">Available Time Slots</h5>
+        <!-- Time slots will be populated dynamically -->
+      </div>
+    </div>
+
+    <!-- Patient Details Form -->
+    <div class="patient-form mb-4" style="display:none;" id="patient-form">
+      <h4>Enter your details</h4>
+      <form id="appointment-form">
+        <div class="mb-3">
+          <input type="text" class="form-control" id="patient-name" placeholder="Name" required>
+        </div>
+        <div class="mb-3">
+          <input type="email" class="form-control" id="patient-email" placeholder="Email" required>
+        </div>
+        <div class="mb-3">
+          <input type="tel" class="form-control" id="patient-phone" placeholder="Phone" required>
+        </div>
+        <div class="mb-3">
+          <textarea class="form-control" id="patient-notes" placeholder="Notes (optional)"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Confirm Booking</button>
+      </form>
+    </div>
+    
+    <!-- Doctor List Section -->
+    <h3>Other Available Doctors</h3>
+    <div class="doctor-list row">
+      <!-- Doctor 1 -->
+      <div class="col-12 col-md-4">
+        <div class="doctor-card">
+          <img src="/images /doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
+          <h5>Dr. John Smith</h5>
+          <p>Cardiologist</p>
+          <p>⭐⭐⭐⭐⭐</p>
+          <div class="buttons">
+            <a href="doctor-details.html?id=1"><button class="btn btn-info">More Info</button></a>
+            <a href="#" onclick="showBookingForm(1)"><button class="btn btn-primary">Book Appointment</button></a>
+          </div>
+          <a href="doctor-reviews.html?doctor=Dr.%20John%20Smith">Reviews</a>
+        </div>
+      </div>
+
+      <!-- Doctor 2 -->
+      <div class="col-12 col-md-4">
+        <div class="doctor-card">
+          <img src="/images /doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
+          <h5>Dr. Emma Davis</h5>
+          <p>Neurologist</p>
+          <p>⭐⭐⭐⭐</p>
+          <div class="buttons">
+            <a href="doctor-details.html?id=2"><button class="btn btn-info">More Info</button></a>
+            <a href="#" onclick="showBookingForm(2)"><button class="btn btn-primary">Book Appointment</button></a>
+          </div>
+          <a href="doctor-reviews.html?doctor=Dr.%20Emma%20Davis">Reviews</a>
+        </div>
+      </div>
+
+      <!-- Doctor 3 -->
+      <div class="col-12 col-md-4">
+        <div class="doctor-card">
+          <img src="/images /doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
+          <h5>Dr. Michael Brown</h5>
+          <p>Pediatrician</p>
+          <p>⭐⭐⭐⭐</p>
+          <div class="buttons">
+            <a href="doctor-details.html?id=3"><button class="btn btn-info">More Info</button></a>
+            <a href="#" onclick="showBookingForm(3)"><button class="btn btn-primary">Book Appointment</button></a>
+          </div>
+          <a href="doctor-reviews.html?doctor=Dr.%20Michael%20Brown">Reviews</a>
+        </div>
+      </div>
+
+      <!-- Doctor 4 -->
+      <div class="col-12 col-md-4">
+        <div class="doctor-card">
+          <img src="/images /doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
+          <h5>Dr. Olivia Wilson</h5>
+          <p>Orthopedic Surgeon</p>
+          <p>⭐⭐⭐⭐⭐</p>
+          <div class="buttons">
+            <a href="doctor-details.html?id=4"><button class="btn btn-info">More Info</button></a>
+            <a href="#" onclick="showBookingForm(4)"><button class="btn btn-primary">Book Appointment</button></a>
+          </div>
+          <a href="doctor-reviews.html?doctor=Dr.%20Olivia%20Wilson">Reviews</a>
+        </div>
+      </div>
+
+      <!-- Doctor 5 -->
+      <div class="col-12 col-md-4">
+        <div class="doctor-card">
+          <img src="/images /doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
+          <h5>Dr. Liam Johnson</h5>
+          <p>Dermatologist</p>
+          <p>⭐⭐⭐⭐</p>
+          <div class="buttons">
+            <a href="doctor-details.html?id=5"><button class="btn btn-info">More Info</button></a>
+            <a href="#" onclick="showBookingForm(5)"><button class="btn btn-primary">Book Appointment</button></a>
+          </div>
+          <a href="doctor-reviews.html?doctor=Dr.%20Liam%20Johnson">Reviews</a>
+        </div>
+      </div>
+
+      <!-- Doctor 6 -->
+      <div class="col-12 col-md-4">
+        <div class="doctor-card">
+          <img src="/images /doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
+          <h5>Dr. Sophia Martinez</h5>
+          <p>Gynecologist</p>
+          <p>⭐⭐⭐⭐⭐</p>
+          <div class="buttons">
+            <a href="doctor-details.html?id=6"><button class="btn btn-info">More Info</button></a>
+            <a href="#" onclick="showBookingForm(6)"><button class="btn btn-primary">Book Appointment</button></a>
+          </div>
+          <a href="doctor-reviews.html?doctor=Dr.%20Sophia%20Martinez">Reviews</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS & Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
   <script>
-    // Sample Data: Doctors with their specific availability slots
-    const doctors = [
-      {
-        id: 1,
-        name: "Dr. John Smith",
-        specialization: "Cardiologist",
-        experience: "10 years",
-        rating: "⭐⭐⭐⭐⭐",
-        availableSlots: [
-          { date: '2025-02-20T10:00:00', title: 'Available Slot' },
-          { date: '2025-02-20T14:00:00', title: 'Available Slot' }
-        ]
-      },
-      {
-        id: 2,
-        name: "Dr. Emma Davis",
-        specialization: "Neurologist",
-        experience: "8 years",
-        rating: "⭐⭐⭐⭐",
-        availableSlots: [
-          { date: '2025-02-21T11:00:00', title: 'Available Slot' },
-          { date: '2025-02-21T15:00:00', title: 'Available Slot' }
-        ]
-      },
-      {
-        id: 3,
-        name: "Dr. Michael Brown",
-        specialization: "Pediatrician",
-        experience: "6 years",
-        rating: "⭐⭐⭐⭐",
-        availableSlots: [
-          { date: '2025-02-22T09:00:00', title: 'Available Slot' },
-          { date: '2025-02-22T13:00:00', title: 'Available Slot' }
-        ]
-      },
-      {
-        id: 4,
-        name: "Dr. Olivia Wilson",
-        specialization: "Orthopedic Surgeon",
-        experience: "12 years",
-        rating: "⭐⭐⭐⭐⭐",
-        availableSlots: [
-          { date: '2025-02-23T10:00:00', title: 'Available Slot' },
-          { date: '2025-02-23T14:00:00', title: 'Available Slot' }
-        ]
-      },
-      {
-        id: 5,
-        name: "Dr. Liam Johnson",
-        specialization: "Dermatologist",
-        experience: "5 years",
-        rating: "⭐⭐⭐⭐",
-        availableSlots: [
-          { date: '2025-02-24T10:00:00', title: 'Available Slot' },
-          { date: '2025-02-24T15:00:00', title: 'Available Slot' }
-        ]
-      },
-      {
-        id: 6,
-        name: "Dr. Sophia Martinez",
-        specialization: "Gynecologist",
-        experience: "9 years",
-        rating: "⭐⭐⭐⭐⭐",
-        availableSlots: [
-          { date: '2025-02-25T10:00:00', title: 'Available Slot' },
-          { date: '2025-02-25T14:00:00', title: 'Available Slot' }
-        ]
-      }
-    ];
+    // Sample data for doctors and their availability slots
+    const doctors = {
+      1: { name: "Dr. John Smith", availableSlots: ["10:00 AM", "11:30 AM", "2:00 PM"] },
+      2: { name: "Dr. Emma Davis", availableSlots: ["9:00 AM", "12:00 PM", "3:00 PM"] },
+      3: { name: "Dr. Michael Brown", availableSlots: ["8:00 AM", "1:00 PM", "4:00 PM"] },
+      4: { name: "Dr. Olivia Wilson", availableSlots: ["10:30 AM", "1:30 PM", "5:00 PM"] },
+      5: { name: "Dr. Liam Johnson", availableSlots: ["9:30 AM", "2:30 PM", "4:30 PM"] },
+      6: { name: "Dr. Sophia Martinez", availableSlots: ["8:30 AM", "12:30 PM", "3:30 PM"] }
+    };
 
-    // Load the doctor details based on the doctor ID from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const doctorId = urlParams.get('doctorId');
-    const doctor = doctors.find(doc => doc.id == doctorId);
+    // Show available time slots when a doctor is selected
+    function showBookingForm(doctorId) {
+      const doctor = doctors[doctorId];
+      
+      // Show the available time slots for the selected doctor
+      let slotsHtml = '';
+      doctor.availableSlots.forEach((slot, index) => {
+        slotsHtml += `
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="time-slot" id="slot${index + 1}" value="${slot}">
+            <label class="form-check-label" for="slot${index + 1}">${slot}</label>
+          </div>
+        `;
+      });
 
-    // Display Doctor Information
-    if (doctor) {
-      document.getElementById('doctorDetails').innerHTML = `
-        <img src="/images/doctor${doctor.id}.jpg" alt="${doctor.name}" class="doctor-photo" style="width: 150px; height: 150px;">
-        <h2>${doctor.name}</h2>
-        <p><strong>Specialization:</strong> ${doctor.specialization}</p>
-        <p><strong>Experience:</strong> ${doctor.experience}</p>
-        <p><strong>Rating:</strong> ${doctor.rating}</p>
-      `;
+      document.getElementById('available-times').innerHTML = slotsHtml;
+      document.getElementById('patient-form').style.display = 'block';
+      document.getElementById('appointment-form').doctorId = doctorId;
     }
 
-    // Initialize the calendar with doctor's available slots
-    $(document).ready(function() {
-      $('#calendar').fullCalendar({
-        header: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'month,agendaWeek,agendaDay'
-        },
-        events: doctor ? doctor.availableSlots : [], // Only show slots for the current doctor
-        selectable: true,
-        select: function(start, end) {
-          const selectedDate = start.format('YYYY-MM-DD');
-          const selectedTime = start.format('HH:mm');
-          const selectedSlot = `${selectedDate} at ${selectedTime}`;
-
-          // Show the booking form
-          $('#appointmentForm').show();
-          $('#confirmationScreen').hide();
-
-          $('#confirmSlot').text(selectedSlot);
-        }
-      });
-    });
-
-    // Handle form submission and show confirmation
-    $('#appointmentForm').on('submit', function(e) {
+    // Handle appointment form submission
+    $('#appointment-form').on('submit', function(e) {
       e.preventDefault();
 
-      const name = $('#name').val();
-      const email = $('#email').val();
-      const phone = $('#phone').val();
-      const notes = $('#notes').val();
-      const selectedSlot = $('#confirmSlot').text();
-
-      // Show confirmation screen
-      $('#confirmName').text(name);
-      $('#confirmEmail').text(email);
-      $('#confirmPhone').text(phone);
-      $('#confirmNotes').text(notes);
-      $('#confirmSlot').text(selectedSlot);
-
-      $('#appointmentForm').hide();
-      $('#confirmationScreen').show();
-    });
-
-    // Handle final confirmation
-    $('#confirmButton').on('click', function() {
-      alert('Your appointment has been confirmed!');
+      const name = $('#patient-name').val();
+      const email = $('#patient-email').val();
+      const phone = $('#patient-phone').val();
+      const notes = $('#patient-notes').val();
+      const selectedSlot = $('input[name="time-slot"]:checked').val();
+      const doctorId = $('#appointment-form')[0].doctorId;
+      
       // You can send the data to the server here (e.g., using AJAX).
+      alert(`Appointment confirmed for ${name} with ${doctors[doctorId].name} at ${selectedSlot}`);
     });
   </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
