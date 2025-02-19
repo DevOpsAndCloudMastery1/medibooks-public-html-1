@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Appointments</title>
+    <link href="../styles/medibooks-styles.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="sidebar">
+        <ul>
+            <li><a href="admin-dashboard.html">Dashboard</a></li>
+            <li><a href="manage-appointments.html">Appointments</a></li>
+            <li><a href="manage-doctors.html">Doctors</a></li>
+            <li><a href="manage-users.html">Users</a></li>
+            <li><a href="reports.html">Reports</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <h1>Manage Appointments</h1>
+
+        <div class="filters">
+            <label for="doctor-filter">Filter by Doctor:</label>
+            <select id="doctor-filter">
+                <option>Dr. John Smith</option>
+                <option>Dr. Emma Davis</option>
+                <option>Dr. Michael Brown</option>
+                <option>Dr. Olivia Wilson</option>
+                <option>Dr. Liam Johnson</option>
+                <option>Dr. Sophia Martinez</option>
+            </select>
+            <label for="status-filter">Filter by Status:</label>
+            <select id="status-filter">
+                <option>All</option>
+                <option>Approved</option>
+                <option>Pending</option>
+                <option>Cancelled</option>
+            </select>
+        </div>
+
+        <table id="appointments-table">
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>2025-02-20</td>
+                    <td class="status">Pending</td>
+                    <td>
+                        <button class="approve-btn">Approve</button>
+                        <button class="reschedule-btn">Reschedule</button>
+                        <button class="cancel-btn">Cancel</button>
+                    </td>
+                </tr>
+                <!-- Add more rows here if needed -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Reschedule Modal -->
+    <div id="reschedule-modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Reschedule Appointment</h2>
+            <label for="new-date">Select New Date:</label>
+            <input type="date" id="new-date">
+            <label for="new-time">Select New Time:</label>
+            <input type="time" id="new-time">
+            <button id="confirm-reschedule">Confirm</button>
+            <button id="cancel-reschedule">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // Handle Approve button click
+        const approveButtons = document.querySelectorAll('.approve-btn');
+        approveButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const statusCell = this.closest('tr').querySelector('.status');
+                statusCell.textContent = 'Approved';
+                statusCell.style.color = 'green';
+            });
+        });
+
+        // Handle Cancel button click
+        const cancelButtons = document.querySelectorAll('.cancel-btn');
+        cancelButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const statusCell = this.closest('tr').querySelector('.status');
+                statusCell.textContent = 'Cancelled';
+                statusCell.style.color = 'red';
+            });
+        });
+
+        // Handle Reschedule button click
+        const rescheduleButtons = document.querySelectorAll('.reschedule-btn');
+        const rescheduleModal = document.getElementById('reschedule-modal');
+        const confirmRescheduleButton = document.getElementById('confirm-reschedule');
+        const cancelRescheduleButton = document.getElementById('cancel-reschedule');
+        let selectedRow;
+
+        rescheduleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                selectedRow = this.closest('tr');
+                rescheduleModal.style.display = 'block';
+            });
+        });
+
+        // Confirm Reschedule
+        confirmRescheduleButton.addEventListener('click', function() {
+            const newDate = document.getElementById('new-date').value;
+            const newTime = document.getElementById('new-time').value;
+            if (newDate && newTime) {
+                const statusCell = selectedRow.querySelector('.status');
+                statusCell.textContent = 'Rescheduled to ' + newDate + ' ' + newTime;
+                statusCell.style.color = 'orange';
+                rescheduleModal.style.display = 'none';
+            } else {
+                alert('Please select both a new date and time.');
+            }
+        });
+
+        // Cancel Reschedule
+        cancelRescheduleButton.addEventListener('click', function() {
+            rescheduleModal.style.display = 'none';
+        });
+    </script>
+
+    <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
