@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Medibooks</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* Additional styling */
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+      margin-bottom: 20px;
+    }
+
+    .profile-container {
+      margin-top: 20px;
+    }
+
+    .profile-info {
+      margin-bottom: 20px;
+    }
+
+    .profile-info h4 {
+      margin-bottom: 10px;
+    }
+
+    .edit-button {
+      margin-top: 20px;
+    }
+
+    .modal-content {
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="home.html">Medibooks</a>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="home.html">Home</a>
+        <a class="nav-link" href="my-bookings.html">My Bookings</a>
+        <a class="nav-link active" href="profile.html">Profile</a>
+        <a class="nav-link" href="logout.html">LogOut</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Container -->
+  <div class="container profile-container">
+    <h2>Profile</h2>
+
+    <div class="profile-info">
+      <h4>User Details</h4>
+      <p><strong>Name:</strong> <span id="user-name">John Doe</span></p>
+      <p><strong>Email:</strong> <span id="user-email">johndoe@example.com</span></p>
+      <p><strong>Phone:</strong> <span id="user-phone">123-456-7890</span></p>
+
+      <button class="btn btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+    </div>
+
+    <div>
+      <a href="my-booking.html" class="btn btn-link">View My Bookings</a>
+    </div>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Edit Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editProfileForm">
+            <div class="mb-3">
+              <label for="edit-name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="edit-name" value="John Doe">
+            </div>
+            <div class="mb-3">
+              <label for="edit-phone" class="form-label">Phone</label>
+              <input type="text" class="form-control" id="edit-phone" value="123-456-7890">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS & Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+  <script>
+    // Function to save the updated profile
+    function saveProfile() {
+      const name = document.getElementById('edit-name').value;
+      const phone = document.getElementById('edit-phone').value;
+
+      // Save the updated name and phone to the profile
+      document.getElementById('user-name').textContent = name;
+      document.getElementById('user-phone').textContent = phone;
+
+      // Close the modal
+      const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+      editModal.hide();
+      
+      // Optional: Show a confirmation message (alert, toast, etc.)
+      alert("Profile updated successfully!");
+    }
+  </script>
+
+</body>
+
+</html>
