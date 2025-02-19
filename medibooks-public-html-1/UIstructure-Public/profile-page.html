@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,39 +7,27 @@
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
+  
   <style>
     /* Additional styling */
     body {
       font-family: Arial, sans-serif;
     }
-
-    .navbar {
-      margin-bottom: 20px;
+    .container {
+      max-width: 600px;
+      margin-top: 50px;
     }
-
-    .profile-container {
-      margin-top: 20px;
-    }
-
-    .profile-info {
-      margin-bottom: 20px;
-    }
-
-    .profile-info h4 {
-      margin-bottom: 10px;
-    }
-
-    .edit-button {
-      margin-top: 20px;
-    }
-
-    .modal-content {
+    .profile-card {
+      background-color: #f9f9f9;
       padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .btn-link {
+      text-decoration: none;
     }
   </style>
 </head>
-
 <body>
 
   <!-- Navbar -->
@@ -49,55 +36,40 @@
       <a class="navbar-brand" href="home.html">Medibooks</a>
       <div class="navbar-nav ms-auto">
         <a class="nav-link" href="home.html">Home</a>
-        <a class="nav-link" href="my-bookings.html">My Bookings</a>
-        <a class="nav-link active" href="profile.html">Profile</a>
+        <a class="nav-link" href="doctor-profile.html">Profile</a>
+        <a class="nav-link" href="my-booking.html">My Bookings</a>
         <a class="nav-link" href="logout.html">LogOut</a>
       </div>
     </div>
   </div>
 
-  <!-- Profile Container -->
-  <div class="container profile-container">
-    <h2>Profile</h2>
-
-    <div class="profile-info">
-      <h4>User Details</h4>
-      <p><strong>Name:</strong> <span id="user-name">John Doe</span></p>
-      <p><strong>Email:</strong> <span id="user-email">johndoe@example.com</span></p>
-      <p><strong>Phone:</strong> <span id="user-phone">123-456-7890</span></p>
-
-      <button class="btn btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
-    </div>
-
-    <div>
-      <a href="my-booking.html" class="btn btn-link">View My Bookings</a>
-    </div>
-  </div>
-
-  <!-- Edit Profile Modal -->
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Edit Profile</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <!-- Profile Content -->
+  <div class="container">
+    <div class="profile-card">
+      <h2>User Profile</h2>
+      <form id="profile-form">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" value="John Doe" disabled>
         </div>
-        <div class="modal-body">
-          <form id="editProfileForm">
-            <div class="mb-3">
-              <label for="edit-name" class="form-label">Name</label>
-              <input type="text" class="form-control" id="edit-name" value="John Doe">
-            </div>
-            <div class="mb-3">
-              <label for="edit-phone" class="form-label">Phone</label>
-              <input type="text" class="form-control" id="edit-phone" value="123-456-7890">
-            </div>
-          </form>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" value="johndoe@example.com" disabled>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone</label>
+          <input type="text" class="form-control" id="phone" value="+1 234 567 890" disabled>
         </div>
+
+        <!-- Edit, Save Changes, and Close buttons -->
+        <button type="button" class="btn btn-primary" id="editBtn">Edit</button>
+        <button type="button" class="btn btn-success" id="saveBtn" style="display: none;">Save Changes</button>
+        <button type="button" class="btn btn-secondary" id="closeBtn" style="display: none;">Close</button>
+      </form>
+
+      <!-- Link to Booking History -->
+      <div class="mt-4">
+        <a href="my-booking.html" class="btn btn-link">Go to My Bookings</a>
       </div>
     </div>
   </div>
@@ -107,24 +79,64 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
   <script>
-    // Function to save the updated profile
-    function saveProfile() {
-      const name = document.getElementById('edit-name').value;
-      const phone = document.getElementById('edit-phone').value;
+    // Get elements
+    const nameField = document.getElementById('name');
+    const emailField = document.getElementById('email');
+    const phoneField = document.getElementById('phone');
+    const editBtn = document.getElementById('editBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const closeBtn = document.getElementById('closeBtn');
 
-      // Save the updated name and phone to the profile
-      document.getElementById('user-name').textContent = name;
-      document.getElementById('user-phone').textContent = phone;
+    // Store the original data in case user cancels
+    const originalData = {
+      name: nameField.value,
+      email: emailField.value,
+      phone: phoneField.value
+    };
 
-      // Close the modal
-      const editModal = new bootstrap.Modal(document.getElementById('editModal'));
-      editModal.hide();
+    // Enable fields for editing
+    editBtn.addEventListener('click', function () {
+      nameField.disabled = false;
+      phoneField.disabled = false;
       
-      // Optional: Show a confirmation message (alert, toast, etc.)
-      alert("Profile updated successfully!");
-    }
+      // Show save and close buttons, hide edit
+      editBtn.style.display = 'none';
+      saveBtn.style.display = 'inline-block';
+      closeBtn.style.display = 'inline-block';
+    });
+
+    // Save changes to fields
+    saveBtn.addEventListener('click', function () {
+      // Simulate saving the data (here, you could call an API to save the changes)
+      alert('Changes saved successfully!');
+      
+      // After saving, disable the fields again
+      nameField.disabled = true;
+      phoneField.disabled = true;
+      
+      // Hide save and close buttons, show edit
+      saveBtn.style.display = 'none';
+      closeBtn.style.display = 'none';
+      editBtn.style.display = 'inline-block';
+    });
+
+    // Close the edit form without saving changes
+    closeBtn.addEventListener('click', function () {
+      // Revert to original data
+      nameField.value = originalData.name;
+      emailField.value = originalData.email;
+      phoneField.value = originalData.phone;
+
+      // Disable fields again
+      nameField.disabled = true;
+      phoneField.disabled = true;
+      
+      // Hide save and close buttons, show edit
+      saveBtn.style.display = 'none';
+      closeBtn.style.display = 'none';
+      editBtn.style.display = 'inline-block';
+    });
   </script>
 
 </body>
-
 </html>
