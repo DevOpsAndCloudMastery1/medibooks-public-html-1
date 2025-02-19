@@ -32,19 +32,19 @@
             <input type="text" id="experience" required>
 
             <label for="availability">Availability:</label>
-            <select id="availability" required>
+            <select id="availability">
                 <option value="Available">Available</option>
                 <option value="Not Available">Not Available</option>
             </select>
 
             <label for="photo-upload">Doctor Photo:</label>
-            <input type="file" id="photo-upload">
+            <input type="file" id="photo-upload" required>
 
             <button type="submit">Add Doctor</button>
         </form>
 
         <h2>Doctors List</h2>
-        <table id="doctors-table">
+        <table id="doctors-list">
             <thead>
                 <tr>
                     <th>Doctor Name</th>
@@ -53,191 +53,95 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody id="doctor-list">
-                <!-- List of Doctors added dynamically -->
-                <tr>
-                    <td>
-                        <img src="../images /doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
-                        <h3>Dr. John Smith</h3>
-                        <p>Specialization: Cardiologist</p>
-                        <button onclick="bookAppointment('Dr. John Smith')">Book Appointment</button>
-                        <a href="#doctor1">More Details</a>
-                        <br>
-                        <a href="doctor-reviews.html?doctor=Dr.%20John%20Smith">Reviews</a>
-                    </td>
-                    <td>Cardiologist</td>
-                    <td>10 years</td>
-                    <td>
-                        <button onclick="editDoctor('Dr. John Smith')">Edit</button>
-                        <button onclick="deleteDoctor('Dr. John Smith')">Delete</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <img src="../images /doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
-                        <h3>Dr. Emma Davis</h3>
-                        <p>Specialization: Neurologist</p>
-                        <button onclick="bookAppointment('Dr. Emma Davis')">Book Appointment</button>
-                        <a href="#doctor2">More Details</a>
-                        <br>
-                        <a href="doctor-reviews.html?doctor=Dr.%20Emma%20Davis">Reviews</a>
-                    </td>
-                    <td>Neurologist</td>
-                    <td>12 years</td>
-                    <td>
-                        <button onclick="editDoctor('Dr. Emma Davis')">Edit</button>
-                        <button onclick="deleteDoctor('Dr. Emma Davis')">Delete</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <img src="../images /doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
-                        <h3>Dr. Michael Brown</h3>
-                        <p>Specialization: Pediatrician</p>
-                        <button onclick="bookAppointment('Dr. Michael Brown')">Book Appointment</button>
-                        <a href="#doctor3">More Details</a>
-                        <br>
-                        <a href="doctor-reviews.html?doctor=Dr.%20Michael%20Brown">Reviews</a>
-                    </td>
-                    <td>Pediatrician</td>
-                    <td>8 years</td>
-                    <td>
-                        <button onclick="editDoctor('Dr. Michael Brown')">Edit</button>
-                        <button onclick="deleteDoctor('Dr. Michael Brown')">Delete</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <img src="../images /doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
-                        <h3>Dr. Olivia Wilson</h3>
-                        <p>Specialization: Orthopedic Surgeon</p>
-                        <button onclick="bookAppointment('Dr. Olivia Wilson')">Book Appointment</button>
-                        <a href="#doctor4">More Details</a>
-                        <br>
-                        <a href="doctor-reviews.html?doctor=Dr.%20Olivia%20Wilson">Reviews</a>
-                    </td>
-                    <td>Orthopedic Surgeon</td>
-                    <td>15 years</td>
-                    <td>
-                        <button onclick="editDoctor('Dr. Olivia Wilson')">Edit</button>
-                        <button onclick="deleteDoctor('Dr. Olivia Wilson')">Delete</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <img src="../images /doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
-                        <h3>Dr. Liam Johnson</h3>
-                        <p>Specialization: Dermatologist</p>
-                        <button onclick="bookAppointment('Dr. Liam Johnson')">Book Appointment</button>
-                        <a href="#doctor5">More Details</a>
-                        <br>
-                        <a href="doctor-reviews.html?doctor=Dr.%20Liam%20Johnson">Reviews</a>
-                    </td>
-                    <td>Dermatologist</td>
-                    <td>7 years</td>
-                    <td>
-                        <button onclick="editDoctor('Dr. Liam Johnson')">Edit</button>
-                        <button onclick="deleteDoctor('Dr. Liam Johnson')">Delete</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <img src="../images /doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
-                        <h3>Dr. Sophia Martinez</h3>
-                        <p>Specialization: Gynecologist</p>
-                        <button onclick="bookAppointment('Dr. Sophia Martinez')">Book Appointment</button>
-                        <a href="#doctor6">More Details</a>
-                        <br>
-                        <a href="doctor-reviews.html?doctor=Dr.%20Sophia%20Martinez">Reviews</a>
-                    </td>
-                    <td>Gynecologist</td>
-                    <td>9 years</td>
-                    <td>
-                        <button onclick="editDoctor('Dr. Sophia Martinez')">Edit</button>
-                        <button onclick="deleteDoctor('Dr. Sophia Martinez')">Delete</button>
-                    </td>
-                </tr>
+            <tbody id="doctor-table-body">
+                <!-- Doctors list will be dynamically populated here -->
             </tbody>
         </table>
     </div>
 
     <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Add Doctor functionality
-        document.getElementById("add-doctor-form").addEventListener("submit", function(e) {
-            e.preventDefault();
+        // Initial doctors data
+        let doctors = [
+            { name: "Dr. John Smith", specialization: "Cardiologist", experience: "10 years", availability: "Available", photo: "../images /doctor1.jpg" },
+            { name: "Dr. Emma Davis", specialization: "Neurologist", experience: "12 years", availability: "Not Available", photo: "../images /doctor2.jpg" },
+            { name: "Dr. Michael Brown", specialization: "Pediatrician", experience: "8 years", availability: "Available", photo: "../images /doctor3.jpg" },
+            { name: "Dr. Olivia Wilson", specialization: "Orthopedic Surgeon", experience: "15 years", availability: "Available", photo: "../images /doctor4.jpg" },
+            { name: "Dr. Liam Johnson", specialization: "Dermatologist", experience: "7 years", availability: "Not Available", photo: "../images /doctor5.jpg" },
+            { name: "Dr. Sophia Martinez", specialization: "Gynecologist", experience: "9 years", availability: "Available", photo: "../images /doctor6.jpg" }
+        ];
 
-            const doctorName = document.getElementById("doctor-name").value;
-            const specialization = document.getElementById("specialization").value;
-            const experience = document.getElementById("experience").value;
-            const availability = document.getElementById("availability").value;
-            const doctorTable = document.getElementById("doctor-list");
-
-            // Add new doctor to the list
-            const newRow = document.createElement("tr");
-            newRow.innerHTML = `
-                <td>
-                    <img src="../images /doctor1.jpg" alt="Doctor Image" class="doctor-photo">
-                    <h3>${doctorName}</h3>
-                    <p>Specialization: ${specialization}</p>
-                    <button onclick="bookAppointment('${doctorName}')">Book Appointment</button>
-                    <a href="#doctor1">More Details</a>
-                    <br>
-                    <a href="doctor-reviews.html?doctor=${doctorName}">Reviews</a>
-                </td>
-                <td>${specialization}</td>
-                <td>${experience} years</td>
-                <td>
-                    <button onclick="editDoctor('${doctorName}')">Edit</button>
-                    <button onclick="deleteDoctor('${doctorName}')">Delete</button>
-                </td>
-            `;
-
-            doctorTable.appendChild(newRow);
-
-            // Reset the form fields
-            document.getElementById("add-doctor-form").reset();
-        });
-
-        // Edit Doctor functionality
-        function editDoctor(doctorName) {
-            const row = Array.from(document.querySelectorAll("#doctor-list tr")).find(row => {
-                return row.querySelector("h3").textContent === doctorName;
+        // Function to display the doctor list
+        function displayDoctors() {
+            const tableBody = document.getElementById('doctor-table-body');
+            tableBody.innerHTML = ''; // Clear current list
+            doctors.forEach((doctor, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><img src="${doctor.photo}" alt="${doctor.name}" class="doctor-photo"> <h3>${doctor.name}</h3><p>Specialization: ${doctor.specialization}</p></td>
+                    <td>${doctor.specialization}</td>
+                    <td>${doctor.experience}</td>
+                    <td>
+                        <button onclick="editDoctor(${index})">Edit</button>
+                        <button onclick="deleteDoctor(${index})">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
             });
-
-            const doctorNameInput = document.getElementById("doctor-name");
-            const specializationInput = document.getElementById("specialization");
-            const experienceInput = document.getElementById("experience");
-            const availabilityInput = document.getElementById("availability");
-
-            doctorNameInput.value = row.querySelector("h3").textContent;
-            specializationInput.value = row.querySelector("p").textContent.split(":")[1].trim();
-            experienceInput.value = row.querySelector("td:nth-child(2)").textContent.trim();
-            availabilityInput.value = row.querySelector("p").textContent.includes("Available") ? "Available" : "Not Available";
-
-            row.remove();
         }
 
-        // Delete Doctor functionality
-        function deleteDoctor(doctorName) {
-            const row = Array.from(document.querySelectorAll("#doctor-list tr")).find(row => {
-                return row.querySelector("h3").textContent === doctorName;
-            });
+        // Function to add a doctor
+        function addDoctor(event) {
+            event.preventDefault(); // Prevent form submission
+            const name = document.getElementById('doctor-name').value;
+            const specialization = document.getElementById('specialization').value;
+            const experience = document.getElementById('experience').value;
+            const availability = document.getElementById('availability').value;
+            const photo = document.getElementById('photo-upload').files[0];
 
-            if (row) {
-                row.remove(); // Remove the row from the table
+            if (name && specialization && experience && availability && photo) {
+                // Create a new doctor object and add it to the doctors list
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    doctors.push({
+                        name,
+                        specialization,
+                        experience,
+                        availability,
+                        photo: e.target.result
+                    });
+                    displayDoctors(); // Refresh the list
+                };
+                reader.readAsDataURL(photo);
+            } else {
+                alert("Please fill out all fields");
             }
         }
 
-        // Book Appointment functionality
-        function bookAppointment(doctorName) {
-            window.location.href = `appointments.html?doctor=${doctorName}`;
+        // Function to edit doctor
+        function editDoctor(index) {
+            const doctor = doctors[index];
+            const newName = prompt("Edit Doctor Name:", doctor.name);
+            if (newName !== null && newName !== "") {
+                doctor.name = newName;
+                displayDoctors(); // Refresh the list after edit
+            }
         }
+
+        // Function to delete doctor
+        function deleteDoctor(index) {
+            if (confirm("Are you sure you want to delete this doctor?")) {
+                doctors.splice(index, 1); // Remove the doctor from the array
+                displayDoctors(); // Refresh the list after delete
+            }
+        }
+
+        // Event listener for the form submission
+        const form = document.getElementById('add-doctor-form');
+        form.addEventListener('submit', addDoctor);
+
+        // Display initial list of doctors
+        displayDoctors();
     </script>
 </body>
 </html>
