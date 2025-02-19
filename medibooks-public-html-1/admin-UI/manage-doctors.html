@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Doctors - Medibooks</title>
+    <link href="../styles/medibooks-styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="admin-dashboard.html">Dashboard</a></li>
+            <li><a href="manage-appointments.html">Appointments</a></li>
+            <li><a href="manage-doctors.html">Doctors</a></li>
+            <li><a href="manage-users.html">Users</a></li>
+            <li><a href="reports.html">Reports</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <h1>Manage Doctors</h1>
+
+        <!-- Add Doctor Form -->
+        <form id="add-doctor-form">
+            <label for="doctor-name">Doctor Name:</label>
+            <input type="text" id="doctor-name" required>
+
+            <label for="specialization">Specialization:</label>
+            <input type="text" id="specialization" required>
+
+            <label for="experience">Experience:</label>
+            <input type="text" id="experience" required>
+
+            <label for="availability">Availability:</label>
+            <input type="text" id="availability" required>
+
+            <label for="photo-upload">Doctor Photo:</label>
+            <input type="file" id="photo-upload">
+
+            <button type="submit">Add Doctor</button>
+        </form>
+
+        <h2>Doctors List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Doctor Name</th>
+                    <th>Specialization</th>
+                    <th>Experience</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dr. John Smith -->
+                <tr>
+                    <td>
+                        <img src="../images /doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
+                        <h3>Dr. John Smith</h3>
+                        <p>Specialization: Cardiologist</p>
+                        <button onclick="bookAppointment('Dr. John Smith')">Book Appointment</button>
+                        <a href="#doctor1">More Details</a>
+                        <br>
+                        <a href="doctor-reviews.html?doctor=Dr.%20John%20Smith">Reviews</a>
+                    </td>
+                    <td>Cardiologist</td>
+                    <td>10 years</td>
+                    <td>
+                        <button onclick="editDoctor('Dr. John Smith')">Edit</button>
+                        <button onclick="deleteDoctor('Dr. John Smith')">Delete</button>
+                    </td>
+                </tr>
+
+                <!-- Dr. Emma Davis -->
+                <tr>
+                    <td>
+                        <img src="../images /doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
+                        <h3>Dr. Emma Davis</h3>
+                        <p>Specialization: Neurologist</p>
+                        <button onclick="bookAppointment('Dr. Emma Davis')">Book Appointment</button>
+                        <a href="#doctor2">More Details</a>
+                        <br>
+                        <a href="doctor-reviews.html?doctor=Dr.%20Emma%20Davis">Reviews</a>
+                    </td>
+                    <td>Neurologist</td>
+                    <td>12 years</td>
+                    <td>
+                        <button onclick="editDoctor('Dr. Emma Davis')">Edit</button>
+                        <button onclick="deleteDoctor('Dr. Emma Davis')">Delete</button>
+                    </td>
+                </tr>
+
+                <!-- Dr. Michael Brown -->
+                <tr>
+                    <td>
+                        <img src="../images /doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
+                        <h3>Dr. Michael Brown</h3>
+                        <p>Specialization: Pediatrician</p>
+                        <button onclick="bookAppointment('Dr. Michael Brown')">Book Appointment</button>
+                        <a href="#doctor3">More Details</a>
+                        <br>
+                        <a href="doctor-reviews.html?doctor=Dr.%20Michael%20Brown">Reviews</a>
+                    </td>
+                    <td>Pediatrician</td>
+                    <td>8 years</td>
+                    <td>
+                        <button onclick="editDoctor('Dr. Michael Brown')">Edit</button>
+                        <button onclick="deleteDoctor('Dr. Michael Brown')">Delete</button>
+                    </td>
+                </tr>
+
+                <!-- Dr. Olivia Wilson -->
+                <tr>
+                    <td>
+                        <img src="../images /doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
+                        <h3>Dr. Olivia Wilson</h3>
+                        <p>Specialization: Orthopedic Surgeon</p>
+                        <button onclick="bookAppointment('Dr. Olivia Wilson')">Book Appointment</button>
+                        <a href="#doctor4">More Details</a>
+                        <br>
+                        <a href="doctor-reviews.html?doctor=Dr.%20Olivia%20Wilson">Reviews</a>
+                    </td>
+                    <td>Orthopedic Surgeon</td>
+                    <td>15 years</td>
+                    <td>
+                        <button onclick="editDoctor('Dr. Olivia Wilson')">Edit</button>
+                        <button onclick="deleteDoctor('Dr. Olivia Wilson')">Delete</button>
+                    </td>
+                </tr>
+
+                <!-- Dr. Liam Johnson -->
+                <tr>
+                    <td>
+                        <img src="../images /doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
+                        <h3>Dr. Liam Johnson</h3>
+                        <p>Specialization: Dermatologist</p>
+                        <button onclick="bookAppointment('Dr. Liam Johnson')">Book Appointment</button>
+                        <a href="#doctor5">More Details</a>
+                        <br>
+                        <a href="doctor-reviews.html?doctor=Dr.%20Liam%20Johnson">Reviews</a>
+                    </td>
+                    <td>Dermatologist</td>
+                    <td>7 years</td>
+                    <td>
+                        <button onclick="editDoctor('Dr. Liam Johnson')">Edit</button>
+                        <button onclick="deleteDoctor('Dr. Liam Johnson')">Delete</button>
+                    </td>
+                </tr>
+
+                <!-- Dr. Sophia Martinez -->
+                <tr>
+                    <td>
+                        <img src="../images /doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
+                        <h3>Dr. Sophia Martinez</h3>
+                        <p>Specialization: Gynecologist</p>
+                        <button onclick="bookAppointment('Dr. Sophia Martinez')">Book Appointment</button>
+                        <a href="#doctor6">More Details</a>
+                        <br>
+                        <a href="doctor-reviews.html?doctor=Dr.%20Sophia%20Martinez">Reviews</a>
+                    </td>
+                    <td>Gynecologist</td>
+                    <td>9 years</td>
+                    <td>
+                        <button onclick="editDoctor('Dr. Sophia Martinez')">Edit</button>
+                        <button onclick="deleteDoctor('Dr. Sophia Martinez')">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Placeholder functions for booking appointment, editing, and deleting doctors
+        function bookAppointment(doctorName) {
+            alert('Appointment booked with ' + doctorName);
+        }
+
+        function editDoctor(doctorName) {
+            alert('Edit functionality for ' + doctorName);
+        }
+
+        function deleteDoctor(doctorName) {
+            alert('Delete functionality for ' + doctorName);
+        }
+    </script>
+</body>
+</html>
