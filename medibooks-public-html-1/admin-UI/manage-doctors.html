@@ -111,6 +111,12 @@
                         photo: e.target.result
                     });
                     displayDoctors(); // Refresh the list
+
+                    // Clear form fields
+                    document.getElementById('add-doctor-form').reset();
+
+                    // Show confirmation popup
+                    alert("Doctor added successfully!");
                 };
                 reader.readAsDataURL(photo);
             } else {
@@ -121,10 +127,29 @@
         // Function to edit doctor
         function editDoctor(index) {
             const doctor = doctors[index];
+
+            // Prompt for all the details
             const newName = prompt("Edit Doctor Name:", doctor.name);
-            if (newName !== null && newName !== "") {
+            const newSpecialization = prompt("Edit Specialization:", doctor.specialization);
+            const newExperience = prompt("Edit Experience:", doctor.experience);
+            const newAvailability = prompt("Edit Availability (Available/Not Available):", doctor.availability);
+
+            // Ensure we get valid values
+            if (newName !== null && newName !== "" &&
+                newSpecialization !== null && newSpecialization !== "" &&
+                newExperience !== null && newExperience !== "" &&
+                newAvailability !== null && newAvailability !== "") {
+
+                // Update the doctor's details in the array
                 doctor.name = newName;
-                displayDoctors(); // Refresh the list after edit
+                doctor.specialization = newSpecialization;
+                doctor.experience = newExperience;
+                doctor.availability = newAvailability;
+
+                // Refresh the table to reflect the updated details
+                displayDoctors();
+            } else {
+                alert("All fields must be filled out to edit the doctor.");
             }
         }
 
