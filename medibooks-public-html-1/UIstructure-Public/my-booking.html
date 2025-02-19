@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Bookings - Medibooks</title>
   <link rel="stylesheet" href="/styles/medibooks-styles.css">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Datepicker CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -48,12 +54,34 @@
         </div>
       </div>
     </div>
+  </div>
 
+  <!-- Reschedule Modal -->
+  <div class="modal fade" id="rescheduleModal" tabindex="-1" aria-labelledby="rescheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="rescheduleModalLabel">Reschedule Appointment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <label for="newDate">Select New Appointment Date:</label>
+          <input type="text" class="form-control" id="newDate" placeholder="Pick a date" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="saveChangesBtn">Save changes</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Bootstrap JS & Popper -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+  <!-- Bootstrap Datepicker JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 
   <script>
     // Sample data for active and past bookings
@@ -82,7 +110,7 @@
               <p>Appointment Date: ${booking.date}, ${booking.time}</p>
             </div>
             <div>
-              <button class="btn btn-warning" onclick="rescheduleBooking(${booking.id})">Reschedule</button>
+              <button class="btn btn-warning" onclick="showRescheduleModal(${booking.id})">Reschedule</button>
               <button class="btn btn-danger" onclick="cancelBooking(${booking.id})">Cancel</button>
             </div>
           </div>
@@ -110,10 +138,26 @@
       });
     }
 
-    // Reschedule booking function
-    function rescheduleBooking(bookingId) {
-      alert(`Rescheduling booking with ID: ${bookingId}`);
-      // You can implement reschedule functionality here, like opening a form with a new date/time selector
+    // Show reschedule modal with date picker
+    function showRescheduleModal(bookingId) {
+      const booking = activeBookings.find(b => b.id === bookingId);
+      if (booking) {
+        // Set the new date field to the current appointment date
+        const newDateInput = document.getElementById('newDate');
+        newDateInput.value = booking.date;
+
+        // Open the modal
+        const rescheduleModal = new bootstrap.Modal(document.getElementById('rescheduleModal'));
+        rescheduleModal.show();
+
+        // Save button functionality
+        document.getElementById('saveChangesBtn').onclick = function() {
+          booking.date = newDateInput.value; // Update the booking date
+          alert(`Appointment rescheduled to ${booking.date}`);
+          renderBookings(); // Re-render bookings with updated date
+          rescheduleModal.hide(); // Close the modal
+        };
+      }
     }
 
     // Cancel booking function
@@ -121,22 +165,25 @@
       const confirmCancel = confirm("Are you sure you want to cancel this booking?");
       if (confirmCancel) {
         alert(`Booking with ID: ${bookingId} has been cancelled.`);
-        // Here you can implement the backend logic to update the booking status or remove it from the active bookings list.
-        
-        // For now, just removing from the array for demonstration
+        // Remove from active bookings
         const index = activeBookings.findIndex(booking => booking.id === bookingId);
         if (index > -1) {
           activeBookings.splice(index, 1);
         }
-
-        // Re-render the bookings after cancellation
-        renderBookings();
+        renderBookings(); // Re-render bookings after cancellation
       }
     }
 
+    // Initialize datepicker for the new appointment date
+    $(document).ready(function() {
+      $('#newDate').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true
+      });
+    });
+
     // Initial call to render bookings on page load
     window.onload = renderBookings;
-
   </script>
 </body>
 </html>
