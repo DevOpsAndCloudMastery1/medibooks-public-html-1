@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Doctor Profile - Medibooks</title>
   <link rel="stylesheet" href="../styles/medibooks-styles.css">
-  <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
   <!-- Navbar -->
@@ -39,8 +38,8 @@
         <p>⭐⭐⭐⭐</p>
         <!-- Form to submit new reviews -->
         <div class="review-form">
-          <textarea id="review-text-DrJohnSmith" placeholder="Write your review..." rows="4"></textarea>
-          <button onclick="submitReview('John Smith')">Submit Review</button>
+          <textarea placeholder="Write your review..." rows="4"></textarea>
+          <button onclick="submitReview(1)">Submit Review</button>
         </div>
       </div>
 
@@ -49,7 +48,9 @@
       <div class="calendar-view">
         <p>Select a date and time for your appointment:</p>
         <!-- Placeholder calendar view (can be replaced with a JS calendar) -->
-        <input type="date" id="appointment-date" class="form-control" />
+        <div class="calendar">
+          <input type="date" id="appointmentDate1">
+        </div>
       </div>
 
       <button class="book-appointment-btn" onclick="bookAppointment(1)">Book Appointment</button>
@@ -58,6 +59,7 @@
 
   <!-- Doctor Listings (Grid) Section -->
   <div class="doctor-list">
+    <!-- Repeat the same for each doctor -->
     <div class="doctor-card">
       <img src="../images /doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
       <h3>Dr. John Smith</h3>
@@ -131,25 +133,28 @@
     </div>
   </div>
 
-  <!-- Script Section -->
   <script>
-    // Handle review submission
-    function submitReview(doctorName) {
-      const reviewText = document.getElementById(`review-text-${doctorName}`).value;
-      if (reviewText.trim() !== '') {
-        alert(`Review for Dr. ${doctorName} submitted: ${reviewText}`);
-        document.getElementById(`review-text-${doctorName}`).value = ''; // Clear the textarea
+    function submitReview(doctorId) {
+      const reviewText = document.querySelector(`#review-text-${doctorId}`).value;
+      if (reviewText) {
+        alert(`Review submitted for Doctor ${doctorId}: ${reviewText}`);
+        // Add logic to submit the review (e.g., send to backend server)
       } else {
-        alert('Please write a review before submitting.');
+        alert("Please write a review before submitting.");
       }
     }
 
-    // Handle booking appointment
     function bookAppointment(doctorId) {
-      // Placeholder for booking functionality
-      alert(`Appointment booked with doctor ID: ${doctorId}`);
-      window.location.href = `booking.html?doctorId=${doctorId}`; // Redirect to booking page
+      const appointmentDate = document.getElementById(`appointmentDate${doctorId}`).value;
+      if (appointmentDate) {
+        alert(`Appointment booked for Doctor ${doctorId} on ${appointmentDate}`);
+        // Add logic to send appointment details to server
+      } else {
+        alert("Please select a date for your appointment.");
+      }
     }
   </script>
+
+  <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
