@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,8 +25,10 @@
       margin-top: 10px;
     }
 
+    .calendar-container select,
     .calendar-container input {
       padding: 5px;
+      margin-top: 10px;
     }
 
     .tab-content {
@@ -56,12 +57,10 @@
     <!-- Tabs for Active and Past bookings -->
     <ul class="nav nav-tabs" id="bookingTabs" role="tablist">
       <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="active-tab" data-bs-toggle="tab" href="#active" role="tab"
-          aria-controls="active" aria-selected="true">Active Bookings</a>
+        <a class="nav-link active" id="active-tab" data-bs-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Active Bookings</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link" id="past-tab" data-bs-toggle="tab" href="#past" role="tab" aria-controls="past"
-          aria-selected="false">Past Bookings</a>
+        <a class="nav-link" id="past-tab" data-bs-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="false">Past Bookings</a>
       </li>
     </ul>
 
@@ -142,15 +141,27 @@
       });
     }
 
-    // Open calendar to reschedule booking
+    // Open calendar to reschedule booking with time slots
     function openReschedule(bookingId) {
+      const booking = activeBookings.find(b => b.id === bookingId);
       const calendarContainer = document.createElement('div');
       calendarContainer.classList.add('calendar-container');
+      
+      // Time slots available for rescheduling (for example)
+      const timeSlots = ['10:00 AM', '11:00 AM', '1:00 PM', '2:00 PM'];
+
+      let timeOptions = timeSlots.map(time => `<option value="${time}">${time}</option>`).join('');
+      
       calendarContainer.innerHTML = `
         <label for="new-date">Select new date:</label>
-        <input type="date" id="new-date">
-        <button class="btn btn-primary mt-2" onclick="confirmReschedule(${bookingId})">Confirm</button>
+        <input type="date" id="new-date" value="${booking.date}">
+        <label for="new-time">Select time:</label>
+        <select id="new-time">
+          ${timeOptions}
+        </select>
+        <button class="btn btn-primary mt-2" onclick="confirmReschedule(${booking.id})">Confirm Reschedule</button>
       `;
+
       document.body.appendChild(calendarContainer);
       calendarContainer.style.display = 'block';
     }
@@ -158,12 +169,18 @@
     // Confirm reschedule booking
     function confirmReschedule(bookingId) {
       const newDate = document.getElementById('new-date').value;
-      if (newDate) {
-        alert(`Booking with ID: ${bookingId} rescheduled to ${newDate}`);
-        // Here you can update the booking date in the activeBookings array if needed
-        document.querySelector('.calendar-container').remove(); // Hide the calendar
+      const newTime = document.getElementById('new-time').value;
+
+      if (newDate && newTime) {
+        const booking = activeBookings.find(b => b.id === bookingId);
+        booking.date = newDate;
+        booking.time = newTime;
+
+        alert(`Booking with ID: ${bookingId} rescheduled to ${newDate} at ${newTime}`);
+        renderBookings(); // Re-render bookings after rescheduling
+        document.querySelector('.calendar-container').remove(); // Remove calendar container
       } else {
-        alert('Please select a date.');
+        alert('Please select both a date and a time.');
       }
     }
 
@@ -172,9 +189,8 @@
       const confirmCancel = confirm("Are you sure you want to cancel this booking?");
       if (confirmCancel) {
         alert(`Booking with ID: ${bookingId} has been cancelled.`);
-        // Here you can implement the backend logic to update the booking status or remove it from the active bookings list.
         
-        // For now, just removing from the array for demonstration
+        // Remove from the active bookings list for demonstration
         const index = activeBookings.findIndex(booking => booking.id === bookingId);
         if (index > -1) {
           activeBookings.splice(index, 1);
@@ -187,8 +203,7 @@
 
     // Initial call to render bookings on page load
     window.onload = renderBookings;
+
   </script>
-
 </body>
-
 </html>
