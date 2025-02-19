@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <link rel="stylesheet" href="/styles/medibooks-styles.css">
-  <script src="/js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="../styles/medibooks-styles.css">
+  <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -28,6 +28,14 @@
       color: white;
       text-decoration: none;
       margin: 0 10px;
+    }
+    .navbar img {
+      width: 40px; /* Adjust size of the logo */
+    }
+    .navbar .brand-name {
+      font-size: 24px;
+      font-weight: bold;
+      margin-left: 10px;
     }
     .welcome-section {
       text-align: center;
@@ -77,9 +85,14 @@
 </head>
 <body>
   <div class="navbar">
-    <div>Medibooks</div>
+    <a href="home.html">
+      <img src="../images /MediBooks-Logo-1.png" alt="Medibooks Logo">
+    </a>
+    <div class="brand-name">
+      Medibooks
+    </div>
     <div>
-      <a href="home.html">home</a>
+      <a href="home.html">Home</a>
       <a href="my-booking.html">My Bookings</a>
       <a href="profile-page.html">Profile</a>
       <a href="logout.html">LogOut</a>
