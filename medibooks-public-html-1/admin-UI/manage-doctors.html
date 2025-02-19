@@ -32,7 +32,10 @@
             <input type="text" id="experience" required>
 
             <label for="availability">Availability:</label>
-            <input type="text" id="availability" required>
+            <select id="availability" required>
+                <option value="Available">Available</option>
+                <option value="Not Available">Not Available</option>
+            </select>
 
             <label for="photo-upload">Doctor Photo:</label>
             <input type="file" id="photo-upload">
@@ -51,7 +54,7 @@
                 </tr>
             </thead>
             <tbody id="doctor-list">
-                <!-- Dr. John Smith -->
+                <!-- List of Doctors added dynamically -->
                 <tr>
                     <td>
                         <img src="../images /doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
@@ -70,7 +73,6 @@
                     </td>
                 </tr>
 
-                <!-- Dr. Emma Davis -->
                 <tr>
                     <td>
                         <img src="../images /doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
@@ -89,7 +91,6 @@
                     </td>
                 </tr>
 
-                <!-- Dr. Michael Brown -->
                 <tr>
                     <td>
                         <img src="../images /doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
@@ -108,7 +109,6 @@
                     </td>
                 </tr>
 
-                <!-- Dr. Olivia Wilson -->
                 <tr>
                     <td>
                         <img src="../images /doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
@@ -127,7 +127,6 @@
                     </td>
                 </tr>
 
-                <!-- Dr. Liam Johnson -->
                 <tr>
                     <td>
                         <img src="../images /doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
@@ -146,7 +145,6 @@
                     </td>
                 </tr>
 
-                <!-- Dr. Sophia Martinez -->
                 <tr>
                     <td>
                         <img src="../images /doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
@@ -170,17 +168,75 @@
 
     <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Placeholder functions for booking appointment, editing, and deleting doctors
-        function bookAppointment(doctorName) {
-            alert('Appointment booked with ' + doctorName);
-        }
+        // Add Doctor functionality
+        document.getElementById("add-doctor-form").addEventListener("submit", function(e) {
+            e.preventDefault();
 
+            const doctorName = document.getElementById("doctor-name").value;
+            const specialization = document.getElementById("specialization").value;
+            const experience = document.getElementById("experience").value;
+            const availability = document.getElementById("availability").value;
+            const doctorTable = document.getElementById("doctor-list");
+
+            // Add new doctor to the list
+            const newRow = document.createElement("tr");
+            newRow.innerHTML = `
+                <td>
+                    <img src="../images /doctor1.jpg" alt="Doctor Image" class="doctor-photo">
+                    <h3>${doctorName}</h3>
+                    <p>Specialization: ${specialization}</p>
+                    <button onclick="bookAppointment('${doctorName}')">Book Appointment</button>
+                    <a href="#doctor1">More Details</a>
+                    <br>
+                    <a href="doctor-reviews.html?doctor=${doctorName}">Reviews</a>
+                </td>
+                <td>${specialization}</td>
+                <td>${experience} years</td>
+                <td>
+                    <button onclick="editDoctor('${doctorName}')">Edit</button>
+                    <button onclick="deleteDoctor('${doctorName}')">Delete</button>
+                </td>
+            `;
+
+            doctorTable.appendChild(newRow);
+
+            // Reset the form fields
+            document.getElementById("add-doctor-form").reset();
+        });
+
+        // Edit Doctor functionality
         function editDoctor(doctorName) {
-            alert('Edit functionality for ' + doctorName);
+            const row = Array.from(document.querySelectorAll("#doctor-list tr")).find(row => {
+                return row.querySelector("h3").textContent === doctorName;
+            });
+
+            const doctorNameInput = document.getElementById("doctor-name");
+            const specializationInput = document.getElementById("specialization");
+            const experienceInput = document.getElementById("experience");
+            const availabilityInput = document.getElementById("availability");
+
+            doctorNameInput.value = row.querySelector("h3").textContent;
+            specializationInput.value = row.querySelector("p").textContent.split(":")[1].trim();
+            experienceInput.value = row.querySelector("td:nth-child(2)").textContent.trim();
+            availabilityInput.value = row.querySelector("p").textContent.includes("Available") ? "Available" : "Not Available";
+
+            row.remove();
         }
 
+        // Delete Doctor functionality
         function deleteDoctor(doctorName) {
-            alert('Delete functionality for ' + doctorName);
+            const row = Array.from(document.querySelectorAll("#doctor-list tr")).find(row => {
+                return row.querySelector("h3").textContent === doctorName;
+            });
+
+            if (row) {
+                row.remove(); // Remove the row from the table
+            }
+        }
+
+        // Book Appointment functionality
+        function bookAppointment(doctorName) {
+            window.location.href = `appointments.html?doctor=${doctorName}`;
         }
     </script>
 </body>
