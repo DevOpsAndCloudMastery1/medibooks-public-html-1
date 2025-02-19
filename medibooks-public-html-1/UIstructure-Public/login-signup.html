@@ -12,19 +12,10 @@
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
         }
         .navbar {
             background: linear-gradient(90deg, #2c3e50, #34495e);
             color: white;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            z-index: 10;
         }
         .navbar a {
             color: white;
@@ -56,6 +47,8 @@
             width: 350px;
             text-align: center;
             margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .auth-container img {
             width: 80px;
@@ -90,13 +83,6 @@
             padding: 15px 0;
             margin-top: 20px;
         }
-        .modal-header, .modal-footer {
-            border: none;
-        }
-        .modal-body input {
-            margin: 10px 0;
-            width: 100%;
-        }
     </style>
 </head>
 <body>
@@ -112,57 +98,39 @@
         <!-- Logo -->
         <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo">
 
-        <h2 id="formTitle">Login</h2>
-
         <!-- Login Form -->
-        <form id="loginForm">
-            <label for="loginEmail">Email:</label>
-            <input type="email" id="loginEmail" required placeholder="Enter your email">
+        <div id="loginForm">
+            <h2>Login</h2>
+            <form id="login">
+                <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                <button type="submit">Login</button>
+                <p><a href="javascript:void(0);" id="forgotPassword">Forgot Password?</a></p>
+                <p>Don't have an account? <a href="javascript:void(0);" id="showSignup">Sign Up</a></p>
+            </form>
+        </div>
 
-            <label for="loginPassword">Password:</label>
-            <input type="password" id="loginPassword" required placeholder="Enter your password">
+        <!-- Forgot Password Form -->
+        <div id="forgotPasswordForm" style="display:none;">
+            <h2>Reset Password</h2>
+            <form id="resetPasswordForm">
+                <input type="email" id="resetEmail" placeholder="Enter your email to reset password" required>
+                <button type="submit">Submit</button>
+                <p>Remembered your password? <a href="javascript:void(0);" id="backToLogin">Back to Login</a></p>
+            </form>
+        </div>
 
-            <p><a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</a></p>
-            <button type="submit">Login</button>
-            <p>Don't have an account? <a id="showSignup">Sign Up</a></p>
-        </form>
-
-        <!-- Signup Form (Hidden by Default) -->
-        <form id="signupForm" style="display: none;">
-            <label for="signupName">Name:</label>
-            <input type="text" id="signupName" required placeholder="Enter your name">
-
-            <label for="signupEmail">Email:</label>
-            <input type="email" id="signupEmail" required placeholder="Enter your email">
-
-            <label for="signupPhone">Phone:</label>
-            <input type="tel" id="signupPhone" required placeholder="Enter your phone number">
-
-            <label for="signupPassword">Password:</label>
-            <input type="password" id="signupPassword" required placeholder="Create a password">
-
-            <button type="submit">Sign Up</button>
-            <p>Already have an account? <a id="showLogin">Login</a></p>
-        </form>
-    </div>
-
-    <!-- Forgot Password Modal -->
-    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="forgotPasswordModalLabel">Reset Password</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <label for="resetEmail">Enter your email:</label>
-                    <input type="email" id="resetEmail" class="form-control" required placeholder="Email address">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="resetPasswordBtn">Send Reset Link</button>
-                </div>
-            </div>
+        <!-- SignUp Form (Hidden by Default) -->
+        <div id="signupForm" style="display: none;">
+            <h2>Sign Up</h2>
+            <form id="signup">
+                <input type="text" id="signupName" placeholder="Enter your name" required>
+                <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                <input type="tel" id="signupPhone" placeholder="Enter your phone number" required>
+                <input type="password" id="signupPassword" placeholder="Create a password" required>
+                <button type="submit">Sign Up</button>
+                <p>Already have an account? <a href="javascript:void(0);" id="backToLoginFromSignup">Login</a></p>
+            </form>
         </div>
     </div>
 
@@ -171,68 +139,53 @@
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const loginForm = document.getElementById("loginForm");
-            const signupForm = document.getElementById("signupForm");
-            const formTitle = document.getElementById("formTitle");
+        // Switch between login and signup forms
+        document.getElementById("showSignup").addEventListener("click", function() {
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("signupForm").style.display = "block";
+        });
 
-            // Toggle between forms
-            document.getElementById("showSignup").addEventListener("click", function () {
-                loginForm.style.display = "none";
-                signupForm.style.display = "block";
-                formTitle.textContent = "Sign Up";
-            });
+        document.getElementById("backToLoginFromSignup").addEventListener("click", function() {
+            document.getElementById("signupForm").style.display = "none";
+            document.getElementById("loginForm").style.display = "block";
+        });
 
-            document.getElementById("showLogin").addEventListener("click", function () {
-                signupForm.style.display = "none";
-                loginForm.style.display = "block";
-                formTitle.textContent = "Login";
-            });
+        // Show forgot password form
+        document.getElementById("forgotPassword").addEventListener("click", function() {
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("forgotPasswordForm").style.display = "block";
+        });
 
-            // Login Form Submission
-            loginForm.addEventListener("submit", function (e) {
-                e.preventDefault();
-                const email = document.getElementById("loginEmail").value;
-                const password = document.getElementById("loginPassword").value;
+        // Back to login from forgot password
+        document.getElementById("backToLogin").addEventListener("click", function() {
+            document.getElementById("forgotPasswordForm").style.display = "none";
+            document.getElementById("loginForm").style.display = "block";
+        });
 
-                if (email && password) {
-                    alert("Login successful");
-                    window.location.href = "home.html"; // Redirect after login
-                } else {
-                    alert("Please enter email and password");
-                }
-            });
+        // Handle login submission
+        document.getElementById("login").addEventListener("submit", function(e) {
+            e.preventDefault();
+            alert("Login successful!");
+            window.location.href = "home.html"; // Redirect to homepage
+        });
 
-            // Signup Form Submission
-            signupForm.addEventListener("submit", function (e) {
-                e.preventDefault();
-                const name = document.getElementById("signupName").value;
-                const email = document.getElementById("signupEmail").value;
-                const phone = document.getElementById("signupPhone").value;
-                const password = document.getElementById("signupPassword").value;
+        // Handle password reset form submission
+        document.getElementById("resetPasswordForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const email = document.getElementById("resetEmail").value;
+            if (email) {
+                alert("A password reset link has been sent to your email.");
+                document.getElementById("forgotPasswordForm").style.display = "none";
+                document.getElementById("loginForm").style.display = "block";
+            }
+        });
 
-                if (name && email && phone && password) {
-                    alert("Signup successful! Please login.");
-                    signupForm.style.display = "none";
-                    loginForm.style.display = "block";
-                    formTitle.textContent = "Login";
-                } else {
-                    alert("Please fill all fields.");
-                }
-            });
-
-            // Forgot Password Button Click
-            document.getElementById("resetPasswordBtn").addEventListener("click", function () {
-                const resetEmail = document.getElementById("resetEmail").value;
-
-                if (resetEmail) {
-                    alert("A password reset link has been sent to " + resetEmail);
-                    // Close modal
-                    $('#forgotPasswordModal').modal('hide');
-                } else {
-                    alert("Please enter a valid email.");
-                }
-            });
+        // Handle signup form submission
+        document.getElementById("signup").addEventListener("submit", function(e) {
+            e.preventDefault();
+            alert("Signup successful! Please login.");
+            document.getElementById("signupForm").style.display = "none";
+            document.getElementById("loginForm").style.display = "block";
         });
     </script>
 </body>
