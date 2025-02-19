@@ -187,12 +187,12 @@ body {
     background-position: center;
 }
 
-.doctor1 { background-image: url('/images/doctor1.jpg'); }
-.doctor2 { background-image: url('/images/doctor2.jpg'); }
-.doctor3 { background-image: url('/images/doctor3.jpg'); }
-.doctor4 { background-image: url('/images/doctor4.jpg'); }
-.doctor5 { background-image: url('/images/doctor5.jpg'); }
-.doctor6 { background-image: url('/images/doctor6.jpg'); }
+.doctor1 { background-image: url('../images /doctor1.jpg'); }
+.doctor2 { background-image: url('../images /doctor2.jpg'); }
+.doctor3 { background-image: url('../images /doctor3.jpg'); }
+.doctor4 { background-image: url('../images /doctor4.jpg'); }
+.doctor5 { background-image: url('../images /doctor5.jpg'); }
+.doctor6 { background-image: url('../images /doctor6.jpg'); }
 
 /* Appointment Form Styles */
 .appointment-form {
