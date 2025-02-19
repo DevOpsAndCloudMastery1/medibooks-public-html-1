@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Medibooks</title>
+    <link href="../styles/medibooks-styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="admin-dashboard.html">Dashboard</a></li>
+            <li><a href="manage-appointments.html">Appointments</a></li>
+            <li><a href="manage-doctors.html">Doctors</a></li>
+            <li><a href="manage-users.html">Users</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="admin-login.html" id="logout">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <h1>Admin Dashboard</h1>
+
+        <div class="overview-cards">
+            <div class="card">
+                <h3>Total Appointments</h3>
+                <p id="appointments">120</p>
+            </div>
+            <div class="card">
+                <h3>Total Users</h3>
+                <p id="users">350</p>
+            </div>
+            <div class="card">
+                <h3>Total Doctors</h3>
+                <p id="doctors">45</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
