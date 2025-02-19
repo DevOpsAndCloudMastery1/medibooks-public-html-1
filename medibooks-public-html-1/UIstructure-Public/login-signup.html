@@ -12,10 +12,19 @@
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
             margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
         }
         .navbar {
             background: linear-gradient(90deg, #2c3e50, #34495e);
             color: white;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            z-index: 10;
         }
         .navbar a {
             color: white;
@@ -81,25 +90,12 @@
             padding: 15px 0;
             margin-top: 20px;
         }
-        .doctor-card {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .doctor-card img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-        }
-        .buttons button {
-            background: #007bff;
-            color: white;
+        .modal-header, .modal-footer {
             border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
+        }
+        .modal-body input {
+            margin: 10px 0;
+            width: 100%;
         }
     </style>
 </head>
@@ -109,25 +105,6 @@
             <a class="navbar-brand" href="home.html">
                 <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> MediBooks
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="home.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="my-booking.html">My Bookings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="profile-page.html">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="logout.html">LogOut</a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </nav>
 
@@ -145,7 +122,7 @@
             <label for="loginPassword">Password:</label>
             <input type="password" id="loginPassword" required placeholder="Enter your password">
 
-            <p><a href="#">Forgot Password?</a></p>
+            <p><a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</a></p>
             <button type="submit">Login</button>
             <p>Don't have an account? <a id="showSignup">Sign Up</a></p>
         </form>
@@ -167,6 +144,26 @@
             <button type="submit">Sign Up</button>
             <p>Already have an account? <a id="showLogin">Login</a></p>
         </form>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="forgotPasswordModalLabel">Reset Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="resetEmail">Enter your email:</label>
+                    <input type="email" id="resetEmail" class="form-control" required placeholder="Email address">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="resetPasswordBtn">Send Reset Link</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer>
@@ -221,6 +218,19 @@
                     formTitle.textContent = "Login";
                 } else {
                     alert("Please fill all fields.");
+                }
+            });
+
+            // Forgot Password Button Click
+            document.getElementById("resetPasswordBtn").addEventListener("click", function () {
+                const resetEmail = document.getElementById("resetEmail").value;
+
+                if (resetEmail) {
+                    alert("A password reset link has been sent to " + resetEmail);
+                    // Close modal
+                    $('#forgotPasswordModal').modal('hide');
+                } else {
+                    alert("Please enter a valid email.");
                 }
             });
         });
