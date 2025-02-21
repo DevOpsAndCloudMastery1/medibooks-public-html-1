@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,22 +9,18 @@
     <style>
         body {
             background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
         }
-
-        /* Centering content */
         .main-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            text-align: center;
         }
-
         .logo-container {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             overflow: hidden;
             display: flex;
@@ -34,20 +29,10 @@
             margin-bottom: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
         .logo-container img {
             width: 100%;
             height: auto;
         }
-
-        h1 {
-            color: #007bff;
-            font-size: 2rem;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        /* Form card */
         .form-card {
             width: 100%;
             max-width: 400px;
@@ -56,141 +41,162 @@
             background: #fff;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
         .form-title {
             font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 20px;
             color: #333;
+            text-align: center;
         }
-
         .form-links {
             text-align: center;
             margin-top: 10px;
         }
-
         .form-links a {
             text-decoration: none;
             color: #007bff;
             font-size: 14px;
         }
-
         .form-links a:hover {
             text-decoration: underline;
         }
-
-        /* Button styles */
-        .btn-primary {
-            background: linear-gradient(90deg, #34495e, #2c3e50);
-            border: none;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: background 0.3s, transform 0.2s;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(90deg, #2c3e50, #34495e);
-            transform: scale(1.05);
-        }
     </style>
 </head>
-
 <body>
 
-    <div class="main-container">
-        <div class="logo-container">
-            <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo">
-        </div>
-        <h1>MediBooks</h1>
+<div class="main-container">
+    <div class="logo-container">
+        <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo">
+    </div>
+    <h1>MediBooks</h1>
 
-        <!-- Login Form -->
-        <div id="loginFormContainer" class="form-card">
-            <h2 class="form-title">Welcome to MediBooks</h2>
-            <form id="loginForm" action="home.html" method="post">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Login</button>
-                <div class="form-links">
-                    <a href="forgot-password.html">Forgot Password?</a> | <a href="javascript:void(0);" onclick="showSignUpForm()">Create an Account</a>
-                </div>
-            </form>
-        </div>
-
-        <!-- Sign Up Form (Initially Hidden) -->
-        <div id="signUpFormContainer" class="form-card" style="display:none;">
-            <h2 class="form-title">Create an Account</h2>
-            <form id="signUpForm" action="home.html" method="post">
-                <div class="mb-3">
-                    <label for="fullName" class="form-label">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Enter your full name" required>
-                </div>
-                <div class="mb-3">
-                    <label for="signUpEmail" class="form-label">Email</label>
-                    <input type="email" id="signUpEmail" name="email" class="form-control" placeholder="Enter your email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="signUpPhone" class="form-label">Phone Number</label>
-                    <input type="text" id="signUpPhone" name="phone" class="form-control" placeholder="Enter your phone number" required>
-                </div>
-                <div class="mb-3">
-                    <label for="signUpPassword" class="form-label">Password</label>
-                    <input type="password" id="signUpPassword" name="password" class="form-control" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Sign Up</button>
-                <div class="form-links">
-                    <a href="javascript:void(0);" onclick="showLoginForm()">Already have an account? Login</a>
-                </div>
-            </form>
-        </div>
-
+    <!-- Login Form -->
+    <div id="loginFormContainer" class="form-card">
+        <h2 class="form-title">Welcome to MediBooks</h2>
+        <form id="loginForm" method="post">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <div class="form-links">
+                <a href="javascript:void(0);" onclick="showForgotPasswordPopup()">Forgot Password?</a> | <a href="javascript:void(0);" onclick="showSignUpForm()">Create an Account</a>
+            </div>
+        </form>
     </div>
 
-    <script>
-        // Toggle between Login and Sign Up forms
-        function showSignUpForm() {
-            document.getElementById('loginFormContainer').style.display = 'none';
-            document.getElementById('signUpFormContainer').style.display = 'block';
+    <!-- Sign Up Form (Initially Hidden) -->
+    <div id="signUpFormContainer" class="form-card" style="display:none;">
+        <h2 class="form-title">Create an Account</h2>
+        <form id="signUpForm" action="home.html" method="post">
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Enter your full name" required>
+            </div>
+            <div class="mb-3">
+                <label for="signUpEmail" class="form-label">Email</label>
+                <input type="email" id="signUpEmail" name="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label for="signUpPhone" class="form-label">Phone Number</label>
+                <input type="text" id="signUpPhone" name="phone" class="form-control" placeholder="Enter your phone number" required>
+            </div>
+            <div class="mb-3">
+                <label for="signUpPassword" class="form-label">Password</label>
+                <input type="password" id="signUpPassword" name="password" class="form-control" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+            <div class="form-links">
+                <a href="javascript:void(0);" onclick="showLoginForm()">Already have an account? Login</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Forgot Password Popup (Initially Hidden) -->
+    <div id="forgotPasswordPopup" class="form-card" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; max-width: 400px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h2 class="form-title">Reset Password</h2>
+        <form id="forgotPasswordForm">
+            <div class="mb-3">
+                <label for="forgotEmail" class="form-label">Email</label>
+                <input type="email" id="forgotEmail" name="forgotEmail" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <button type="button" class="btn btn-primary w-100" onclick="resetPassword()">Reset Password</button>
+            <div class="form-links">
+                <a href="javascript:void(0);" onclick="closeForgotPasswordPopup()">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    // Toggle between Login and Sign Up forms
+    function showSignUpForm() {
+        document.getElementById('loginFormContainer').style.display = 'none';
+        document.getElementById('signUpFormContainer').style.display = 'block';
+    }
+
+    function showLoginForm() {
+        document.getElementById('signUpFormContainer').style.display = 'none';
+        document.getElementById('loginFormContainer').style.display = 'block';
+    }
+
+    // Toggle Forgot Password Popup
+    function showForgotPasswordPopup() {
+        document.getElementById('forgotPasswordPopup').style.display = 'block';
+    }
+
+    function closeForgotPasswordPopup() {
+        document.getElementById('forgotPasswordPopup').style.display = 'none';
+    }
+
+    // Reset Password (Temporary Alert for Demo)
+    function resetPassword() {
+        var email = document.getElementById("forgotEmail").value;
+        if (email.trim() === "") {
+            alert("Please enter your email.");
+        } else {
+            alert("Password has been updated.");
+            closeForgotPasswordPopup();
         }
+    }
 
-        function showLoginForm() {
-            document.getElementById('signUpFormContainer').style.display = 'none';
-            document.getElementById('loginFormContainer').style.display = 'block';
+    // JavaScript Form Validation for Login with Hardcoded Credentials
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+
+        // Hardcoded credentials
+        var validEmail = "admin";
+        var validPassword = "admin@123";
+
+        if (email === validEmail && password === validPassword) {
+            alert("Login successful!");
+            // Redirect or proceed to the next page (home.html)
+            window.location.href = "home.html";
+        } else {
+            alert("Invalid credentials. Please try again.");
+            event.preventDefault(); // Stop form submission
         }
+    });
 
-        // JavaScript Form Validation for Login
-        document.getElementById("loginForm").addEventListener("submit", function (event) {
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
+    // JavaScript Form Validation for Sign Up
+    document.getElementById("signUpForm").addEventListener("submit", function(event) {
+        var fullName = document.getElementById("fullName").value;
+        var signUpEmail = document.getElementById("signUpEmail").value;
+        var signUpPhone = document.getElementById("signUpPhone").value;
+        var signUpPassword = document.getElementById("signUpPassword").value;
 
-            if (email.trim() === "" || password.trim() === "") {
-                alert("Please fill in both email and password.");
-                event.preventDefault(); // Stop form submission
-            }
-        });
-
-        // JavaScript Form Validation for Sign Up
-        document.getElementById("signUpForm").addEventListener("submit", function (event) {
-            var fullName = document.getElementById("fullName").value;
-            var signUpEmail = document.getElementById("signUpEmail").value;
-            var signUpPhone = document.getElementById("signUpPhone").value;
-            var signUpPassword = document.getElementById("signUpPassword").value;
-
-            if (fullName.trim() === "" || signUpEmail.trim() === "" || signUpPhone.trim() === "" || signUpPassword.trim() === "") {
-                alert("Please fill in all the fields.");
-                event.preventDefault(); // Stop form submission
-            }
-        });
-    </script>
+        if (fullName.trim() === "" || signUpEmail.trim() === "" || signUpPhone.trim() === "" || signUpPassword.trim() === "") {
+            alert("Please fill in all the fields.");
+            event.preventDefault(); // Stop form submission
+        }
+    });
+</script>
 
 </body>
-
 </html>
