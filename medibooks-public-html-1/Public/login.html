@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - MediBooks</title>
+    <title>MediBooks - Login / Sign Up</title>
     <link href="../styles/medibooks-styles.css" rel="stylesheet">
     <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js" defer></script>
     <style>
@@ -18,22 +18,21 @@
             height: 100vh;
         }
         .logo-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .logo-container img {
-            width: 50px;
+            width: 100%;
             height: auto;
-            margin-right: 10px;
         }
-        .logo-container h1 {
-            font-size: 2rem;
-            color: #007bff;
-            margin: 0;
-        }
-        .login-card {
+        .form-card {
             width: 100%;
             max-width: 400px;
             padding: 30px;
@@ -41,7 +40,7 @@
             background: #fff;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .login-title {
+        .form-title {
             font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 20px;
@@ -63,94 +62,97 @@
     </style>
 </head>
 <body>
+
     <div class="main-container">
         <div class="logo-container">
-            <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> <!-- Fixed Image Path -->
+            <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo">
             <h1>MediBooks</h1>
         </div>
-        <div class="login-card">
-            <h2 class="login-title">Welcome to MediBooks</h2>
-            <form id="loginForm" action="home.html" method="get">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" value="testuser@example.com" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" value="password123" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Login</button>
-                <div class="form-links">
-                    <a href="javascript:void(0);" onclick="showForgotPassword()">Forgot Password?</a> | 
-                    <a href="javascript:void(0);" onclick="showSignUp()">Sign Up</a>
-                </div>
-            </form>
-        </div>
+    </div>
+  
+    <!-- Login Form -->
+    <div id="loginFormContainer" class="form-card">
+        <h2 class="form-title">Welcome to MediBooks</h2>
+        <form id="loginForm" action="home.html" method="post">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <div class="form-links">
+                <a href="forgot-password.html">Forgot Password?</a> | <a href="javascript:void(0);" onclick="showSignUpForm()">Create an Account</a>
+            </div>
+        </form>
     </div>
 
-    <!-- Forgot Password Modal -->
-    <div id="forgotPasswordModal" style="display: none;">
-        <div class="modal-content">
-            <h3>Reset Password</h3>
-            <p>Enter your email to receive a password reset link.</p>
-            <input type="email" id="resetEmail" placeholder="Enter your email">
-            <button onclick="sendPasswordResetLink()">Send Reset Link</button>
-            <button onclick="closeModal()">Cancel</button>
-        </div>
+    <!-- Sign Up Form (Initially Hidden) -->
+    <div id="signUpFormContainer" class="form-card" style="display:none;">
+        <h2 class="form-title">Create an Account</h2>
+        <form id="signUpForm" action="home.html" method="post">
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Enter your full name" required>
+            </div>
+            <div class="mb-3">
+                <label for="signUpEmail" class="form-label">Email</label>
+                <input type="email" id="signUpEmail" name="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label for="signUpPhone" class="form-label">Phone Number</label>
+                <input type="text" id="signUpPhone" name="phone" class="form-control" placeholder="Enter your phone number" required>
+            </div>
+            <div class="mb-3">
+                <label for="signUpPassword" class="form-label">Password</label>
+                <input type="password" id="signUpPassword" name="password" class="form-control" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+            <div class="form-links">
+                <a href="javascript:void(0);" onclick="showLoginForm()">Already have an account? Login</a>
+            </div>
+        </form>
     </div>
+</div>
 
-    <!-- Sign Up Modal -->
-    <div id="signUpModal" style="display: none;">
-        <div class="modal-content">
-            <h3>Sign Up</h3>
-            <form id="signUpForm">
-                <input type="text" id="newName" placeholder="Enter your name" required>
-                <input type="email" id="newEmail" placeholder="Enter your email" required>
-                <input type="password" id="newPassword" placeholder="Enter your password" required>
-                <button type="submit">Sign Up</button>
-            </form>
-            <button onclick="closeModal()">Cancel</button>
-        </div>
-    </div>
+<script>
+    // Toggle between Login and Sign Up forms
+    function showSignUpForm() {
+        document.getElementById('loginFormContainer').style.display = 'none';
+        document.getElementById('signUpFormContainer').style.display = 'block';
+    }
 
-    <script>
-        // Show Forgot Password modal
-        function showForgotPassword() {
-            document.getElementById('forgotPasswordModal').style.display = 'block';
+    function showLoginForm() {
+        document.getElementById('signUpFormContainer').style.display = 'none';
+        document.getElementById('loginFormContainer').style.display = 'block';
+    }
+
+    // JavaScript Form Validation for Login
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+
+        if (email.trim() === "" || password.trim() === "") {
+            alert("Please fill in both email and password.");
+            event.preventDefault(); // Stop form submission
         }
+    });
 
-        // Show Sign Up modal
-        function showSignUp() {
-            document.getElementById('signUpModal').style.display = 'block';
+    // JavaScript Form Validation for Sign Up
+    document.getElementById("signUpForm").addEventListener("submit", function(event) {
+        var fullName = document.getElementById("fullName").value;
+        var signUpEmail = document.getElementById("signUpEmail").value;
+        var signUpPhone = document.getElementById("signUpPhone").value;
+        var signUpPassword = document.getElementById("signUpPassword").value;
+
+        if (fullName.trim() === "" || signUpEmail.trim() === "" || signUpPhone.trim() === "" || signUpPassword.trim() === "") {
+            alert("Please fill in all the fields.");
+            event.preventDefault(); // Stop form submission
         }
+    });
+</script>
 
-        // Close modals
-        function closeModal() {
-            document.getElementById('forgotPasswordModal').style.display = 'none';
-            document.getElementById('signUpModal').style.display = 'none';
-        }
-
-        // Simulate sending password reset link
-        function sendPasswordResetLink() {
-            var email = document.getElementById('resetEmail').value;
-            if (email) {
-                alert("A password reset link has been sent to " + email);
-                closeModal();
-            } else {
-                alert("Please enter your email.");
-            }
-        }
-
-        // JavaScript Form Validation
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
-
-            if (email.trim() === "" || password.trim() === "") {
-                alert("Please fill in both email and password.");
-                event.preventDefault(); // Stop form submission
-            }
-        });
-    </script>
 </body>
 </html>
