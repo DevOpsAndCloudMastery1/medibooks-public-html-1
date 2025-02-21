@@ -7,6 +7,17 @@
     <link href="../styles/medibooks-styles.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Navbar with MediBooks Logo & Name -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="admin-dashboard.html">
+                <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo" class="logo"> 
+                <span class="brand-name">MediBooks</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Sidebar Navigation -->
     <div class="sidebar">
         <ul>
             <li><a href="admin-dashboard.html">Dashboard</a></li>
@@ -14,9 +25,11 @@
             <li><a href="manage-doctors.html">Doctors</a></li>
             <li><a href="manage-users.html">Users</a></li>
             <li><a href="reports.html">Reports</a></li>
+            <li><a href="admin-login.html" id="logout">Logout</a></li>
         </ul>
     </div>
 
+    <!-- Main Content Area -->
     <div class="main-content">
         <h1>Manage Users</h1>
 
@@ -57,10 +70,10 @@
             { name: "John Doe", email: "john.doe@example.com", status: "Active" },
             { name: "Jane Smith", email: "jane.smith@example.com", status: "Inactive" },
             { name: "Mark Johnson", email: "mark.johnson@example.com", status: "Active" },
-            { name: "Olivia Wilson", email: "olivia.wilson@example.com", status: "Inactive" },
-            { name: "Sophia Martinez", email: "sophia.martinez@example.com", status: "Active" }
-        ];
-
+            { name: "Emily Roberts", email: "emily.roberts@example.com", status: "Inactive" },
+            { name: "Daniel Green", email: "daniel.green@example.com", status: "Active" },
+            { name: "Ava Davis", email: "ava.davis@example.com", status: "Inactive" }
+];
         // Function to display the user list based on filters
         function displayUsers() {
             const tableBody = document.getElementById('user-table-body');
