@@ -3,61 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manage Doctors - MediBooks</title>
+  <title>Admin - Manage Doctors</title>
   <link rel="stylesheet" href="../styles/medibooks-styles.css">
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
   <style>
-    /* Customize the button colors for Add, Edit, and Delete */
-    .btn-add, .btn-edit, .btn-delete {
-      background-color: #4CAF50; /* Green for Add */
+    /* Additional styling to match the dark blue and light theme */
+    body {
+      background-color: #f4f4f9;
+    }
+    .navbar {
+      background-color: #003366; /* Dark Blue */
+    }
+    .navbar-brand img {
+      height: 40px;
+    }
+    .navbar-nav .nav-link {
       color: white;
     }
-
-    .btn-edit {
-      background-color: #FFA500; /* Orange for Edit */
+    .navbar-nav .nav-link:hover {
+      color: #ffcc00;
     }
-
-    .btn-delete {
-      background-color: #F44336; /* Red for Delete */
+    .container {
+      margin-top: 30px;
     }
-
-    .navbar-brand img {
-      height: 30px;
-      margin-right: 10px;
-    }
-
     .doctor-card {
       border: 1px solid #ddd;
       border-radius: 5px;
-      padding: 10px;
+      padding: 15px;
+      background-color: #fff;
       margin-bottom: 20px;
-      background-color: #f9f9f9;
     }
-
-    .doctor-photo {
+    .doctor-card img {
       width: 100%;
-      height: auto;
       border-radius: 5px;
     }
-
-    .doctor-card h5 {
-      font-size: 18px;
-      font-weight: bold;
+    .btn-light {
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
     }
-
-    .doctor-card p {
-      font-size: 14px;
+    .btn-light:hover {
+      background-color: #f1f1f1;
+    }
+    .btn-edit, .btn-cancel {
+      background-color: #6c757d; /* Dark Grey */
+      color: white;
+      border: none;
+    }
+    .btn-edit:hover, .btn-cancel:hover {
+      background-color: #5a6268; /* Darker Grey */
     }
   </style>
 </head>
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="home.html">
+      <a class="navbar-brand" href="dashboard.html">
         <img src="../images /MediBooks-Logo-1.png" alt="Medibooks Logo" class="logo">
         MediBooks
       </a>
@@ -71,63 +73,63 @@
     </div>
   </nav>
 
-  <div class="container mt-4">
+  <div class="container">
     <h2>Manage Doctors</h2>
 
-    <!-- Filter for Available Doctors -->
-    <div class="mb-3">
-      <label for="availability-filter" class="form-label">Filter by Availability</label>
-      <select id="availability-filter" class="form-select">
-        <option value="">All</option>
-        <option value="available">Available</option>
-        <option value="unavailable">Unavailable</option>
-      </select>
+    <!-- Search Bar -->
+    <input type="text" id="searchDoctors" class="form-control mb-3" placeholder="Search doctors by name or specialty">
+
+    <!-- Filter by Availability -->
+    <select id="availability-filter" class="form-select mb-3" onchange="filterDoctors()">
+      <option value="all">All Doctors</option>
+      <option value="available">Available</option>
+      <option value="unavailable">Unavailable</option>
+    </select>
+
+    <!-- Add Doctor Button -->
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addDoctorModal">Add Doctor</button>
+
+    <!-- Doctor Cards -->
+    <div class="row" id="doctor-list">
+      <!-- Dynamic rows will be added here -->
     </div>
 
-    <!-- Button to Open Add Doctor Modal -->
-    <button class="btn btn-add mb-3" data-bs-toggle="modal" data-bs-target="#addDoctorModal">Add New Doctor</button>
-
-    <!-- Doctors List -->
-    <div id="doctor-list">
-      <!-- Doctors will be dynamically listed here -->
-    </div>
-  </div>
-
-  <!-- Add Doctor Modal -->
-  <div class="modal fade" id="addDoctorModal" tabindex="-1" aria-labelledby="addDoctorModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addDoctorModalLabel">Add New Doctor</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="addDoctorForm">
-            <div class="mb-3">
-              <label for="doctor-name" class="form-label">Name</label>
-              <input type="text" class="form-control" id="doctor-name" required>
-            </div>
-            <div class="mb-3">
-              <label for="doctor-specialization" class="form-label">Specialization</label>
-              <input type="text" class="form-control" id="doctor-specialization" required>
-            </div>
-            <div class="mb-3">
-              <label for="doctor-rating" class="form-label">Rating</label>
-              <input type="number" class="form-control" id="doctor-rating" min="1" max="5" required>
-            </div>
-            <div class="mb-3">
-              <label for="doctor-photo" class="form-label">Photo URL</label>
-              <input type="text" class="form-control" id="doctor-photo" required>
-            </div>
-            <div class="mb-3">
-              <label for="doctor-availability" class="form-label">Availability</label>
-              <select id="doctor-availability" class="form-select">
-                <option value="true">Available</option>
-                <option value="false">Unavailable</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Add Doctor</button>
-          </form>
+    <!-- Add Doctor Modal -->
+    <div class="modal fade" id="addDoctorModal" tabindex="-1" aria-labelledby="addDoctorModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addDoctorModalLabel">Add New Doctor</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="addDoctorForm">
+              <div class="mb-3">
+                <label for="doctor-name" class="form-label">Doctor's Name</label>
+                <input type="text" class="form-control" id="doctor-name" required>
+              </div>
+              <div class="mb-3">
+                <label for="doctor-specialty" class="form-label">Specialty</label>
+                <input type="text" class="form-control" id="doctor-specialty" required>
+              </div>
+              <div class="mb-3">
+                <label for="doctor-experience" class="form-label">Experience (Years)</label>
+                <input type="number" class="form-control" id="doctor-experience" required>
+              </div>
+              <div class="mb-3">
+                <label for="doctor-availability" class="form-label">Availability</label>
+                <select class="form-select" id="doctor-availability" required>
+                  <option value="Available">Available</option>
+                  <option value="Unavailable">Unavailable</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="doctor-photo" class="form-label">Photo URL</label>
+                <input type="text" class="form-control" id="doctor-photo" required>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Add Doctor</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -138,88 +140,67 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
   <script>
-    // Sample doctors data
-    let doctors = [
-      { id: 1, name: "Dr. John Smith", specialization: "Cardiologist", rating: 5, photo: "doctor1.jpg", available: true },
-      { id: 2, name: "Dr. Emma Davis", specialization: "Neurologist", rating: 4, photo: "doctor2.jpg", available: false },
-      { id: 3, name: "Dr. Michael Brown", specialization: "Pediatrician", rating: 4, photo: "doctor3.jpg", available: true },
-      { id: 4, name: "Dr. Olivia Wilson", specialization: "Orthopedic Surgeon", rating: 5, photo: "doctor4.jpg", available: true },
-      { id: 5, name: "Dr. Liam Johnson", specialization: "Dermatologist", rating: 4, photo: "doctor5.jpg", available: false },
-      { id: 6, name: "Dr. Sophia Martinez", specialization: "Gynecologist", rating: 5, photo: "doctor6.jpg", available: true }
+    // Sample data for doctors, their availability, and photos
+    const doctors = [
+        { id: 1, name: "Dr. John Smith", specialization: "Cardiologist", rating: "⭐⭐⭐⭐⭐", photo: "../images /doctor1.jpg", available: true },
+        { id: 2, name: "Dr. Emma Davis", specialization: "Neurologist", rating: "⭐⭐⭐⭐", photo: "../images /doctor2.jpg", available: false },
+        { id: 3, name: "Dr. Michael Brown", specialization: "Pediatrician", rating: "⭐⭐⭐⭐", photo: "../images /doctor3.jpg", available: true },
+        { id: 4, name: "Dr. Olivia Wilson", specialization: "Orthopedic Surgeon", rating: "⭐⭐⭐⭐⭐", photo: "../images /doctor4.jpg", available: true },
+        { id: 5, name: "Dr. Liam Johnson", specialization: "Dermatologist", rating: "⭐⭐⭐⭐", photo: "../images /doctor5.jpg", available: false },
+        { id: 6, name: "Dr. Sophia Martinez", specialization: "Gynecologist", rating: "⭐⭐⭐⭐⭐", photo: "../images /doctor6.jpg", available: true }
     ];
+
+    // Function to display doctors
+    function displayDoctors(filteredDoctors) {
+        const doctorListElement = document.getElementById('doctor-list');
+        doctorListElement.innerHTML = ''; // Clear existing content
+
+        filteredDoctors.forEach(doctor => {
+            const doctorCard = `
+                <div class="col-12 col-md-4">
+                    <div class="doctor-card">
+                        <img src="${doctor.photo}" alt="${doctor.name}" class="doctor-photo">
+                        <h5>${doctor.name}</h5>
+                        <p>${doctor.specialization}</p>
+                        <p>${doctor.rating}</p>
+                        <p>Status: <strong>${doctor.available ? 'Available' : 'Unavailable'}</strong></p>
+                        <div class="buttons">
+                            <a href="doctor-details.html?id=${doctor.id}"><button class="btn btn-info-custom">More Info</button></a>
+                            <a href="update-doctor.html?id=${doctor.id}"><button class="btn btn-light-custom">Edit</button></a>
+                            <button class="btn btn-danger-custom" onclick="deleteDoctor(${doctor.id})">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            doctorListElement.innerHTML += doctorCard;
+        });
+    }
 
     // Function to filter doctors by availability
     function filterDoctors() {
-      const filter = document.getElementById('availability-filter').value;
-      const filteredDoctors = doctors.filter(doctor => {
-        if (filter === '') return true;
-        return (filter === 'available' && doctor.available) || (filter === 'unavailable' && !doctor.available);
-      });
+        const availabilityFilter = document.getElementById('availability-filter').value;
+        let filteredDoctors = doctors;
 
-      // Display filtered doctors
-      const doctorList = document.getElementById('doctor-list');
-      doctorList.innerHTML = ''; // Clear existing list
+        if (availabilityFilter !== 'all') {
+            const isAvailable = availabilityFilter === 'available';
+            filteredDoctors = doctors.filter(doctor => doctor.available === isAvailable);
+        }
 
-      filteredDoctors.forEach(doctor => {
-        const doctorCard = document.createElement('div');
-        doctorCard.classList.add('col-12', 'col-md-4');
-        doctorCard.innerHTML = `
-          <div class="doctor-card">
-            <img src="../images/${doctor.photo}" alt="${doctor.name}" class="doctor-photo">
-            <h5>${doctor.name}</h5>
-            <p>${doctor.specialization}</p>
-            <p>⭐⭐⭐⭐⭐ (${doctor.rating})</p>
-            <p>Status: ${doctor.available ? 'Available' : 'Unavailable'}</p>
-            <div class="buttons">
-              <button class="btn btn-edit" onclick="editDoctor(${doctor.id})">Edit</button>
-              <button class="btn btn-delete" onclick="deleteDoctor(${doctor.id})">Delete</button>
-            </div>
-          </div>
-        `;
-        doctorList.appendChild(doctorCard);
-      });
+        displayDoctors(filteredDoctors);
     }
 
-    // Edit doctor function (show modal with doctor details)
-    function editDoctor(id) {
-      const doctor = doctors.find(doctor => doctor.id === id);
-      // You would add code to populate the form and handle updates
-      alert(`Editing doctor ${doctor.name}`);
-    }
-
-    // Delete doctor function
+    // Delete doctor functionality
     function deleteDoctor(id) {
-      const confirmDelete = confirm('Are you sure you want to delete this doctor?');
-      if (confirmDelete) {
-        doctors = doctors.filter(doctor => doctor.id !== id);
-        alert('Doctor deleted!');
-        filterDoctors();
-      }
+        const index = doctors.findIndex(doctor => doctor.id === id);
+        if (index !== -1) {
+            doctors.splice(index, 1); // Remove doctor from array
+            filterDoctors(); // Re-render list after deletion
+            alert('Doctor deleted successfully!');
+        }
     }
 
-    // Event listener for filter change
-    document.getElementById('availability-filter').addEventListener('change', filterDoctors);
-
-    // Event listener for form submission (Add Doctor)
-    document.getElementById('addDoctorForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      const newDoctor = {
-        id: doctors.length + 1,
-        name: document.getElementById('doctor-name').value,
-        specialization: document.getElementById('doctor-specialization').value,
-        rating: document.getElementById('doctor-rating').value,
-        photo: document.getElementById('doctor-photo').value,
-        available: document.getElementById('doctor-availability').value === 'true'
-      };
-
-      doctors.push(newDoctor);
-      filterDoctors(); // Refresh the list
-      $('#addDoctorModal').modal('hide'); // Close the modal
-    });
-
-    // Initial call to populate doctor list
-    filterDoctors();
+    // Initial display of doctors
+    displayDoctors(doctors);
   </script>
 </body>
 </html>
