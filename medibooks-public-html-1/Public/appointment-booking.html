@@ -6,11 +6,202 @@
     <title>Appointment Booking</title>
     <link rel="stylesheet" href="../styles/medibooks-styles.css">
     <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        /* General body styles */
+     body {
+        background-color: #f8f9fa;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+        background: linear-gradient(90deg, #2c3e50, #34495e);
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar .navbar-nav {
+        display: flex;
+        justify-content: flex-end;  /* Align menu items to the right */
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar .nav-item {
+        margin-left: 20px;  /* Add space between menu items */
+    }
+
+    .navbar a {
+        color: white;
+        transition: color 0.3s;
+        cursor: pointer;
+    }
+
+    .navbar a:hover {
+        color: #f39c12;
+    }
+
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-brand img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .navbar-brand img:hover {
+        transform: scale(1.2);
+    }
+
+    /* Main Content Section */
+    .content {
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    p {
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    /* Form Styles */
+    .card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        margin-top: 5px;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    button {
+        background: #34495e;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+        background: #2c3e50;
+        transform: scale(1.05);
+    }
+
+    /* Modal Styles */
+    .modal-content {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .modal-header {
+        background: #34495e;
+        color: white;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+    }
+
+    .modal-body {
+        font-size: 1rem;
+    }
+
+    .modal-footer {
+        border-top: 1px solid #ccc;
+    }
+
+    .btn-close {
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    /* Footer Styles */
+    footer {
+        background: #2c3e50;
+        color: white;
+        text-align: center;
+        padding: 15px 0;
+        margin-top: 20px;
+    }
+
+    /* Button Styles for General Pages */
+    .btn-primary {
+        background: linear-gradient(90deg, #34495e, #2c3e50);
+        border: none;
+        transition: background 0.3s, transform 0.2s;
+        cursor: pointer;
+        padding: 10px 20px;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(90deg, #2c3e50, #34495e);
+        transform: scale(1.05);
+    }
+
+    /* Links Styles */
+    a {
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    a:hover {
+        color: #f39c12;
+    }
+
+    /* Modal Styles */
+    .modal-backdrop {
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-dialog {
+        max-width: 600px;
+    }
+</style>
 </head>
 <body>
     <div class="navbar-brand">
-        <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo">  
+        <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo">
     </div>
+    <h1>MediBooks</h1>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="home.html">MediBooks</a>
@@ -27,7 +218,7 @@
             </div>
         </div>
     </nav> 
-    
+
     <div class="container content">
         <h1 class="text-center mb-4">Book an Appointment</h1>
         <div class="card">
@@ -47,7 +238,6 @@
                             <option value="4:00 PM">4:00 PM</option>
                         </select>
                     </div>
-                    <!-- Patient Information Form -->
                     <div class="form-group">
                         <label for="doctor-name">Doctor:</label>
                         <input type="text" id="doctor-name" readonly>
@@ -74,26 +264,33 @@
                        <textarea id="patient-notes" rows="3" placeholder="Optional notes..."></textarea>
                    </div>
 
-                   <button class="btn" onclick="submitAppointment()">Book Appointment</button>
+                   <button type="button" class="btn btn-primary" onclick="submitAppointment()">Book Appointment</button>
                 </form>
             </div> 
         </div>
     </div>
 
-    <!-- Confirmation Section (Hidden by Default) -->
-    <button popovertarget="my-popover">Book Appointment</button>
-    <div popover id="my-popover">Appointment Confirmed!</div>   
-
-    <!--<div id="confirmation" class="hidden">-->
-        <h2>Appointment Confirmed!</h2>
-        <div class="confirmation">
-            <p><strong>Date:</strong> <span id="confirm-date"></span></p>
-            <p><strong>Time:</strong> <span id="confirm-time"></span></p>
-            <p><strong>Doctor:</strong> <span id="confirm-doctor"></span></p>
-            <p><strong>Name:</strong> <span id="confirm-name"></span></p>
-            <p><strong>Email:</strong> <span id="confirm-email"></span></p>
-            <p><strong>Phone:</strong> <span id="confirm-phone"></span></p>
-            <p><strong>Notes:</strong> <span id="confirm-notes"></span></p>
+    <!-- Modal for Appointment Confirmation -->
+    <div class="modal fade" id="appointmentConfirmationModal" tabindex="-1" aria-labelledby="appointmentConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="appointmentConfirmationModalLabel">Appointment Confirmed</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Date:</strong> <span id="confirm-date"></span></p>
+                    <p><strong>Time:</strong> <span id="confirm-time"></span></p>
+                    <p><strong>Doctor:</strong> <span id="confirm-doctor"></span></p>
+                    <p><strong>Name:</strong> <span id="confirm-name"></span></p>
+                    <p><strong>Email:</strong> <span id="confirm-email"></span></p>
+                    <p><strong>Phone:</strong> <span id="confirm-phone"></span></p>
+                    <p><strong>Notes:</strong> <span id="confirm-notes"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -114,7 +311,7 @@
         };
 
         function submitAppointment() {
-             // Get form values
+            // Get form values
             const date = document.getElementById('appointment-date').value;
             const time = document.getElementById('appointment-time').value;
             const doctor = document.getElementById('doctor-name').value;
@@ -128,11 +325,7 @@
                 return;
             }
 
-            // Hide booking form and show confirmation page
-            document.getElementById('booking-form').classList.add('hidden');
-            document.getElementById('confirmation').classList.remove('hidden');
-
-            // Populate confirmation details
+            // Populate confirmation modal with the form values
             document.getElementById('confirm-date').innerText = date;
             document.getElementById('confirm-time').innerText = time;
             document.getElementById('confirm-doctor').innerText = doctor || "Not Selected";
@@ -140,6 +333,10 @@
             document.getElementById('confirm-email').innerText = email;
             document.getElementById('confirm-phone').innerText = phone;
             document.getElementById('confirm-notes').innerText = notes || 'None';
+
+            // Show the confirmation modal
+            const myModal = new bootstrap.Modal(document.getElementById('appointmentConfirmationModal'));
+            myModal.show();
         }
     </script>
 
