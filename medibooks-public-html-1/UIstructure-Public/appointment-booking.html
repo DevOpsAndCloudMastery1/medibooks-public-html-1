@@ -15,7 +15,7 @@
   <div class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="home.html">
-        <img src="../images /medibooks-logo.png" alt="Medibooks Logo" class="logo" style="height: 40px;">
+        <img src="../images /MediBooks-Logo-1.png" alt="Medibooks Logo" class="logo" style="height: 40px;">
       </a>
       <div class="navbar-nav ms-auto">
         <a class="nav-link" href="home.html">Home</a>
@@ -169,11 +169,11 @@
       5: { name: "Dr. Liam Johnson", availableSlots: ["9:30 AM", "2:30 PM", "4:30 PM"] },
       6: { name: "Dr. Sophia Martinez", availableSlots: ["8:30 AM", "12:30 PM", "3:30 PM"] }
     };
-
+  
     // Show available time slots when a doctor is selected
     function showBookingForm(doctorId) {
       const doctor = doctors[doctorId];
-      
+  
       // Show the available time slots for the selected doctor
       let slotsHtml = '';
       doctor.availableSlots.forEach((slot, index) => {
@@ -184,28 +184,43 @@
           </div>
         `;
       });
-
+  
       document.getElementById('available-times').innerHTML = slotsHtml;
       document.getElementById('patient-form').style.display = 'block';
+      document.getElementById('appointment-form').doctorId = doctorId;
+      document.getElementById('appointment-form').doctorName = doctor.name;
     }
-    
-    // Handle the form submission
-    $('#appointment-form').on('submit', function(event) {
-      event.preventDefault();
-      
-      const doctorId = $('#doctor-id').val();
-      const patientName = $('#patient-name').val();
-      const patientEmail = $('#patient-email').val();
-      const patientPhone = $('#patient-phone').val();
-      const patientNotes = $('#patient-notes').val();
+  
+    // Handle appointment form submission
+    $('#appointment-form').on('submit', function(e) {
+      e.preventDefault();
+  
+      const name = $('#patient-name').val();
+      const email = $('#patient-email').val();
+      const phone = $('#patient-phone').val();
+      const notes = $('#patient-notes').val();
       const selectedSlot = $('input[name="time-slot"]:checked').val();
-
-      // Show confirmation message
-      alert(`Appointment booked with ${doctors[doctorId].name} at ${selectedSlot}`);
-
-      // Redirect to "my-booking" page after confirmation
-      window.location.href = "my-booking.html";  // Modify this URL to your actual page
+      const doctorId = $('#appointment-form')[0].doctorId;
+      const doctorName = $('#appointment-form')[0].doctorName;
+  
+      if (!selectedSlot) {
+        alert("Please select a time slot!");
+        return;
+      }
+  
+      // Show confirmation message with entered details
+      alert(`
+        Appointment booked successfully!
+        Doctor: ${doctorName}
+        Patient Name: ${name}
+        Email: ${email}
+        Phone: ${phone}
+        Notes: ${notes || 'N/A'}
+        Time Slot: ${selectedSlot}
+      `);
+  
+      // Redirect to the "my-booking" page
+      window.location.href = "my-booking.html"; 
     });
   </script>
-</body>
-</html>
+  
