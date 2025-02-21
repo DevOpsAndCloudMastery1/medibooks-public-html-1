@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Users - Medibooks</title>
     <link href="../styles/medibooks-styles.css" rel="stylesheet">
+    <link href="../js/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navbar with MediBooks Logo & Name -->
@@ -48,7 +49,7 @@
 
         <!-- User List Table -->
         <h2>Registered Users</h2>
-        <table id="users-list">
+        <table id="users-list" class="table table-striped">
             <thead>
                 <tr>
                     <th>User Name</th>
@@ -70,10 +71,10 @@
             { name: "John Doe", email: "john.doe@example.com", status: "Active" },
             { name: "Jane Smith", email: "jane.smith@example.com", status: "Inactive" },
             { name: "Mark Johnson", email: "mark.johnson@example.com", status: "Active" },
-            { name: "Emily Roberts", email: "emily.roberts@example.com", status: "Inactive" },
-            { name: "Daniel Green", email: "daniel.green@example.com", status: "Active" },
-            { name: "Ava Davis", email: "ava.davis@example.com", status: "Inactive" }
-];
+            { name: "Olivia Wilson", email: "olivia.wilson@example.com", status: "Inactive" },
+            { name: "Sophia Martinez", email: "sophia.martinez@example.com", status: "Active" }
+        ];
+
         // Function to display the user list based on filters
         function displayUsers() {
             const tableBody = document.getElementById('user-table-body');
