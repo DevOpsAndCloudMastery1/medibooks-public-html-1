@@ -6,7 +6,7 @@
     <title>User Profile - MediBooks</title>
     <link href="../styles/medibooks-styles.css" rel="stylesheet">
     <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js" defer></script>
-    </head>
+</head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
@@ -81,32 +81,27 @@
         <button onclick="confirmReschedule()">Confirm</button>
         <button onclick="closeRescheduleModal()">Cancel</button>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             flatpickr("#new-appointment-date", { enableTime: true, dateFormat: "Y-m-d H:i" });
             loadAppointments();
         });
 
-        let upcomingAppointments = [
-            { doctor: "Dr. John Smith - Cardiologist", date: "2025-02-10 14:00" }
-        ];
-        let pastAppointments = [
-            { doctor: "Dr. Michael Brown - Pediatrician", date: "2025-01-06 10:30" }
-        ];
-        let rescheduleIndex = null;
-
+        // Function to load appointments from localStorage
         function loadAppointments() {
             const upcomingList = document.getElementById("upcoming-appointments");
             const pastList = document.getElementById("past-appointments");
 
-            upcomingList.innerHTML = upcomingAppointments.length
+            // Retrieve appointments from localStorage
+            const appointments = JSON.parse(localStorage.getItem("appointments")) || { upcoming: [], past: [] };
+
+            // Display upcoming appointments
+            upcomingList.innerHTML = appointments.upcoming.length
                 ? ""
                 : "<li>No upcoming appointments.</li>";
-            pastList.innerHTML = pastAppointments.length
-                ? ""
-                : "<li>No past appointments.</li>";
 
-            upcomingAppointments.forEach((booking, index) => {
+            appointments.upcoming.forEach((booking, index) => {
                 const listItem = document.createElement("li");
                 listItem.innerHTML = `<a href="doctor-detail.html?doctor=${encodeURIComponent(booking.doctor)}">${booking.doctor}</a> - ${booking.date} 
                     <button onclick="openReschedule(${index})">Reschedule</button>
@@ -114,17 +109,20 @@
                 upcomingList.appendChild(listItem);
             });
 
-            pastAppointments.forEach((booking) => {
+            // Display past appointments
+            pastList.innerHTML = appointments.past.length
+                ? ""
+                : "<li>No past appointments.</li>";
+
+            appointments.past.forEach((booking) => {
                 const listItem = document.createElement("li");
                 listItem.innerHTML = `<a href="doctor-detail.html?doctor=${encodeURIComponent(booking.doctor)}">${booking.doctor}</a> - ${booking.date}
                     <a href="doctor-reviews.html" class="btn btn-secondary">Leave Review</a>`;
                 pastList.appendChild(listItem);
             });
-
-            console.log("Appointments Loaded");
         }
 
-
+        // Reschedule the appointment
         function openReschedule(index) {
             rescheduleIndex = index;
             document.getElementById("reschedule-modal").style.display = "block";
@@ -134,7 +132,9 @@
         function confirmReschedule() {
             const newDate = document.getElementById("new-appointment-date").value;
             if (newDate) {
-                upcomingAppointments[rescheduleIndex].date = newDate;
+                const appointments = JSON.parse(localStorage.getItem("appointments")) || { upcoming: [], past: [] };
+                appointments.upcoming[rescheduleIndex].date = newDate;
+                localStorage.setItem("appointments", JSON.stringify(appointments));
                 loadAppointments();
                 alert("Appointment rescheduled successfully!");
                 closeRescheduleModal();
@@ -145,9 +145,12 @@
             document.getElementById("reschedule-modal").style.display = "none";
         }
 
+        // Cancel the appointment
         function cancelAppointment(index) {
+            const appointments = JSON.parse(localStorage.getItem("appointments")) || { upcoming: [], past: [] };
             if (confirm("Are you sure you want to cancel this appointment?")) {
-                upcomingAppointments.splice(index, 1);
+                appointments.upcoming.splice(index, 1);
+                localStorage.setItem("appointments", JSON.stringify(appointments));
                 loadAppointments();
                 alert("Appointment canceled successfully!");
             }
