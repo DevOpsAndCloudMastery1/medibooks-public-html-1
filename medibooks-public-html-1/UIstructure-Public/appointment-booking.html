@@ -200,8 +200,11 @@
       const patientNotes = $('#patient-notes').val();
       const selectedSlot = $('input[name="time-slot"]:checked').val();
 
-      // Show a confirmation message or send data to the server here
+      // Show confirmation message
       alert(`Appointment booked with ${doctors[doctorId].name} at ${selectedSlot}`);
+
+      // Redirect to "my-booking" page after confirmation
+      window.location.href = "my-booking.html";  // Modify this URL to your actual page
     });
   </script>
 </body>
