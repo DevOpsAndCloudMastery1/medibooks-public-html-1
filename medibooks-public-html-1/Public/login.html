@@ -68,12 +68,11 @@
     <div class="logo-container">
         <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo">
     </div>
-    <h1>MediBooks</h1>
 
     <!-- Login Form -->
     <div id="loginFormContainer" class="form-card">
         <h2 class="form-title">Welcome to MediBooks</h2>
-        <form id="loginForm" method="post">
+        <form id="loginForm" onsubmit="return validateLogin(event)">
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
@@ -165,24 +164,27 @@
         }
     }
 
-    // JavaScript Form Validation for Login with Hardcoded Credentials
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
+    // Login Validation Function
+    function validateLogin(event) {
+        // New public module credentials
+        const validEmail = "publicuser";
+        const validPassword = "public@123";
+
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
 
-        // Hardcoded credentials
-        var validEmail = "admin";
-        var validPassword = "admin@123";
-
+        // Validate the entered credentials
         if (email === validEmail && password === validPassword) {
             alert("Login successful!");
-            // Redirect or proceed to the next page (home.html)
+            // Redirect to home page (change the URL if needed)
             window.location.href = "home.html";
+            return false; // Prevent form submission
         } else {
             alert("Invalid credentials. Please try again.");
-            event.preventDefault(); // Stop form submission
+            event.preventDefault(); // Prevent form submission
+            return false;
         }
-    });
+    }
 
     // JavaScript Form Validation for Sign Up
     document.getElementById("signUpForm").addEventListener("submit", function(event) {
