@@ -175,24 +175,26 @@
 
     // Validate Login Function
     function validateLogin(event) {
+        event.preventDefault();  // Prevent form submission
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
 
-        // Check for predefined credentials (e.g., "publicuser" and "public@123")
-        if ((email === validCredentials.email && password === validCredentials.password) || 
-            (userDatabase[email] && userDatabase[email] === password)) {
+        // Check for predefined credentials (e.g., "publicuser@medibooks.com" and "public@123")
+        if ((email == validCredentials.email && password == validCredentials.password) || 
+            (userDatabase[email] && userDatabase[email] == password)) 
+            {
             alert("Login successful!");
             window.location.href = "home.html";
-            return false;
-        } else {
+            } 
+        else
+            {
             alert("Invalid credentials. Please try again.");
-            event.preventDefault();
-            return false;
-        }
+            }
     }
 
     // Sign Up Function to Save User Credentials
     function createAccount(event) {
+        event.preventDefault();  // Prevent form submission
         var fullName = document.getElementById("fullName").value;
         var email = document.getElementById("signUpEmail").value;
         var phone = document.getElementById("signUpPhone").value;
@@ -200,15 +202,11 @@
 
         if (email in userDatabase) {
             alert("This email is already registered.");
-            event.preventDefault();
-            return false;
+        } else {
+            userDatabase[email] = password;
+            alert("Account created successfully. You can now log in.");
+            showLoginForm();
         }
-
-        userDatabase[email] = password;
-        alert("Account created successfully. You can now log in.");
-        showLoginForm();
-        event.preventDefault();
-        return false;
     }
 
 </script>
