@@ -194,6 +194,9 @@
       const activeBookingList = document.getElementById('active-bookings');
       const pastBookingList = document.getElementById('past-bookings');
 
+    // Get bookings from localStorage
+    const activeBookings = getBookingsFromLocalStorage(); 
+
       // Render active bookings
       activeBookingList.innerHTML = '';
       activeBookings.forEach(booking => {
