@@ -95,9 +95,32 @@
 
                 <!-- Links -->
                 <div class="form-links">
-                    <a href="forgot-password.html">Forgot Password?</a> | <a href="signup.html">Sign Up</a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</a> | 
+                    <a href="signup.html">Sign Up</a>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Enter your email address to receive a password reset link.</p>
+                    <form onsubmit="resetPassword(event)">
+                        <div class="mb-3">
+                            <label for="reset-email" class="form-label">Email Address</label>
+                            <input type="email" id="reset-email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Send Reset Link</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -109,11 +132,25 @@
             let password = document.getElementById("admin-password").value;
 
             if (username === "admin" && password === "admin123") {
+                // Store the login status in localStorage
                 localStorage.setItem("adminLoggedIn", "true");
-                window.location.href = "admin-dashboard.html";  // Redirect to Admin Dashboard on successful login
+                // Redirect to the Admin Dashboard on successful login
+                window.location.href = "admin-dashboard.html";
             } else {
                 alert("Invalid credentials! Please try again.");
             }
+        }
+
+        // Reset Password Functionality (Simulated)
+        function resetPassword(event) {
+            event.preventDefault();
+            let email = document.getElementById("reset-email").value;
+
+            // Simulate sending reset email
+            alert(`A password reset link has been sent to ${email}. Please check your inbox.`);
+            // Close the modal
+            var myModal = new bootstrap.Modal(document.getElementById('forgotPasswordModal'));
+            myModal.hide();
         }
     </script>
 </body>
