@@ -74,47 +74,41 @@
             </div>
         </div>
     </div>
-    <div id="reschedule-modal" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        <h3>Reschedule Appointment</h3>
-        <label for="new-appointment-date">New Date & Time:</label>
-        <input type="text" id="new-appointment-date">
-        <button onclick="confirmReschedule()">Confirm</button>
-        <button onclick="closeRescheduleModal()">Cancel</button>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            flatpickr("#new-appointment-date", { enableTime: true, dateFormat: "Y-m-d H:i" });
             loadAppointments();
         });
 
-        // Function to load appointments from localStorage
+        // Function to load appointments
         function loadAppointments() {
             const upcomingList = document.getElementById("upcoming-appointments");
             const pastList = document.getElementById("past-appointments");
 
-            // Retrieve appointments from localStorage
-            const appointments = JSON.parse(localStorage.getItem("appointments")) || { upcoming: [], past: [] };
+            // Sample data for upcoming and past appointments
+            let upcomingAppointments = [
+                { doctor: "Dr. John Smith - Cardiologist", date: "2025-02-10 14:00" }
+            ];
+            let pastAppointments = [
+                { doctor: "Dr. Michael Brown - Pediatrician", date: "2025-01-06 10:30" }
+            ];
 
             // Display upcoming appointments
-            upcomingList.innerHTML = appointments.upcoming.length
+            upcomingList.innerHTML = upcomingAppointments.length
                 ? ""
                 : "<li>No upcoming appointments.</li>";
-
-            appointments.upcoming.forEach((booking, index) => {
+            upcomingAppointments.forEach((booking) => {
                 const listItem = document.createElement("li");
-                listItem.innerHTML = `<a href="doctor-detail.html?doctor=${encodeURIComponent(booking.doctor)}">${booking.doctor}</a> - ${booking.date} 
-                    <button onclick="openReschedule(${index})">Reschedule</button>
-                    <button onclick="cancelAppointment(${index})">Cancel</button>`;
+                listItem.innerHTML = `<a href="doctor-detail.html?doctor=${encodeURIComponent(booking.doctor)}">${booking.doctor}</a> - ${booking.date}
+                    <button onclick="cancelAppointment()">Cancel</button>`;
                 upcomingList.appendChild(listItem);
             });
 
             // Display past appointments
-            pastList.innerHTML = appointments.past.length
+            pastList.innerHTML = pastAppointments.length
                 ? ""
                 : "<li>No past appointments.</li>";
-
-            appointments.past.forEach((booking) => {
+            pastAppointments.forEach((booking) => {
                 const listItem = document.createElement("li");
                 listItem.innerHTML = `<a href="doctor-detail.html?doctor=${encodeURIComponent(booking.doctor)}">${booking.doctor}</a> - ${booking.date}
                     <a href="doctor-reviews.html" class="btn btn-secondary">Leave Review</a>`;
@@ -122,36 +116,9 @@
             });
         }
 
-        // Reschedule the appointment
-        function openReschedule(index) {
-            rescheduleIndex = index;
-            document.getElementById("reschedule-modal").style.display = "block";
-            flatpickr("#new-appointment-date", { enableTime: true, dateFormat: "Y-m-d H:i" });
-        }
-
-        function confirmReschedule() {
-            const newDate = document.getElementById("new-appointment-date").value;
-            if (newDate) {
-                const appointments = JSON.parse(localStorage.getItem("appointments")) || { upcoming: [], past: [] };
-                appointments.upcoming[rescheduleIndex].date = newDate;
-                localStorage.setItem("appointments", JSON.stringify(appointments));
-                loadAppointments();
-                alert("Appointment rescheduled successfully!");
-                closeRescheduleModal();
-            }
-        }
-
-        function closeRescheduleModal() {
-            document.getElementById("reschedule-modal").style.display = "none";
-        }
-
-        // Cancel the appointment
-        function cancelAppointment(index) {
-            const appointments = JSON.parse(localStorage.getItem("appointments")) || { upcoming: [], past: [] };
+        // Cancel appointment
+        function cancelAppointment() {
             if (confirm("Are you sure you want to cancel this appointment?")) {
-                appointments.upcoming.splice(index, 1);
-                localStorage.setItem("appointments", JSON.stringify(appointments));
-                loadAppointments();
                 alert("Appointment canceled successfully!");
             }
         }
