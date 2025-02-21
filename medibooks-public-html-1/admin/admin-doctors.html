@@ -4,79 +4,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Manage Doctors</title>
+    <title>Manage Doctors</title>
     <link rel="stylesheet" href="../styles/medibooks-styles.css">
     <!-- Bootstrap CSS -->
     <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        /* Additional styling to match the dark blue and light theme */
         body {
-            background-color: #f4f4f9;
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
         }
 
+        /* Navbar Styles */
         .navbar {
-            background-color: #003366;
+            background: linear-gradient(90deg, #2c3e50, #34495e);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .navbar-nav {
+            display: flex;
+            justify-content: flex-end;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar .nav-item {
+            margin-left: 20px;
+        }
+
+        .navbar a {
+            color: white;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .navbar a:hover {
+            color: #f39c12;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
         }
 
         .navbar-brand img {
+            width: 40px;
             height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: transform 0.2s ease-in-out;
         }
 
-        .navbar-nav .nav-link {
-            color: white;
+        .navbar-brand img:hover {
+            transform: scale(1.2);
         }
 
-        .navbar-nav .nav-link:hover {
-            color: #ffcc00;
+        /* Main Content Section */
+        .content {
+            padding: 20px;
         }
 
-        .container {
-            margin-top: 30px;
-        }
-
-        .doctor-card {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-            background-color: #fff;
+        h1 {
+            text-align: center;
             margin-bottom: 20px;
         }
 
+        .doctor-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .doctor-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
         .doctor-card img {
-            width: 100%;
-            height: 150px; /* Smaller size */
-            object-fit: cover;
-            border-radius: 5px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
         }
 
-        .btn-light {
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
-        }
-
-        .btn-light:hover {
-            background-color: #f1f1f1;
-        }
-
-        .btn-edit,
-        .btn-cancel {
-            background-color: #6c757d;
-            color: white;
-            border: none;
-        }
-
-        .btn-edit:hover,
-        .btn-cancel:hover {
-            background-color: #5a6268;
-        }
-
-        .doctor-card h5 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
+        .doctor-card h3 {
+            margin-top: 10px;
         }
 
         .doctor-card p {
-            font-size: 0.9rem;
+            font-size: 1rem;
+        }
+
+        .buttons button {
+            background: #34495e;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .buttons button:hover {
+            background: #2c3e50;
+            transform: scale(1.05);
+        }
+
+        /* Modal Styles for More Info */
+        .modal-body img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 20px;
+        }
+
+        /* Button Styles for General Pages */
+        .btn-primary {
+            background: linear-gradient(90deg, #34495e, #2c3e50);
+            border: none;
+            transition: background 0.3s, transform 0.2s;
+            cursor: pointer;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #2c3e50, #34495e);
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -99,25 +169,75 @@
         </div>
     </nav>
 
-    <div class="container">
-        <h2>Manage Doctors</h2>
+    <div class="content">
+        <h1>Manage Doctors</h1>
 
         <!-- Add Doctor Button -->
         <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addDoctorModal">Add Doctor</button>
 
-        <!-- Search Bar -->
-        <input type="text" id="searchDoctors" class="form-control mb-3" placeholder="Search doctors by name or specialty">
-
-        <!-- Filter by Availability -->
-        <select id="availability-filter" class="form-select mb-3" onchange="filterDoctors()">
-            <option value="all">All Doctors</option>
-            <option value="available">Available</option>
-            <option value="unavailable">Unavailable</option>
-        </select>
-
         <!-- Doctor Cards -->
-        <div class="row" id="doctor-list">
+        <div class="doctor-list" id="doctor-list">
             <!-- Dynamic rows will be added here -->
+            <table border="1">
+                <tr>
+                    <td>
+                        <img src="../images /doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
+                        <h3>Dr. John Smith</h3>
+                        <p>Specialization: Cardiologist</p>
+                        <button onclick="bookAppointment('Dr. John Smith')">Book Appointment</button>
+                        <a href="#doctor1">More Details</a>
+                        <br>
+                        <a href="doctor-reviews.html?doctor=Dr.%20John%20Smith">Reviews</a>
+                    </td>
+                    <td>
+                        <img src="../images /doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
+                        <h3>Dr. Emma Davis</h3>
+                        <p>Specialization: Neurologist</p>
+                        <button onclick="bookAppointment('Dr. Emma Davis')">Book Appointment</button>
+                        <a href="#doctor2">More Details</a>
+                        <br>
+                        <a href="doctor-reviews.html?doctor=Dr.%20Emma%20Davis">Reviews</a>
+                    </td>
+                    <td>
+                        <img src="../images /doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
+                        <h3>Dr. Michael Brown</h3>
+                        <p>Specialization: Pediatrician</p>
+                        <button onclick="bookAppointment('Dr. Michael Brown')">Book Appointment</button>
+                        <a href="#doctor3">More Details</a>
+                        <br>
+                        <a href="doctor-reviews.html?doctor=Dr.%20Michael%20Brown">Reviews</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="../images /doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
+                        <h3>Dr. Olivia Wilson</h3>
+                        <p>Specialization: Orthopedic Surgeon</p>
+                        <button onclick="bookAppointment('Dr. Olivia Wilson')">Book Appointment</button>
+                        <a href="#doctor4">More Details</a>
+                        <br>
+                        <a href="doctor-reviews.html?doctor=Dr.%20Olivia%20Wilson">Reviews</a>
+                    </td>
+                    <td>
+                        <img src="../images /doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
+                        <h3>Dr. Liam Johnson</h3>
+                        <p>Specialization: Dermatologist</p>
+                        <button onclick="bookAppointment('Dr. Liam Johnson')">Book Appointment</button>
+                        <a href="#doctor5">More Details</a>
+                        <br>
+                        <a href="doctor-reviews.html?doctor=Dr.%20Liam%20Johnson">Reviews</a>
+                    </td>
+                    <td>
+                        <img src="../images /doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
+                        <h3>Dr. Sophia Martinez</h3>
+                        <p>Specialization: Gynecologist</p>
+                        <button onclick="bookAppointment('Dr. Sophia Martinez')">Book Appointment</button>
+                        <a href="#doctor6">More Details</a>
+                        <br>
+                        <a href="doctor-reviews.html?doctor=Dr.%20Sophia%20Martinez">Reviews</a>
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <!-- Add Doctor Modal -->
@@ -153,7 +273,8 @@
                                 <label for="doctor-photo" class="form-label">Upload Photo</label>
                                 <input type="file" class="form-control" id="doctor-photo" accept="image/*" required>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Add Doctor</button>
+                            <button type="submit" class="btn 
+                            <button type="submit" class="btn btn-primary">Add Doctor</button>
                         </form>
                     </div>
                 </div>
@@ -161,118 +282,59 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS & Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 MediBooks. All rights reserved.</p>
+    </footer>
 
     <script>
-        // Sample data for doctors, their availability, and photos
-        const doctors = [
-            { id: 1, name: "Dr. John Smith", specialization: "Cardiologist", rating: "⭐⭐⭐⭐⭐", photo: "../images /doctor1.jpg", available: true },
-            { id: 2, name: "Dr. Emma Davis", specialization: "Neurologist", rating: "⭐⭐⭐⭐", photo: "../images /doctor2.jpg", available: false },
-            { id: 3, name: "Dr. Michael Brown", specialization: "Pediatrician", rating: "⭐⭐⭐⭐", photo: "../images /doctor3.jpg", available: true },
-            { id: 4, name: "Dr. Olivia Wilson", specialization: "Orthopedic Surgeon", rating: "⭐⭐⭐⭐⭐", photo: "../images /doctor4.jpg", available: true },
-            { id: 5, name: "Dr. Liam Johnson", specialization: "Dermatologist", rating: "⭐⭐⭐⭐", photo: "../images /doctor5.jpg", available: false },
-            { id: 6, name: "Dr. Sophia Martinez", specialization: "Gynecologist", rating: "⭐⭐⭐⭐⭐", photo: "../images /doctor6.jpg", available: true }
-        ];
-
-        // Function to display doctors
-        function displayDoctors(filteredDoctors) {
-            const doctorListElement = document.getElementById('doctor-list');
-            doctorListElement.innerHTML = ''; // Clear existing content
-
-            filteredDoctors.forEach(doctor => {
-                const doctorCard = `
-                    <div class="col-12 col-md-4">
-                        <div class="doctor-card">
-                            <img src="${doctor.photo}" alt="${doctor.name}" class="doctor-photo">
-                            <h5>${doctor.name}</h5>
-                            <p>${doctor.specialization}</p>
-                            <p>${doctor.rating}</p>
-                            <p>Status: <strong>${doctor.available ? 'Available' : 'Unavailable'}</strong></p>
-                            <div class="buttons">
-                                <a href="doctor-details.html?id=${doctor.id}"><button class="btn btn-info-custom">More Info</button></a>
-                                <a href="update-doctor.html?id=${doctor.id}"><button class="btn btn-light-custom">Edit</button></a>
-                                <button class="btn btn-danger-custom" onclick="deleteDoctor(${doctor.id})">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                doctorListElement.innerHTML += doctorCard;
-            });
+        // Function to handle booking appointment
+        function bookAppointment(doctorName) {
+            alert('Booking appointment with ' + doctorName);
         }
 
-        // Function to filter doctors by availability
-        function filterDoctors() {
-            const availabilityFilter = document.getElementById('availability-filter').value;
-            let filteredDoctors = doctors;
-
-            if (availabilityFilter !== 'all') {
-                const isAvailable = availabilityFilter === 'available';
-                filteredDoctors = doctors.filter(doctor => doctor.available === isAvailable);
-            }
-
-            displayDoctors(filteredDoctors);
-        }
-
-        // Function to search doctors
-        document.getElementById('searchDoctors').addEventListener('input', function () {
-            const searchQuery = this.value.toLowerCase();
-            const filteredDoctors = doctors.filter(doctor =>
-                doctor.name.toLowerCase().includes(searchQuery) ||
-                doctor.specialization.toLowerCase().includes(searchQuery)
-            );
-            displayDoctors(filteredDoctors);
-        });
-
-        // Delete doctor functionality
-        function deleteDoctor(id) {
-            const index = doctors.findIndex(doctor => doctor.id === id);
-            if (index !== -1) {
-                doctors.splice(index, 1); // Remove doctor from array
-                filterDoctors(); // Re-render list after deletion
-                alert('Doctor deleted successfully!');
-            }
-        }
-
-        // Add doctor functionality
+        // Add new doctor form submission
         document.getElementById('addDoctorForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const name = document.getElementById('doctor-name').value;
-            const specialty = document.getElementById('doctor-specialty').value;
-            const experience = document.getElementById('doctor-experience').value;
-            const availability = document.getElementById('doctor-availability').value;
-            const photoInput = document.getElementById('doctor-photo');
-            const photo = URL.createObjectURL(photoInput.files[0]);
+            const doctorName = document.getElementById('doctor-name').value;
+            const doctorSpecialty = document.getElementById('doctor-specialty').value;
+            const doctorExperience = document.getElementById('doctor-experience').value;
+            const doctorAvailability = document.getElementById('doctor-availability').value;
+            const doctorPhoto = document.getElementById('doctor-photo').files[0];
 
-            // Create a new doctor object
-            const newDoctor = {
-                id: doctors.length + 1, // Assign a new ID
-                name: name,
-                specialization: specialty,
-                rating: "⭐⭐⭐⭐", // Default rating
-                photo: photo,
-                available: availability === "Available" // Convert to boolean
-            };
+            if (doctorName && doctorSpecialty && doctorExperience && doctorAvailability && doctorPhoto) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const newDoctorCard = `
+                        <tr>
+                            <td>
+                                <img src="${event.target.result}" alt="${doctorName}" class="doctor-photo">
+                                <h3>${doctorName}</h3>
+                                <p>Specialization: ${doctorSpecialty}</p>
+                                <p>Experience: ${doctorExperience} years</p>
+                                <p>Availability: ${doctorAvailability}</p>
+                                <button onclick="bookAppointment('${doctorName}')">Book Appointment</button>
+                                <a href="#doctor${doctorName.replace(/\s+/g, '')}">More Details</a>
+                                <br>
+                                <a href="doctor-reviews.html?doctor=${doctorName.replace(/\s+/g, '%20')}">Reviews</a>
+                            </td>
+                        </tr>
+                    `;
 
-            // Add the new doctor to the array
-            doctors.push(newDoctor);
-
-            // Close the modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('addDoctorModal'));
-            modal.hide();
-
-            // Reset the form
-            document.getElementById('addDoctorForm').reset();
-
-            // Re-render the list of doctors
-            filterDoctors();
+                    document.querySelector('#doctor-list table').insertAdjacentHTML('beforeend', newDoctorCard);
+                    alert('Doctor added successfully!');
+                    // Reset form
+                    document.getElementById('addDoctorForm').reset();
+                    $('#addDoctorModal').modal('hide'); // Close modal
+                };
+                reader.readAsDataURL(doctorPhoto);
+            } else {
+                alert('Please fill in all the fields and upload a photo.');
+            }
         });
-
-        // Initial display of doctors
-        displayDoctors(doctors);
     </script>
 </body>
 
 </html>
+
