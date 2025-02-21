@@ -106,85 +106,54 @@
     </footer>
 
     <script>
-        const activeBookings = [
-            { doctor: "Dr. John Smith", date: "2025-02-15", time: "10:00 AM", status: "Confirmed" },
-            { doctor: "Dr. Emma Davis", date: "2025-02-20", time: "2:00 PM", status: "Confirmed" }
-        ];
-
-        const pastBookings = [
-            { doctor: "Dr. Michael Brown", date: "2025-01-10", time: "11:00 AM", status: "Completed" }
-        ];
-
-        function loadBookings() {
+        function loadAppointments() {
             const activeList = document.getElementById("active-bookings");
             const pastList = document.getElementById("past-bookings");
 
-             // Clear lists before adding new items
-             activeList.innerHTML = "";
+            // Get appointments from localStorage
+            const appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+       
+        
+            // Clear lists before adding new items
+            activeList.innerHTML = "";
             pastList.innerHTML = "";
 
-            activeBookings.forEach((booking, index) => {
+            appointments.forEach((appointment, index) => {
                 const listItem = document.createElement("li");
-                listItem.innerHTML = `${booking.doctor} - ${booking.date} at ${booking.time} - ${booking.status}
+                listItem.innerHTML = `${appointment.doctor} - ${appointment.date} - ${appointment.status}
                     <button onclick="reschedule(${index})">Reschedule</button>
                     <button onclick="cancel(${index})">Cancel</button>`;
-                activeList.appendChild(listItem);
+                
+                if (appointment.status === "Confirmed") {
+                    activeList.appendChild(listItem);
+                } else {
+                    pastList.appendChild(listItem);
+                }
             });
-
-            pastBookings.forEach(booking => {
-                const listItem = document.createElement("li");
-                listItem.textContent = `${booking.doctor} - ${booking.date} at ${booking.time} - ${booking.status}`;
-                pastList.appendChild(listItem);
-            });
-
-            // Save updated data
-            localStorage.setItem("activeBookings", JSON.stringify(activeBookings));
-            localStorage.setItem("pastBookings", JSON.stringify(pastBookings));
-        
         }
 
-           function reschedule(index) {
-                const newDate = prompt("Enter a new date (YYYY-MM-DD):");
-                if (newDate) {
-                    activeBookings[index].date = newDate;
-                    alert("Appointment rescheduled successfully!");
-                    document.getElementById("active-bookings").innerHTML = "";
-                    loadBookings();
-    }
-}
-
-
-
-
-        function cancel(index) {
-            if (confirm("Are you sure you want to cancel this appointment?")) {
-                activeBookings.splice(index, 1);
-                alert("Appointment canceled successfully!");
-                document.getElementById("active-bookings").innerHTML = "";
-                loadBookings();
+        function reschedule(index) {
+            const newDate = prompt("Enter a new date (YYYY-MM-DD):");
+            if (newDate) {
+                const appointments = JSON.parse(localStorage.getItem("appointments"));
+                appointments[index].date = newDate;
+                appointments[index].status = "Confirmed"; // Reset status to confirmed if rescheduled
+                localStorage.setItem("appointments", JSON.stringify(appointments));
+                loadAppointments();
             }
         }
 
-        document.getElementById("appointment-form").addEventListener("submit", function(event) {
-            event.preventDefault();
-            const doctor = document.getElementById("doctor").value;
-            const name = document.getElementById("patient-name").value;
-            const email = document.getElementById("email").value;
-            const date = document.getElementById("appointment-date").value;
-
-            activeBookings.push({ doctor, date, time: "TBD", status: "Confirmed" });
-            alert("Appointment booked successfully!");
-            document.getElementById("appointment-form").reset();
-            document.getElementById("active-bookings").innerHTML = "";
-            loadBookings();
-        });
-
-        function selectDoctor(doctorName) {
-            document.getElementById("doctor").value = doctorName;
-            window.scrollTo({ top: document.getElementById("appointment-form").offsetTop, behavior: 'smooth' });
+        function cancel(index) {
+            if (confirm("Are you sure you want to cancel this appointment?")) {
+                const appointments = JSON.parse(localStorage.getItem("appointments"));
+                appointments.splice(index, 1);
+                localStorage.setItem("appointments", JSON.stringify(appointments));
+                loadAppointments();
+            }
         }
 
-        loadBookings();
+        // Load appointments when the page is ready
+        loadAppointments();
     </script>
 </body>
 </html>

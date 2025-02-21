@@ -109,8 +109,10 @@
             }
         };
 
-        // Function to submit the appointment and show the modal with confirmation
-        function submitAppointment() {
+         // Function to submit the appointment and show the modal with confirmation
+         function submitAppointment(event) {
+            event.preventDefault();  // Prevent form from submitting
+
             const date = document.getElementById('appointment-date').value;
             const time = document.getElementById('appointment-time').value;
             const doctor = document.getElementById('doctor-name').value;
@@ -126,29 +128,47 @@
             }
 
             // Hide the form and show the confirmation modal
-            document.getElementById
-                        // Hide the form and show the confirmation modal
-                        document.getElementById('appointment-form').style.display = 'none';
+            document.getElementById('appointment-form').style.display = 'none';
 
-// Populate the confirmation modal with the appointment details
-document.getElementById('confirm-date').innerText = date;
-document.getElementById('confirm-time').innerText = time;
-document.getElementById('confirm-doctor').innerText = doctor || "Not Selected";
-document.getElementById('confirm-name').innerText = name;
-document.getElementById('confirm-email').innerText = email;
-document.getElementById('confirm-phone').innerText = phone;
-document.getElementById('confirm-notes').innerText = notes || 'None';
+            // Populate the confirmation modal with the appointment details
+            document.getElementById('confirm-date').innerText = date;
+            document.getElementById('confirm-time').innerText = time;
+            document.getElementById('confirm-doctor').innerText = doctor || "Not Selected";
+            document.getElementById('confirm-name').innerText = name;
+            document.getElementById('confirm-email').innerText = email;
+            document.getElementById('confirm-phone').innerText = phone;
+            document.getElementById('confirm-notes').innerText = notes || 'None';
 
-// Show the confirmation modal
-var myModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
-myModal.show();
-}
+            // Show the confirmation modal
+            var myModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+            myModal.show();
+        }
 
-// Redirect to the booking page (optional: you can modify it to handle any extra logic)
-function redirectToBookingPage() {
-window.location.href = 'appointment-booking.html'; // URL for your booking page
-}
-</script>
+        // Redirect to the booking page (optional: you can modify it to handle any extra logic)
+        function redirectToBookingPage() {
+            // Store the appointment data in localStorage
+            const appointmentData = {
+                date: document.getElementById('confirm-date').innerText,
+                time: document.getElementById('confirm-time').innerText,
+                doctor: document.getElementById('confirm-doctor').innerText,
+                name: document.getElementById('confirm-name').innerText,
+                email: document.getElementById('confirm-email').innerText,
+                phone: document.getElementById('confirm-phone').innerText,
+                notes: document.getElementById('confirm-notes').innerText,
+            };
+
+            // Save to localStorage (or you could store it in a backend DB instead)
+            let appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+            appointments.push(appointmentData);
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+
+            // Redirect to the appointment management page
+            window.location.href = 'appointment-management.html';
+        }
+
+        // Event listener for form submission
+        document.getElementById('appointment-form').addEventListener('submit', submitAppointment);
+    </script>
 
 <!-- Include Bootstrap 5 JavaScript (Bootstrap Bundle includes both JS and Popper.js) -->
 <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
