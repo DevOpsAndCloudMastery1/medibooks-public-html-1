@@ -14,6 +14,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
+            <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> MediBooks
             <a class="navbar-brand" href="home.html">MediBooks</a>
         </div>
     </nav>
@@ -41,7 +42,7 @@
                     <!-- Doctor Information -->
                     <div class="form-group">
                         <label for="doctor-name">Doctor:</label>
-                        <input type="text" id="doctor-name" value="Dr. John Smith" readonly>
+                        <input type="text" id="doctor-name" readonly>
                         <!-- Doctor Details Link -->
                         <a id="doctor-details-link" href="doctor-details.html" target="_blank">View Doctor Details</a>  
                     </div>
@@ -95,6 +96,24 @@
     </div>
 
     <script>
+        // Function to extract query parameters from URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Populate doctor name and link based on the URL query parameter
+        window.onload = function () {
+            const doctorName = getQueryParam('doctor');
+            if (doctorName) {
+                // Populate the doctor name field if present in the query string
+                document.getElementById('doctor-name').value = doctorName;
+                
+                // Update the doctor details link with the passed doctor name
+                document.getElementById('doctor-details-link').href = `doctor-details.html?doctor=${encodeURIComponent(doctorName)}`;
+            }
+        };
+
         // Function to submit the appointment and show the modal with confirmation
         function submitAppointment() {
             const date = document.getElementById('appointment-date').value;
