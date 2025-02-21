@@ -68,6 +68,7 @@
     <div class="logo-container">
         <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo">
     </div>
+    <h1>Medibooks</h1>
 
     <!-- Login Form -->
     <div id="loginFormContainer" class="form-card">
@@ -91,7 +92,7 @@
     <!-- Sign Up Form (Initially Hidden) -->
     <div id="signUpFormContainer" class="form-card" style="display:none;">
         <h2 class="form-title">Create an Account</h2>
-        <form id="signUpForm" action="home.html" method="post">
+        <form id="signUpForm" onsubmit="return createAccount(event)">
             <div class="mb-3">
                 <label for="fullName" class="form-label">Full Name</label>
                 <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Enter your full name" required>
@@ -133,6 +134,14 @@
 </div>
 
 <script>
+    // Sample credentials for login
+    const validCredentials = {
+        email: "publicuser",
+        password: "public@123"
+    };
+
+    let userDatabase = {};  // Store the created users (this would be replaced by a real backend in production)
+
     // Toggle between Login and Sign Up forms
     function showSignUpForm() {
         document.getElementById('loginFormContainer').style.display = 'none';
@@ -164,40 +173,44 @@
         }
     }
 
-    // Login Validation Function
+    // Validate Login Function
     function validateLogin(event) {
-        // New public module credentials
-        const validEmail = "publicuser";
-        const validPassword = "public@123";
-
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
 
-        // Validate the entered credentials
-        if (email === validEmail && password === validPassword) {
+        // Check for predefined credentials (e.g., "publicuser" and "public@123")
+        if ((email === validCredentials.email && password === validCredentials.password) || 
+            (userDatabase[email] && userDatabase[email] === password)) {
             alert("Login successful!");
-            // Redirect to home page (change the URL if needed)
             window.location.href = "home.html";
-            return false; // Prevent form submission
+            return false;
         } else {
             alert("Invalid credentials. Please try again.");
-            event.preventDefault(); // Prevent form submission
+            event.preventDefault();
             return false;
         }
     }
 
-    // JavaScript Form Validation for Sign Up
-    document.getElementById("signUpForm").addEventListener("submit", function(event) {
+    // Sign Up Function to Save User Credentials
+    function createAccount(event) {
         var fullName = document.getElementById("fullName").value;
-        var signUpEmail = document.getElementById("signUpEmail").value;
-        var signUpPhone = document.getElementById("signUpPhone").value;
-        var signUpPassword = document.getElementById("signUpPassword").value;
+        var email = document.getElementById("signUpEmail").value;
+        var phone = document.getElementById("signUpPhone").value;
+        var password = document.getElementById("signUpPassword").value;
 
-        if (fullName.trim() === "" || signUpEmail.trim() === "" || signUpPhone.trim() === "" || signUpPassword.trim() === "") {
-            alert("Please fill in all the fields.");
-            event.preventDefault(); // Stop form submission
+        if (email in userDatabase) {
+            alert("This email is already registered.");
+            event.preventDefault();
+            return false;
         }
-    });
+
+        userDatabase[email] = password;
+        alert("Account created successfully. You can now log in.");
+        showLoginForm();
+        event.preventDefault();
+        return false;
+    }
+
 </script>
 
 </body>
