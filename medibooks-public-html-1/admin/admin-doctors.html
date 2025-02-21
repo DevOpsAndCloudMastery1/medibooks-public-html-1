@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Manage Doctors</title>
     <link rel="stylesheet" href="../styles/medibooks-styles.css">
-    <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="js/bootstrap-5.1.3-dist/css/bootstrap.min.css">
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
         table {
             width: 100%;
@@ -26,116 +28,57 @@
             background-color: #f4f4f4;
         }
 
-        section {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+        img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
-        input[type="text"], input[type="file"], button {
-            padding: 10px;
-            font-size: 1rem;
-            border-radius: 6px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            width: 100%;
-        }
-
-        button {
-            background-color: #f39c12;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #d35400;
-        }
-
-        td button, td a {
-            margin-right: 10px;
-        }
-
-        td a {
-            color: #34495e;
-            text-decoration: none;
-            padding: 8px 12px;
-            background-color: #f39c12;
-            color: white;
-            border-radius: 6px;
-            transition: background-color 0.3s;
-        }
-
-        td a:hover {
-            background-color: #d35400;
-        }
-
-        .navbar-brand img {
-            width: 40px;
-            margin-right: 10px;
-        }
-
-        .navbar-nav a {
-            color: #fff;
+        .logo {
+            width: 150px;
+            display: block;
+            margin: 10px auto;
         }
     </style>
 </head>
-<body>
-    <h2>Doctor Management</h2>
+<body class="container">
+    
+    <!-- MediBooks Logo -->
+    <img src="../images /medibooks-logo.png" alt="MediBooks Logo" class="logo">
+    
+    <h2 class="text-center">Doctor Management</h2>
 
-    <!-- Bootstrap Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="admin-dashboard.html">
-                <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> MediBooks Admin
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="admin-dashboard.html">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="admin-appointments.html">Appointments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="admin-reports.html">Reports</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="admin-users.html">Users</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <!-- Navigation -->
+    <nav class="mb-3">
+        <a href="admin-dashboard.html" class="btn btn-outline-primary">Dashboard</a>
+        <a href="admin-appointments.html" class="btn btn-outline-primary">Appointments</a>
+        <a href="admin-reports.html" class="btn btn-outline-primary">Reports</a>
+        <a href="admin-users.html" class="btn btn-outline-primary">Users</a>
     </nav>
 
-    <!-- Doctor Management Section -->
-    <section>
+    <!-- Add New Doctor Form -->
+    <section class="mb-3">
         <h3>Add New Doctor</h3>
-        <input type="text" id="doctor-name" placeholder="Doctor Name" required>
-        <input type="text" id="doctor-specialization" placeholder="Specialization" required>
-        <input type="text" id="doctor-location" placeholder="Location" required>
-        <input type="file" id="doctor-photo" accept="image/*" required>
-        <button onclick="addDoctor()">Add Doctor</button>
+        <input type="text" id="doctor-name" class="form-control mb-2" placeholder="Doctor Name" required>
+        <input type="text" id="doctor-specialization" class="form-control mb-2" placeholder="Specialization" required>
+        <input type="text" id="doctor-location" class="form-control mb-2" placeholder="Location" required>
+        <input type="text" id="doctor-photo" class="form-control mb-2" placeholder="Photo URL (Optional)">
+        <button class="btn btn-primary" onclick="addDoctor()">Add Doctor</button>
     </section>
 
-    <table id="doctor-table">
+    <!-- Doctors Table -->
+    <table id="doctor-table" class="table table-striped table-bordered">
         <thead>
             <tr>
+                <th>Photo</th>
                 <th>Name</th>
                 <th>Specialization</th>
                 <th>Location</th>
-                <th>Photo</th>
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
-        </tbody>
+        <tbody></tbody>
     </table>
 
     <script>
@@ -154,14 +97,14 @@
             doctors.forEach((doc, index) => {
                 tableBody.innerHTML += `
                     <tr>
+                        <td><img src="${doc.photo || '../images /default-doctor.jpg'}" alt="Doctor Photo"></td>
                         <td>${doc.name || "Unknown"}</td>
                         <td>${doc.specialization || "Not Provided"}</td>
                         <td>${doc.location || "Not Provided"}</td>
-                        <td><img src="${doc.photo}" alt="Doctor Photo" width="50" height="50"></td>
                         <td>
-                            <button onclick="editDoctor(${index})">Edit</button>
-                            <button onclick="removeDoctor(${index})">Remove</button>
-                            <a href="../doctor-details.html?name=${encodeURIComponent(doc.name)}&specialization=${encodeURIComponent(doc.specialization)}&location=${encodeURIComponent(doc.location)}">View Details</a>
+                            <button class="btn btn-warning btn-sm" onclick="editDoctor(${index})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="removeDoctor(${index})">Remove</button>
+                            <a href="../doctor-details.html?name=${encodeURIComponent(doc.name)}&specialization=${encodeURIComponent(doc.specialization)}&location=${encodeURIComponent(doc.location)}" class="btn btn-info btn-sm">View Details</a>
                         </td>
                     </tr>
                 `;
@@ -173,33 +116,27 @@
             const name = document.getElementById("doctor-name").value.trim();
             const specialization = document.getElementById("doctor-specialization").value.trim();
             const location = document.getElementById("doctor-location").value.trim();
-            const photoInput = document.getElementById("doctor-photo");
-            const photo = photoInput.files[0];
+            const photo = document.getElementById("doctor-photo").value.trim() || "../images /default-doctor.jpg";
 
-            if (name && specialization && location && photo) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const photoDataUrl = e.target.result;
-
-                    doctors.push({ name, specialization, location, photo: photoDataUrl });
-                    localStorage.setItem("doctors", JSON.stringify(doctors));
-                    loadDoctors();
-                    clearInputFields();
-                };
-                reader.readAsDataURL(photo);
+            if (name && specialization && location) {
+                doctors.push({ name, specialization, location, photo });
+                localStorage.setItem("doctors", JSON.stringify(doctors));
+                loadDoctors();
+                clearInputFields();
             } else {
-                alert("Please fill all fields and upload a photo.");
+                alert("Please fill all fields.");
             }
         }
 
         function editDoctor(index) {
             const doctor = doctors[index];
-            const name = prompt("Enter new name", doctor.name).trim();
-            const specialization = prompt("Enter new specialization", doctor.specialization).trim();
-            const location = prompt("Enter new location", doctor.location).trim();
+            const name = prompt("Enter new name", doctor.name)?.trim();
+            const specialization = prompt("Enter new specialization", doctor.specialization)?.trim();
+            const location = prompt("Enter new location", doctor.location)?.trim();
+            const photo = prompt("Enter new photo URL", doctor.photo)?.trim();
 
             if (name && specialization && location) {
-                doctors[index] = { name, specialization, location, photo: doctor.photo };
+                doctors[index] = { name, specialization, location, photo };
                 localStorage.setItem("doctors", JSON.stringify(doctors));
                 loadDoctors();
             }
