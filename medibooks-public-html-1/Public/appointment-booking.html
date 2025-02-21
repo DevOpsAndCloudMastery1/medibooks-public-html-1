@@ -4,148 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Booking</title>
+
+    <!-- Link to your external CSS -->
     <link rel="stylesheet" href="../styles/medibooks-styles.css">
-    <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        /* General body styles */
-        body {
-            background-color: #f8f9fa;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
 
-        /* Navbar Styles */
-        .navbar {
-            background: linear-gradient(90deg, #2c3e50, #34495e);
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar .navbar-nav {
-            display: flex;
-            justify-content: flex-end;
-            margin: 0;
-            padding: 0;
-        }
-
-        .navbar .nav-item {
-            margin-left: 20px;
-        }
-
-        .navbar a {
-            color: white;
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-
-        .navbar a:hover {
-            color: #f39c12;
-        }
-
-        /* Form Styles */
-        .content {
-            padding: 20px;
-        }
-
-        .card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 1rem;
-            margin-top: 5px;
-        }
-
-        button {
-            background: #34495e;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        button:hover {
-            background: #2c3e50;
-            transform: scale(1.05);
-        }
-
-        /* Modal Styles */
-        .modal-content {
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .modal-header {
-            background: #34495e;
-            color: white;
-            border-radius: 10px 10px 0 0;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-        }
-
-        .modal-body {
-            font-size: 1rem;
-        }
-
-        .modal-footer {
-            border-top: 1px solid #ccc;
-        }
-
-        .btn-close {
-            background-color: transparent;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-        }
-    </style>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="navbar-brand">
-        <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> 
-        MediBooks 
-    </div>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="home.html">MediBooks</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="doctor-search.html">Find a Doctor</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="appointment-booking.html">Book Appointment</a></li>
-                    <li class="nav-item"><a class="nav-link" href="appointment-management.html">My Bookings</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="user-profile-edit.html">Profile</a></li>
-                    <li class="nav-item"><a class="nav-link" href="doctor-reviews.html">My Reviews</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.html">Sign Out</a></li>
-                </ul>
-            </div>
         </div>
     </nav>
 
     <div class="container content">
         <h1 class="text-center mb-4">Book an Appointment</h1>
-        <div class="card">
+        <div class="card" id="appointment-form">
             <div class="card-body">
                 <form id="booking-form">
                     <div class="form-group">
@@ -162,10 +37,16 @@
                             <option value="4:00 PM">4:00 PM</option>
                         </select>
                     </div>
+
+                    <!-- Doctor Information -->
                     <div class="form-group">
                         <label for="doctor-name">Doctor:</label>
-                        <input type="text" id="doctor-name" readonly>
+                        <input type="text" id="doctor-name" value="Dr. John Smith" readonly>
+                        <!-- Doctor Details Link -->
+                        <a id="doctor-details-link" href="doctor-details.html" target="_blank">View Doctor Details</a>  
                     </div>
+
+                    <!-- Patient Information -->
                     <div class="form-group">
                         <label for="patient-name">Name:</label>
                         <input type="text" id="patient-name" placeholder="Enter your name" required>
@@ -214,20 +95,6 @@
     </div>
 
     <script>
-        // Function to extract query parameter from URL (if any)
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-
-        // Populate doctor name if query param exists
-        window.onload = function () {
-            const doctorName = getQueryParam('doctor');
-            if (doctorName) {
-                document.getElementById('doctor-name').value = doctorName;
-            }
-        };
-
         // Function to submit the appointment and show the modal with confirmation
         function submitAppointment() {
             const date = document.getElementById('appointment-date').value;
@@ -238,10 +105,14 @@
             const phone = document.getElementById('patient-phone').value;
             const notes = document.getElementById('patient-notes').value.trim();
 
+            // Basic validation check
             if (!date || !time || !name || !email || !phone) {
                 alert('Please fill out all required fields.');
                 return;
             }
+
+            // Hide the form and show the confirmation modal
+            document.getElementById('appointment-form').style.display = 'none';
 
             // Populate the confirmation modal with the appointment details
             document.getElementById('confirm-date').innerText = date;
@@ -258,8 +129,7 @@
         }
     </script>
 
-    <footer>
-        <p>&copy; 2025 MediBooks</p>
-    </footer>
+    <!-- Include Bootstrap 5 JavaScript (Bootstrap Bundle includes both JS and Popper.js) -->
+    <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
