@@ -44,7 +44,7 @@
 
         .doctor-card img {
             width: 100%;
-            height: 250px;
+            height: 150px; /* Smaller size */
             object-fit: cover;
             border-radius: 5px;
         }
@@ -68,6 +68,15 @@
         .btn-edit:hover,
         .btn-cancel:hover {
             background-color: #5a6268;
+        }
+
+        .doctor-card h5 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .doctor-card p {
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -93,6 +102,9 @@
     <div class="container">
         <h2>Manage Doctors</h2>
 
+        <!-- Add Doctor Button -->
+        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addDoctorModal">Add Doctor</button>
+
         <!-- Search Bar -->
         <input type="text" id="searchDoctors" class="form-control mb-3" placeholder="Search doctors by name or specialty">
 
@@ -102,9 +114,6 @@
             <option value="available">Available</option>
             <option value="unavailable">Unavailable</option>
         </select>
-
-        <!-- Add Doctor Button -->
-        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addDoctorModal">Add Doctor</button>
 
         <!-- Doctor Cards -->
         <div class="row" id="doctor-list">
