@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Appointments</title>
     <link href="../styles/medibooks-styles.css" rel="stylesheet">
+    <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js" defer></script>
     <style>
         body {
             background-color: #f8f9fa;
@@ -125,13 +126,16 @@
         }
 
         .approve-btn, .reschedule-btn, .cancel-btn {
-            background-color: #2ecc71;
-            border: none;
             padding: 8px 16px;
             color: white;
             cursor: pointer;
             border-radius: 5px;
+            border: none;
             transition: background-color 0.3s;
+        }
+
+        .approve-btn {
+            background-color: #2ecc71;
         }
 
         .approve-btn:hover {
@@ -245,20 +249,22 @@
         <div class="filters">
             <label for="doctor-filter">Filter by Doctor:</label>
             <select id="doctor-filter">
-                <option>Dr. John Smith</option>
-                <option>Dr. Emma Davis</option>
-                <option>Dr. Michael Brown</option>
-                <option>Dr. Olivia Wilson</option>
-                <option>Dr. Liam Johnson</option>
-                <option>Dr. Sophia Martinez</option>
+                <option value="">Select Doctor</option>
+                <option value="Dr. John Smith">Dr. John Smith</option>
+                <option value="Dr. Emma Davis">Dr. Emma Davis</option>
+                <option value="Dr. Michael Brown">Dr. Michael Brown</option>
+                <option value="Dr. Olivia Wilson">Dr. Olivia Wilson</option>
+                <option value="Dr. Liam Johnson">Dr. Liam Johnson</option>
+                <option value="Dr. Sophia Martinez">Dr. Sophia Martinez</option>
             </select>
             <label for="status-filter">Filter by Status:</label>
             <select id="status-filter">
-                <option>All</option>
-                <option>Approved</option>
-                <option>Pending</option>
-                <option>Cancelled</option>
+                <option value="">All</option>
+                <option value="Approved">Approved</option>
+                <option value="Pending">Pending</option>
+                <option value="Cancelled">Cancelled</option>
             </select>
+            <button onclick="filterAppointments()">Filter</button>
         </div>
 
         <table id="appointments-table">
@@ -271,10 +277,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr data-doctor="Dr. John Smith" data-status="Pending">
                     <td>John Doe</td>
                     <td>2025-02-20</td>
                     <td class="status">Pending</td>
+                    <td>
+                        <button class="approve-btn">Approve</button>
+                        <button class="reschedule-btn">Reschedule</button>
+                        <button class="cancel-btn">Cancel</button>
+                    </td>
+                </tr>
+                <tr data-doctor="Dr. Emma Davis" data-status="Approved">
+                    <td>Jane Smith</td>
+                    <td>2025-02-21</td>
+                    <td class="status">Approved</td>
                     <td>
                         <button class="approve-btn">Approve</button>
                         <button class="reschedule-btn">Reschedule</button>
@@ -353,9 +369,26 @@
         cancelRescheduleButton.addEventListener('click', function() {
             rescheduleModal.style.display = 'none';
         });
-    </script>
 
-    <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js" defer></script>
+        // Filter appointments based on selected doctor and status
+        function filterAppointments() {
+            const doctorFilter = document.getElementById('doctor-filter').value.toLowerCase();
+            const statusFilter = document.getElementById('status-filter').value.toLowerCase();
+            const rows = document.querySelectorAll('#appointments-table tbody tr');
+
+            rows.forEach(row => {
+                const doctor = row.getAttribute('data-doctor').toLowerCase();
+                const status = row.querySelector('.status').textContent.toLowerCase();
+
+                if ((doctor.includes(doctorFilter) || doctorFilter === '') && 
+                    (status.includes(statusFilter) || statusFilter === '')) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
