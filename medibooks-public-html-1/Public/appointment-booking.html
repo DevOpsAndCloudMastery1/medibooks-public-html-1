@@ -8,200 +8,124 @@
     <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
     <style>
         /* General body styles */
-     body {
-        background-color: #f8f9fa;
-        margin: 0;
-        font-family: Arial, sans-serif;
-    }
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
 
-    /* Navbar Styles */
-    .navbar {
-        background: linear-gradient(90deg, #2c3e50, #34495e);
-        color: white;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(90deg, #2c3e50, #34495e);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .navbar .navbar-nav {
-        display: flex;
-        justify-content: flex-end;  /* Align menu items to the right */
-        margin: 0;
-        padding: 0;
-    }
+        .navbar .navbar-nav {
+            display: flex;
+            justify-content: flex-end;
+            margin: 0;
+            padding: 0;
+        }
 
-    .navbar .nav-item {
-        margin-left: 20px;  /* Add space between menu items */
-    }
+        .navbar .nav-item {
+            margin-left: 20px;
+        }
 
-    .navbar a {
-        color: white;
-        transition: color 0.3s;
-        cursor: pointer;
-    }
+        .navbar a {
+            color: white;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
 
-    .navbar a:hover {
-        color: #f39c12;
-    }
+        .navbar a:hover {
+            color: #f39c12;
+        }
 
-    .navbar-brand {
-        display: flex;
-        align-items: center;
-    }
+        /* Form Styles */
+        .content {
+            padding: 20px;
+        }
 
-    .navbar-brand img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        margin-right: 10px;
-        transition: transform 0.2s ease-in-out;
-    }
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
 
-    .navbar-brand img:hover {
-        transform: scale(1.2);
-    }
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-    /* Main Content Section */
-    .content {
-        padding: 20px;
-    }
+        label {
+            font-weight: bold;
+        }
 
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            margin-top: 5px;
+        }
 
-    p {
-        text-align: center;
-        font-size: 1.2rem;
-    }
+        button {
+            background: #34495e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
 
-    /* Form Styles */
-    .card {
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin-bottom: 20px;
-    }
+        button:hover {
+            background: #2c3e50;
+            transform: scale(1.05);
+        }
 
-    .form-group {
-        margin-bottom: 15px;
-    }
+        /* Modal Styles */
+        .modal-content {
+            padding: 20px;
+            border-radius: 10px;
+        }
 
-    label {
-        font-weight: bold;
-    }
+        .modal-header {
+            background: #34495e;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
 
-    input, select, textarea {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        font-size: 1rem;
-        margin-top: 5px;
-    }
+        .modal-title {
+            font-size: 1.5rem;
+        }
 
-    textarea {
-        resize: vertical;
-    }
+        .modal-body {
+            font-size: 1rem;
+        }
 
-    button {
-        background: #34495e;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background 0.3s, transform 0.2s;
-    }
+        .modal-footer {
+            border-top: 1px solid #ccc;
+        }
 
-    button:hover {
-        background: #2c3e50;
-        transform: scale(1.05);
-    }
-
-    /* Modal Styles */
-    .modal-content {
-        padding: 20px;
-        border-radius: 10px;
-    }
-
-    .modal-header {
-        background: #34495e;
-        color: white;
-        border-radius: 10px 10px 0 0;
-    }
-
-    .modal-title {
-        font-size: 1.5rem;
-    }
-
-    .modal-body {
-        font-size: 1rem;
-    }
-
-    .modal-footer {
-        border-top: 1px solid #ccc;
-    }
-
-    .btn-close {
-        background-color: transparent;
-        border: none;
-        color: white;
-        font-size: 1.5rem;
-    }
-
-    /* Footer Styles */
-    footer {
-        background: #2c3e50;
-        color: white;
-        text-align: center;
-        padding: 15px 0;
-        margin-top: 20px;
-    }
-
-    /* Button Styles for General Pages */
-    .btn-primary {
-        background: linear-gradient(90deg, #34495e, #2c3e50);
-        border: none;
-        transition: background 0.3s, transform 0.2s;
-        cursor: pointer;
-        padding: 10px 20px;
-        color: white;
-        border-radius: 5px;
-    }
-
-    .btn-primary:hover {
-        background: linear-gradient(90deg, #2c3e50, #34495e);
-        transform: scale(1.05);
-    }
-
-    /* Links Styles */
-    a {
-        text-decoration: none;
-        transition: color 0.3s;
-    }
-
-    a:hover {
-        color: #f39c12;
-    }
-
-    /* Modal Styles */
-    .modal-backdrop {
-        background: rgba(0, 0, 0, 0.5);
-    }
-
-    .modal-dialog {
-        max-width: 600px;
-    }
-</style>
+        .btn-close {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar-brand">
-        <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo">
+        <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> 
+        MediBooks 
     </div>
-    <h1>MediBooks</h1>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="home.html">MediBooks</a>
@@ -217,7 +141,7 @@
                 </ul>
             </div>
         </div>
-    </nav> 
+    </nav>
 
     <div class="container content">
         <h1 class="text-center mb-4">Book an Appointment</h1>
@@ -241,41 +165,35 @@
                     <div class="form-group">
                         <label for="doctor-name">Doctor:</label>
                         <input type="text" id="doctor-name" readonly>
-                        <a id="doctor-details-link" href="doctor-details.html" target="_blank">View Doctor Details</a>  
                     </div>
-
                     <div class="form-group">
                         <label for="patient-name">Name:</label>
                         <input type="text" id="patient-name" placeholder="Enter your name" required>
                     </div>
-
                     <div class="form-group">
                         <label for="patient-email">Email:</label>
                         <input type="email" id="patient-email" placeholder="Enter your email" required>
                     </div>
-
-                   <div class="form-group">
-                       <label for="patient-phone">Phone:</label>
-                       <input type="tel" id="patient-phone" placeholder="Enter your phone number" required>
-                   </div>
-
-                   <div class="form-group">
-                       <label for="patient-notes">Additional Notes:</label>
-                       <textarea id="patient-notes" rows="3" placeholder="Optional notes..."></textarea>
-                   </div>
-
-                   <button type="button" class="btn btn-primary" onclick="submitAppointment()">Book Appointment</button>
+                    <div class="form-group">
+                        <label for="patient-phone">Phone:</label>
+                        <input type="tel" id="patient-phone" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-notes">Additional Notes:</label>
+                        <textarea id="patient-notes" rows="3" placeholder="Optional notes..."></textarea>
+                    </div>
+                    <button type="button" onclick="submitAppointment()">Book Appointment</button>
                 </form>
-            </div> 
+            </div>
         </div>
     </div>
 
-    <!-- Modal for Appointment Confirmation -->
-    <div class="modal fade" id="appointmentConfirmationModal" tabindex="-1" aria-labelledby="appointmentConfirmationModalLabel" aria-hidden="true">
+    <!-- Confirmation Modal (Hidden by Default) -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="appointmentConfirmationModalLabel">Appointment Confirmed</h5>
+                    <h5 class="modal-title" id="confirmationModalLabel">Appointment Confirmation</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -289,13 +207,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Extract query parameter from URL
+        // Function to extract query parameter from URL (if any)
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
@@ -306,12 +225,11 @@
             const doctorName = getQueryParam('doctor');
             if (doctorName) {
                 document.getElementById('doctor-name').value = doctorName;
-                document.getElementById('doctor-details-link').href = `doctor-details.html?doctor=${encodeURIComponent(doctorName)}`;
             }
         };
 
+        // Function to submit the appointment and show the modal with confirmation
         function submitAppointment() {
-            // Get form values
             const date = document.getElementById('appointment-date').value;
             const time = document.getElementById('appointment-time').value;
             const doctor = document.getElementById('doctor-name').value;
@@ -325,7 +243,7 @@
                 return;
             }
 
-            // Populate confirmation modal with the form values
+            // Populate the confirmation modal with the appointment details
             document.getElementById('confirm-date').innerText = date;
             document.getElementById('confirm-time').innerText = time;
             document.getElementById('confirm-doctor').innerText = doctor || "Not Selected";
@@ -335,13 +253,13 @@
             document.getElementById('confirm-notes').innerText = notes || 'None';
 
             // Show the confirmation modal
-            const myModal = new bootstrap.Modal(document.getElementById('appointmentConfirmationModal'));
+            var myModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
             myModal.show();
         }
     </script>
 
     <footer>
-        <p>&copy; 2025 Medibooks</p>
+        <p>&copy; 2025 MediBooks</p>
     </footer>
 </body>
 </html>
