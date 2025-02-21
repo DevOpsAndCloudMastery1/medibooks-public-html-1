@@ -6,13 +6,13 @@
     <title>Manage Appointments</title>
     <link href="../styles/medibooks-styles.css" rel="stylesheet">
     <style>
+        /* Your existing styles */
         body {
             background-color: #f8f9fa;
             margin: 0;
             font-family: Arial, sans-serif;
         }
 
-        /* Navbar */
         .navbar {
             background: linear-gradient(90deg, #2c3e50, #34495e);
             color: white;
@@ -35,7 +35,7 @@
         }
 
         .navbar-brand img {
-            width: 40px;  /* Adjust the size as per requirement */
+            width: 40px;
             height: 40px;
             border-radius: 50%;
             margin-right: 10px;
@@ -43,7 +43,7 @@
         }
 
         .navbar-brand img:hover {
-            transform: scale(1.1); /* Slight zoom on hover for effect */
+            transform: scale(1.1);
         }
 
         .sidebar {
@@ -78,6 +78,21 @@
             background-color: #34495e;
         }
 
+        #logout {
+            background-color: #34495e;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            display: block;
+            margin-top: 20px;
+        }
+
+        #logout:hover {
+            background-color: #7f8c8d;
+        }
+
         .main-content {
             margin-left: 250px;
             padding: 30px;
@@ -100,7 +115,6 @@
             margin-right: 15px;
         }
 
-        /* Appointment Table */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -120,9 +134,8 @@
             background-color: #f4f4f4;
         }
 
-        /* Button Styling */
         .approve-btn, .reschedule-btn, .cancel-btn {
-            background-color: #7f8c8d;  /* Grey color */
+            background-color: #7f8c8d;
             color: white;
             border: none;
             padding: 5px 15px;
@@ -131,10 +144,9 @@
         }
 
         .approve-btn:hover, .reschedule-btn:hover, .cancel-btn:hover {
-            background-color: #616a70;  /* Darker grey on hover */
+            background-color: #616a70;
         }
 
-        /* Modal for Reschedule */
         #reschedule-modal {
             display: none;
             position: fixed;
@@ -159,17 +171,15 @@
 </head>
 <body>
 
-    <!-- Navbar with MediBooks Logo & Name -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="admin-dashboard.html">
-                <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo" class="logo"> 
+                <img src="../image /MediBooks-Logo-1.png" alt="MediBooks Logo" class="logo"> 
                 <span class="brand-name">MediBooks</span>
             </a>
         </div>
     </nav>
 
-    <!-- Sidebar Navigation -->
     <div class="sidebar">
         <ul>
             <li><a href="admin-dashboard.html">Dashboard</a></li>
@@ -181,31 +191,28 @@
         </ul>
     </div>
 
-    <!-- Main Content Area -->
     <div class="main-content">
         <h1>Manage Appointments</h1>
 
-        <!-- Filters Section -->
         <div class="filters">
             <label for="doctor-filter">Filter by Doctor:</label>
             <select id="doctor-filter">
-                <option>Dr. John Smith</option>
-                <option>Dr. Emma Davis</option>
-                <option>Dr. Michael Brown</option>
-                <option>Dr. Olivia Wilson</option>
-                <option>Dr. Liam Johnson</option>
-                <option>Dr. Sophia Martinez</option>
+                <option value="Dr. John Smith">Dr. John Smith</option>
+                <option value="Dr. Emma Davis">Dr. Emma Davis</option>
+                <option value="Dr. Michael Brown">Dr. Michael Brown</option>
+                <option value="Dr. Olivia Wilson">Dr. Olivia Wilson</option>
+                <option value="Dr. Liam Johnson">Dr. Liam Johnson</option>
+                <option value="Dr. Sophia Martinez">Dr. Sophia Martinez</option>
             </select>
             <label for="status-filter">Filter by Status:</label>
             <select id="status-filter">
-                <option>All</option>
-                <option>Approved</option>
-                <option>Pending</option>
-                <option>Cancelled</option>
+                <option value="All">All</option>
+                <option value="Approved">Approved</option>
+                <option value="Pending">Pending</option>
+                <option value="Cancelled">Cancelled</option>
             </select>
         </div>
 
-        <!-- Appointments Table -->
         <table id="appointments-table">
             <thead>
                 <tr>
@@ -216,7 +223,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr> data-doctor="Dr. John Smith" data-status="Pending">
+                <tr data-doctor="Dr. John Smith" data-status="Pending">
                     <td>John Doe</td>
                     <td>2025-02-20</td>
                     <td class="status">Pending</td>
@@ -228,7 +235,7 @@
                 </tr>
                 <tr data-doctor="Dr. Emma Davis" data-status="Approved">
                     <td>Jane Smith</td>
-                    <td>2025-02-21</td>
+                    <td>2025-02-22</td>
                     <td class="status">Approved</td>
                     <td>
                         <button class="approve-btn">Approve</button>
@@ -236,7 +243,7 @@
                         <button class="cancel-btn">Cancel</button>
                     </td>
                 </tr>
-                <!-- More rows can be added here -->
+                <!-- Add more rows as necessary -->
             </tbody>
         </table>
     </div>
@@ -254,9 +261,8 @@
         </div>
     </div>
 
-    <!-- Scripts for handling actions -->
     <script>
-        // Handle Approve button click
+        // Handle button clicks for actions
         const approveButtons = document.querySelectorAll('.approve-btn');
         approveButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -266,7 +272,6 @@
             });
         });
 
-        // Handle Cancel button click
         const cancelButtons = document.querySelectorAll('.cancel-btn');
         cancelButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -276,7 +281,6 @@
             });
         });
 
-        // Handle Reschedule button click
         const rescheduleButtons = document.querySelectorAll('.reschedule-btn');
         const rescheduleModal = document.getElementById('reschedule-modal');
         const confirmRescheduleButton = document.getElementById('confirm-reschedule');
@@ -286,11 +290,10 @@
         rescheduleButtons.forEach(button => {
             button.addEventListener('click', function() {
                 selectedRow = this.closest('tr');
-                rescheduleModal.style.display = 'flex';
+                rescheduleModal.style.display = 'block';
             });
         });
 
-        // Confirm Reschedule
         confirmRescheduleButton.addEventListener('click', function() {
             const newDate = document.getElementById('new-date').value;
             const newTime = document.getElementById('new-time').value;
@@ -304,29 +307,40 @@
             }
         });
 
-        // Cancel Reschedule
         cancelRescheduleButton.addEventListener('click', function() {
             rescheduleModal.style.display = 'none';
         });
 
-        // Filter appointments based on selected doctor and status
+        // Filtering Functionality
+        const doctorFilter = document.getElementById('doctor-filter');
+        const statusFilter = document.getElementById('status-filter');
+        const rows = document.querySelectorAll('#appointments-table tbody tr');
+
         function filterAppointments() {
-            const doctorFilter = document.getElementById('doctor-filter').value.toLowerCase();
-            const statusFilter = document.getElementById('status-filter').value.toLowerCase();
-            const rows = document.querySelectorAll('#appointments-table tbody tr');
+            const selectedDoctor = doctorFilter.value;
+            const selectedStatus = statusFilter.value;
 
             rows.forEach(row => {
-                const doctor = row.getAttribute('data-doctor').toLowerCase();
-                const status = row.querySelector('.status').textContent.toLowerCase();
+                const doctor = row.getAttribute('data-doctor');
+                const status = row.getAttribute('data-status');
+                const statusCell = row.querySelector('.status');
 
-                if ((doctor.includes(doctorFilter) || doctorFilter === '') && 
-                    (status.includes(statusFilter) || statusFilter === '')) {
+                let doctorMatches = selectedDoctor === 'All' || doctor === selectedDoctor;
+                let statusMatches = selectedStatus === 'All' || status === selectedStatus;
+
+                if (doctorMatches && statusMatches) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
                 }
             });
         }
+
+        doctorFilter.addEventListener('change', filterAppointments);
+        statusFilter.addEventListener('change', filterAppointments);
+
+        // Initial filter application on page load
+        filterAppointments();
     </script>
 
 </body>
