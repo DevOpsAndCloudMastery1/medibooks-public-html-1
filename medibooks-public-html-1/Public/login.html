@@ -18,19 +18,20 @@
             height: 100vh;
         }
         .logo-container {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .logo-container img {
-            width: 100%;
+            width: 50px;
             height: auto;
+            margin-right: 10px;
+        }
+        .logo-container h1 {
+            font-size: 2rem;
+            color: #007bff;
+            margin: 0;
         }
         .login-card {
             width: 100%;
@@ -65,27 +66,81 @@
     <div class="main-container">
         <div class="logo-container">
             <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> <!-- Fixed Image Path -->
+            <h1>MediBooks</h1>
         </div>
         <div class="login-card">
             <h2 class="login-title">Welcome to MediBooks</h2>
             <form id="loginForm" action="home.html" method="get">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" value="testuser@example.com" required>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" value="password123" required>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
                 <div class="form-links">
-                    <a href="forgot-password.html">Forgot Password?</a> | <a href="signup.html">Sign Up</a>
+                    <a href="javascript:void(0);" onclick="showForgotPassword()">Forgot Password?</a> | 
+                    <a href="javascript:void(0);" onclick="showSignUp()">Sign Up</a>
                 </div>
             </form>
         </div>
     </div>
 
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" style="display: none;">
+        <div class="modal-content">
+            <h3>Reset Password</h3>
+            <p>Enter your email to receive a password reset link.</p>
+            <input type="email" id="resetEmail" placeholder="Enter your email">
+            <button onclick="sendPasswordResetLink()">Send Reset Link</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signUpModal" style="display: none;">
+        <div class="modal-content">
+            <h3>Sign Up</h3>
+            <form id="signUpForm">
+                <input type="text" id="newName" placeholder="Enter your name" required>
+                <input type="email" id="newEmail" placeholder="Enter your email" required>
+                <input type="password" id="newPassword" placeholder="Enter your password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
     <script>
+        // Show Forgot Password modal
+        function showForgotPassword() {
+            document.getElementById('forgotPasswordModal').style.display = 'block';
+        }
+
+        // Show Sign Up modal
+        function showSignUp() {
+            document.getElementById('signUpModal').style.display = 'block';
+        }
+
+        // Close modals
+        function closeModal() {
+            document.getElementById('forgotPasswordModal').style.display = 'none';
+            document.getElementById('signUpModal').style.display = 'none';
+        }
+
+        // Simulate sending password reset link
+        function sendPasswordResetLink() {
+            var email = document.getElementById('resetEmail').value;
+            if (email) {
+                alert("A password reset link has been sent to " + email);
+                closeModal();
+            } else {
+                alert("Please enter your email.");
+            }
+        }
+
         // JavaScript Form Validation
         document.getElementById("loginForm").addEventListener("submit", function(event) {
             var email = document.getElementById("email").value;
@@ -97,6 +152,5 @@
             }
         });
     </script>
-
 </body>
 </html>
