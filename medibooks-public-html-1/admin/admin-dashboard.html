@@ -4,97 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - MediBooks</title>
-    <link rel="stylesheet" href="../styles/medibooks-styles.css">
-    <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+    <link href="../styles/medibooks-styles.css" rel="stylesheet">
+    <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js" defer></script>
     <style>
         body {
             background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
         }
         .navbar {
-            background-color: #343a40;
-            padding: 10px;
+            background-color: #007bff;
         }
-        .navbar .navbar-brand {
-            color: #ffffff;
+        .navbar a.navbar-brand {
+            font-size: 24px;
+            color: white;
             font-weight: bold;
-            font-size: 1.5rem;
         }
-        .navbar img {
-            width: 40px;
-            height: auto;
-            margin-right: 10px;
+        .navbar-nav .nav-link {
+            color: white;
         }
-        .navbar a {
-            color: #ffffff;
-            margin: 0 15px;
-            text-decoration: none;
-            font-size: 1rem;
+        .navbar-nav .nav-link:hover {
+            color: #ddd;
         }
-        .navbar a:hover {
-            text-decoration: underline;
+        .navbar-nav .nav-link.active {
+            color: #ffcd02;
         }
-        .container {
-            padding: 30px;
+        .container.content {
+            max-width: 1200px;
+            margin-top: 50px;
         }
-        .dashboard-title {
-            font-size: 2rem;
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-body {
+            font-size: 1.1rem;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .card-title {
+            font-size: 1.4rem;
             font-weight: bold;
-            margin-bottom: 30px;
-        }
-        .dashboard-menu {
-            list-style-type: none;
-            padding: 0;
-        }
-        .dashboard-menu li {
-            margin-bottom: 15px;
-        }
-        .dashboard-menu a {
-            color: #007bff;
-            font-size: 1.2rem;
-            text-decoration: none;
-        }
-        .dashboard-menu a:hover {
-            text-decoration: underline;
-        }
-        .logout-btn {
-            background-color: #dc3545;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-        .logout-btn:hover {
-            background-color: #c82333;
         }
     </style>
 </head>
 <body>
-
-    <!-- Navbar with MediBooks Logo & Name -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="admin-dashboard.html">
-                <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> 
-                <span class="brand-name">MediBooks</span>
+                <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo" width="40"> MediBooks Admin
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-appointments.html">Manage Appointments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-doctors.html">Manage Doctors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-users.html">Manage Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-reports.html">View Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-primary" onclick="logout()">Logout</button>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
-    <!-- Main Content Area -->
-    <div class="container">
-        <h2 class="dashboard-title">Admin Dashboard</h2>
-
-        <nav>
-            <ul class="dashboard-menu">
-                <li><a href="admin-appointments.html">Manage Appointments</a></li>
-                <li><a href="admin-doctors.html">Manage Doctors</a></li>
-                <li><a href="admin-users.html">Manage Users</a></li>
-                <li><a href="admin-reports.html">View Reports</a></li>
-                <li><button class="logout-btn" onclick="logout()">Logout</button></li>
-            </ul>
-        </nav>
+    <div class="container content">
+        <h1 class="text-center mb-4">Admin Dashboard</h1>
+        
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Admin Overview</h5>
+                <p>Welcome back, Admin! Here you can manage appointments, doctors, users, and view reports.</p>
+                <a href="admin-appointments.html" class="btn btn-primary">Manage Appointments</a>
+                <a href="admin-doctors.html" class="btn btn-primary">Manage Doctors</a>
+                <a href="admin-users.html" class="btn btn-primary">Manage Users</a>
+                <a href="admin-reports.html" class="btn btn-primary">View Reports</a>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Recent Activity</h5>
+                <ul>
+                    <li>New Appointment Scheduled: Dr. John Smith - 10th February 2025</li>
+                    <li>New Doctor Added: Dr. Michael Brown - Pediatrician</li>
+                    <li>User Account Updated: John Doe</li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <script>
