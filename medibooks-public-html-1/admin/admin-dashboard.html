@@ -20,7 +20,8 @@
         }
         .navbar-nav {
             display: flex;
-            justify-content: flex-end; /* Aligns menu to the right */
+            justify-content: flex-end; /* Ensure menu aligns to the right */
+            flex-grow: 1;
         }
         .navbar-nav .nav-link {
             color: white;
@@ -65,7 +66,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ml-auto"> <!-- Use ml-auto here to align the menu to the right -->
                     <li class="nav-item">
                         <a class="nav-link" href="admin-appointments.html">Manage Appointments</a>
                     </li>
