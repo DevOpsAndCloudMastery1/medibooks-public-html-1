@@ -7,48 +7,6 @@
     <link rel="stylesheet" href="../styles/medibooks-styles.css">
     <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            padding: 20px;
-        }
-
-        h2 {
-            color: #34495e;
-        }
-
-        nav {
-            margin-bottom: 30px;
-        }
-
-        section {
-            margin-top: 30px;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        input[type="text"], button {
-            padding: 10px;
-            font-size: 1rem;
-            border-radius: 6px;
-            margin: 10px 0;
-            border: 1px solid #dee2e6;
-        }
-
-        button {
-            background-color: #f39c12;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #d35400;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -68,7 +26,36 @@
             background-color: #f4f4f4;
         }
 
-        td button {
+        section {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        input[type="text"], input[type="file"], button {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 6px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+
+        button {
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #d35400;
+        }
+
+        td button, td a {
             margin-right: 10px;
         }
 
@@ -85,6 +72,15 @@
         td a:hover {
             background-color: #d35400;
         }
+
+        .navbar-brand img {
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .navbar-nav a {
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -94,7 +90,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="admin-dashboard.html">
-                <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo" width="40"> MediBooks Admin
+                <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> MediBooks Admin
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -124,6 +120,7 @@
         <input type="text" id="doctor-name" placeholder="Doctor Name" required>
         <input type="text" id="doctor-specialization" placeholder="Specialization" required>
         <input type="text" id="doctor-location" placeholder="Location" required>
+        <input type="file" id="doctor-photo" accept="image/*" required>
         <button onclick="addDoctor()">Add Doctor</button>
     </section>
 
@@ -133,6 +130,7 @@
                 <th>Name</th>
                 <th>Specialization</th>
                 <th>Location</th>
+                <th>Photo</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -142,12 +140,12 @@
 
     <script>
         let doctors = JSON.parse(localStorage.getItem("doctors")) || [
-            { name: "Dr. John Smith", specialization: "Cardiologist", location: "MediHealth Hospital, New York" },
-            { name: "Dr. Emma Davis", specialization: "Neurologist", location: "NeuroCare Clinic, Chicago" },
-            { name: "Dr. Michael Brown", specialization: "Pediatrician", location: "Happy Kids Pediatrics, Los Angeles" },
-            { name: "Dr. Olivia Wilson", specialization: "Orthopedic Surgeon", location: "Advanced Orthopedic Center, San Francisco" },
-            { name: "Dr. Liam Johnson", specialization: "Dermatologist", location: "SkinCare Specialists, Miami" },
-            { name: "Dr. Sophia Martinez", specialization: "Gynecologist", location: "Women’s Wellness Center, Houston" }
+            { name: "Dr. John Smith", specialization: "Cardiologist", location: "MediHealth Hospital, New York", photo: "../images /doctor1.jpg" },
+            { name: "Dr. Emma Davis", specialization: "Neurologist", location: "NeuroCare Clinic, Chicago", photo: "../images /doctor2.jpg" },
+            { name: "Dr. Michael Brown", specialization: "Pediatrician", location: "Happy Kids Pediatrics, Los Angeles", photo: "../images /doctor3.jpg" },
+            { name: "Dr. Olivia Wilson", specialization: "Orthopedic Surgeon", location: "Advanced Orthopedic Center, San Francisco", photo: "../images /doctor4.jpg" },
+            { name: "Dr. Liam Johnson", specialization: "Dermatologist", location: "SkinCare Specialists, Miami", photo: "../images /doctor5.jpg" },
+            { name: "Dr. Sophia Martinez", specialization: "Gynecologist", location: "Women’s Wellness Center, Houston", photo: "../images /doctor6.jpg" }
         ];
 
         function loadDoctors() {
@@ -159,6 +157,7 @@
                         <td>${doc.name || "Unknown"}</td>
                         <td>${doc.specialization || "Not Provided"}</td>
                         <td>${doc.location || "Not Provided"}</td>
+                        <td><img src="${doc.photo}" alt="Doctor Photo" width="50" height="50"></td>
                         <td>
                             <button onclick="editDoctor(${index})">Edit</button>
                             <button onclick="removeDoctor(${index})">Remove</button>
@@ -174,14 +173,22 @@
             const name = document.getElementById("doctor-name").value.trim();
             const specialization = document.getElementById("doctor-specialization").value.trim();
             const location = document.getElementById("doctor-location").value.trim();
+            const photoInput = document.getElementById("doctor-photo");
+            const photo = photoInput.files[0];
 
-            if (name && specialization && location) {
-                doctors.push({ name, specialization, location });
-                localStorage.setItem("doctors", JSON.stringify(doctors));
-                loadDoctors();
-                clearInputFields();
+            if (name && specialization && location && photo) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const photoDataUrl = e.target.result;
+
+                    doctors.push({ name, specialization, location, photo: photoDataUrl });
+                    localStorage.setItem("doctors", JSON.stringify(doctors));
+                    loadDoctors();
+                    clearInputFields();
+                };
+                reader.readAsDataURL(photo);
             } else {
-                alert("Please fill all fields.");
+                alert("Please fill all fields and upload a photo.");
             }
         }
 
@@ -192,7 +199,7 @@
             const location = prompt("Enter new location", doctor.location).trim();
 
             if (name && specialization && location) {
-                doctors[index] = { name, specialization, location };
+                doctors[index] = { name, specialization, location, photo: doctor.photo };
                 localStorage.setItem("doctors", JSON.stringify(doctors));
                 loadDoctors();
             }
@@ -210,6 +217,7 @@
             document.getElementById("doctor-name").value = "";
             document.getElementById("doctor-specialization").value = "";
             document.getElementById("doctor-location").value = "";
+            document.getElementById("doctor-photo").value = "";
         }
 
         loadDoctors();
