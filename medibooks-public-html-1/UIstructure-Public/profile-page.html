@@ -12,33 +12,120 @@
     /* Additional styling */
     body {
       font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
     }
+
+    .navbar {
+      background: linear-gradient(90deg, #2c3e50, #34495e);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .navbar .navbar-nav {
+      display: flex;
+      justify-content: flex-end;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar .nav-item {
+      margin-left: 20px;
+    }
+
+    .navbar a {
+      color: white;
+      transition: color 0.3s;
+    }
+
+    .navbar a:hover {
+      color: #f39c12;
+    }
+
+    .navbar-brand img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .navbar-brand img:hover {
+      transform: scale(1.2);
+    }
+
     .container {
       max-width: 600px;
       margin-top: 50px;
     }
+
     .profile-card {
-      background-color: #f9f9f9;
+      background-color: #ffffff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
     .btn-link {
       text-decoration: none;
+      font-size: 16px;
+    }
+
+    .btn-primary {
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #3498db;
+    }
+
+    .btn-success, .btn-secondary {
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-success:hover {
+      background-color: #28a745;
+    }
+
+    .btn-secondary:hover {
+      background-color: #6c757d;
     }
   </style>
 </head>
 <body>
 
   <!-- Navbar -->
-  <div class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="home.html">Medibooks</a>
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="home.html">Home</a>
-        <a class="nav-link" href="doctor-profile.html">Profile</a>
-        <a class="nav-link" href="my-booking.html">My Bookings</a>
-        <a class="nav-link" href="logout.html">LogOut</a>
+      <a class="navbar-brand" href="home.html">
+        <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> Medibooks
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="doctor-profile.html">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="my-booking.html">My Bookings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="logout.html">LogOut</a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -68,15 +155,14 @@
       </form>
 
       <!-- Link to Booking History -->
-      <div class="mt-4">
+      <div class="mt-4 text-center">
         <a href="my-booking.html" class="btn btn-link">Go to My Bookings</a>
       </div>
     </div>
   </div>
 
-  <!-- Bootstrap JS & Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+  <!-- Bootstrap JS (Updated with your path) -->
+  <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
     // Get elements
