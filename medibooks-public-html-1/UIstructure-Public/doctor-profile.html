@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,22 +15,27 @@
       background-color: #f8f9fa;
       margin: 0;
     }
+
     .navbar {
       background: linear-gradient(90deg, #2c3e50, #34495e);
       color: white;
     }
+
     .navbar a {
       color: white;
       transition: color 0.3s;
       cursor: pointer;
     }
+
     .navbar a:hover {
       color: #f39c12;
     }
+
     .navbar-brand {
       display: flex;
       align-items: center;
     }
+
     .navbar-brand img {
       width: 40px;
       height: 40px;
@@ -37,33 +43,41 @@
       margin-right: 10px;
       transition: transform 0.2s ease-in-out;
     }
+
     .navbar-brand img:hover {
       transform: scale(1.2);
     }
+
     .doctor-profile {
       padding: 20px;
       background-color: white;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
+
     .doctor-details img {
       width: 150px;
       border-radius: 50%;
       margin-right: 20px;
     }
+
     .doctor-details {
       display: flex;
       align-items: center;
       margin-bottom: 20px;
     }
+
     .review-form {
       margin-top: 20px;
     }
+
     .availability-section {
       margin-top: 30px;
     }
+
     .calendar-view {
       display: inline-block;
     }
+
     .book-appointment-btn {
       background-color: #34495e;
       color: white;
@@ -73,11 +87,36 @@
       cursor: pointer;
       font-size: 16px;
     }
+
     .book-appointment-btn:hover {
       background-color: #2c3e50;
     }
+
+    .reviews-container {
+      margin-top: 20px;
+    }
+
+    .review-item {
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+    }
+
+    .doctor-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
   </style>
 </head>
+
 <body>
   <!-- Navbar -->
   <div class="navbar">
@@ -93,39 +132,90 @@
     </div>
   </div>
 
-  <div class="doctor-profile">
-    <!-- Doctor Details -->
-    <div class="doctor-details">
-      <img src="../images /doctor1.jpg" alt="Dr. John Smith">
-      <div>
-        <h2>Dr. John Smith</h2>
+  <!-- List of Doctors -->
+  <h2>List of Doctors</h2>
+  <table>
+    <tr>
+      <td>
+        <img src="../images /doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
+        <h3>Dr. John Smith</h3>
         <p>Specialization: Cardiologist</p>
-        <p>Experience: 10 years</p>
-        <p>Rating: ⭐⭐⭐⭐⭐</p>
-      </div>
+        <button onclick="bookAppointment('Dr. John Smith')">Book Appointment</button>
+        <a href="doctor-profile.html?id=1">More Details</a><br>
+        <a href="doctor-reviews.html?doctor=Dr.%20John%20Smith">Reviews</a>
+      </td>
+      <td>
+        <img src="../images /doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
+        <h3>Dr. Emma Davis</h3>
+        <p>Specialization: Neurologist</p>
+        <button onclick="bookAppointment('Dr. Emma Davis')">Book Appointment</button>
+        <a href="doctor-profile.html?id=2">More Details</a><br>
+        <a href="doctor-reviews.html?doctor=Dr.%20Emma%20Davis">Reviews</a>
+      </td>
+      <td>
+        <img src="../images /doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
+        <h3>Dr. Michael Brown</h3>
+        <p>Specialization: Pediatrician</p>
+        <button onclick="bookAppointment('Dr. Michael Brown')">Book Appointment</button>
+        <a href="doctor-profile.html?id=3">More Details</a><br>
+        <a href="doctor-reviews.html?doctor=Dr.%20Michael%20Brown">Reviews</a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="../images /doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
+        <h3>Dr. Olivia Wilson</h3>
+        <p>Specialization: Orthopedic Surgeon</p>
+        <button onclick="bookAppointment('Dr. Olivia Wilson')">Book Appointment</button>
+        <a href="doctor-profile.html?id=4">More Details</a><br>
+        <a href="doctor-reviews.html?doctor=Dr.%20Olivia%20Wilson">Reviews</a>
+      </td>
+      <td>
+        <img src="../images /doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
+        <h3>Dr. Liam Johnson</h3>
+        <p>Specialization: Dermatologist</p>
+        <button onclick="bookAppointment('Dr. Liam Johnson')">Book Appointment</button>
+        <a href="doctor-profile.html?id=5">More Details</a><br>
+        <a href="doctor-reviews.html?doctor=Dr.%20Liam%20Johnson">Reviews</a>
+      </td>
+      <td>
+        <img src="../images /doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
+        <h3>Dr. Sophia Martinez</h3>
+        <p>Specialization: Gynecologist</p>
+        <button onclick="bookAppointment('Dr. Sophia Martinez')">Book Appointment</button>
+        <a href="doctor-profile.html?id=6">More Details</a><br>
+        <a href="doctor-reviews.html?doctor=Dr.%20Sophia%20Martinez">Reviews</a>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Review Section -->
+  <div class="reviews-container">
+    <h3>Reviews</h3>
+    <div class="review-item">
+      <p>"Great doctor! Really helped me understand my condition better."</p>
+      <p>⭐⭐⭐⭐⭐</p>
+    </div>
+    <div class="review-item">
+      <p>"Very professional and caring. I felt comfortable throughout the appointment."</p>
+      <p>⭐⭐⭐⭐⭐</p>
     </div>
 
-    <!-- Review Section -->
-    <div class="review-section">
-      <h3>Reviews</h3>
-      <div id="existing-reviews">
-        <p>Great doctor! Really helped me understand my condition better.</p>
-        <p>⭐⭐⭐⭐⭐</p>
-      </div>
-
-      <h4>Write a Review</h4>
-      <div class="review-form">
-        <textarea id="review-input" placeholder="Write your review..." rows="4"></textarea><br>
-        <button id="submit-review-btn" onclick="submitReview()">Submit Review</button>
-      </div>
+    <h4>Write a Review</h4>
+    <div class="review-form">
+      <textarea id="review-input" placeholder="Write your review..." rows="4"></textarea><br>
+      <button id="submit-review-btn" onclick="submitReview()">Submit Review</button>
     </div>
+  </div>
 
-    <!-- Availability Section -->
-    <div class="availability-section">
-      <h3>Availability</h3>
+  <!-- Availability Section -->
+  <div class="availability-section">
+    <h3>Availability</h3>
+    <div class="calendar-view">
+      <!-- Simulated Calendar view -->
       <input type="date" id="appointment-date" class="form-control">
-      <button class="book-appointment-btn" onclick="bookAppointment()">Book Appointment</button>
     </div>
+    <button class="book-appointment-btn" onclick="bookAppointment()">Book Appointment</button>
   </div>
 
   <script>
@@ -137,8 +227,11 @@
         return;
       }
       // Simulate posting the review
-      const reviewSection = document.getElementById('existing-reviews');
-      reviewSection.innerHTML += `<p>${review}</p><p>⭐⭐⭐⭐⭐</p>`;
+      const reviewsContainer = document.querySelector('.reviews-container');
+      const newReviewItem = document.createElement('div');
+      newReviewItem.classList.add('review-item');
+      newReviewItem.innerHTML = `<p>${review}</p><p>⭐⭐⭐⭐⭐</p>`;
+      reviewsContainer.appendChild(newReviewItem);
       document.getElementById('review-input').value = '';  // Clear the input
       Swal.fire('Review Submitted!', 'Thank you for your feedback!', 'success');
     }
@@ -155,4 +248,5 @@
     }
   </script>
 </body>
+
 </html>
