@@ -26,9 +26,6 @@
                         <a class="nav-link" href="admin-doctors.html">Manage Doctors</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="admin-users.html">Manage Users</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="admin-reports.html">View Reports</a>
                     </li>
                     <li class="nav-item">
@@ -48,13 +45,23 @@
             <input type="text" id="searchInput" class="form-control" placeholder="Search users by name, email, or status..." onkeyup="searchUsers()">
         </div>
 
-        <!-- Users List -->
+        <!-- Users Table -->
         <div class="card shadow-sm border-light">
             <div class="card-body">
                 <h5 class="card-title">Users List</h5>
-                <ul id="user-list" class="list-group">
-                    <!-- Users will be loaded here dynamically -->
-                </ul>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-list">
+                        <!-- Users will be loaded here dynamically -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -72,28 +79,28 @@
             localStorage.setItem("users", JSON.stringify(users));
         }
 
-        // Load users into the list
+        // Load users into the table
         function loadUsers() {
             const list = document.getElementById("user-list");
             list.innerHTML = "";
 
             users.forEach((user, index) => {
-                const listItem = document.createElement("li");
-                listItem.className = "list-group-item d-flex justify-content-between align-items-center";
+                if (user.name && user.email) { // Check if name and email are defined
+                    const row = document.createElement("tr");
 
-                listItem.innerHTML = `
-                    <a href="../user-profile.html?user=${encodeURIComponent(user.name)}" class="text-decoration-none">
-                        ${user.name} <span class="text-muted">(${user.email})</span>
-                    </a>
-                    <span class="badge bg-${user.status === "Active" ? "success" : "danger"}">
-                        ${user.status}
-                    </span>
-                    <button class="btn btn-sm btn-${user.status === "Active" ? "danger" : "success"}" onclick="toggleUser(${index})">
-                        ${user.status === "Active" ? "Deactivate" : "Activate"}
-                    </button>
-                `;
+                    row.innerHTML = `
+                        <td><a href="../user-profile.html?user=${encodeURIComponent(user.name)}" class="text-decoration-none">${user.name}</a></td>
+                        <td>${user.email || 'N/A'}</td>
+                        <td><span class="badge bg-${user.status === "Active" ? "success" : "danger"}">${user.status}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-${user.status === "Active" ? "danger" : "success"}" onclick="toggleUser(${index})">
+                                ${user.status === "Active" ? "Deactivate" : "Activate"}
+                            </button>
+                        </td>
+                    `;
 
-                list.appendChild(listItem);
+                    list.appendChild(row);
+                }
             });
         }
 
@@ -108,9 +115,9 @@
         function searchUsers() {
             const searchInput = document.getElementById("searchInput").value.toLowerCase();
             const filteredUsers = users.filter(user => 
-                user.name.toLowerCase().includes(searchInput) || 
-                user.email.toLowerCase().includes(searchInput) || 
-                user.status.toLowerCase().includes(searchInput)
+                (user.name && user.name.toLowerCase().includes(searchInput)) || 
+                (user.email && user.email.toLowerCase().includes(searchInput)) || 
+                (user.status && user.status.toLowerCase().includes(searchInput))
             );
             displayFilteredUsers(filteredUsers);
         }
@@ -121,22 +128,22 @@
             list.innerHTML = "";
 
             filteredUsers.forEach((user, index) => {
-                const listItem = document.createElement("li");
-                listItem.className = "list-group-item d-flex justify-content-between align-items-center";
+                if (user.name && user.email) { // Ensure valid name and email
+                    const row = document.createElement("tr");
 
-                listItem.innerHTML = `
-                    <a href="../user-profile.html?user=${encodeURIComponent(user.name)}" class="text-decoration-none">
-                        ${user.name} <span class="text-muted">(${user.email})</span>
-                    </a>
-                    <span class="badge bg-${user.status === "Active" ? "success" : "danger"}">
-                        ${user.status}
-                    </span>
-                    <button class="btn btn-sm btn-${user.status === "Active" ? "danger" : "success"}" onclick="toggleUser(${index})">
-                        ${user.status === "Active" ? "Deactivate" : "Activate"}
-                    </button>
-                `;
+                    row.innerHTML = `
+                        <td><a href="../user-profile.html?user=${encodeURIComponent(user.name)}" class="text-decoration-none">${user.name}</a></td>
+                        <td>${user.email || 'N/A'}</td>
+                        <td><span class="badge bg-${user.status === "Active" ? "success" : "danger"}">${user.status}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-${user.status === "Active" ? "danger" : "success"}" onclick="toggleUser(${index})">
+                                ${user.status === "Active" ? "Deactivate" : "Activate"}
+                            </button>
+                        </td>
+                    `;
 
-                list.appendChild(listItem);
+                    list.appendChild(row);
+                }
             });
         }
 
@@ -166,19 +173,13 @@
             padding: 20px;
         }
 
-        .list-group-item {
-            border-radius: 5px;
-            margin-bottom: 10px;
+        .table th, .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
             background-color: #f9f9f9;
-        }
-
-        .list-group-item a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .list-group-item a:hover {
-            text-decoration: underline;
         }
 
         .btn-sm {
