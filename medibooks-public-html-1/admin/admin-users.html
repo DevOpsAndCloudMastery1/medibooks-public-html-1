@@ -75,13 +75,14 @@
             localStorage.setItem("users", JSON.stringify(users));
         }
 
-        function loadUsers() {
+        function loadUsers(filteredUsers = users) {
             const list = document.getElementById("user-list");
             list.innerHTML = "";
 
-            users.forEach((user, index) => {
+            filteredUsers.forEach((user, index) => {
                 const listItem = document.createElement("tr");
 
+                // Display user details with fallback values for undefined properties
                 listItem.innerHTML = `
                     <td>${user.name || 'N/A'}</td>
                     <td>${user.email || 'N/A'}</td>
@@ -106,18 +107,23 @@
 
         function searchUsers() {
             const input = document.getElementById('searchInput').value.toLowerCase();
+            
+            // Filter users based on the search input
             const filteredUsers = users.filter(user => 
                 user.name.toLowerCase().includes(input) || 
                 user.email.toLowerCase().includes(input) || 
                 user.phone.toLowerCase().includes(input) || 
                 user.status.toLowerCase().includes(input)
             );
-            users = filteredUsers;
-            loadUsers();
+
+            // Load filtered users
+            loadUsers(filteredUsers);
         }
 
         // Ensure the page loads users when it first runs
-        document.addEventListener("DOMContentLoaded", loadUsers);
+        document.addEventListener("DOMContentLoaded", function() {
+            loadUsers();
+        });
     </script>
 </body>
 </html>
