@@ -3,18 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Bookings - Medibooks</title>
-
-  <!-- Bootstrap CSS -->
+  <title>My Bookings - MediBooks</title>
+  link href="../styles/medibooks-styles.css" rel="stylesheet">
+  <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
+    /* General Styles */
     body {
       font-family: Arial, sans-serif;
       background-color: #f8f9fa;
       margin: 0;
     }
 
+    /* Navbar Styles */
     .navbar {
       background: linear-gradient(90deg, #2c3e50, #34495e);
       color: white;
@@ -22,6 +24,17 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px 20px;
+    }
+
+    .navbar .navbar-brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar .navbar-brand img {
+      width: 120px; /* Reduced logo size */
+      height: auto;
+      margin-right: 10px;
     }
 
     .navbar .navbar-nav {
@@ -44,6 +57,7 @@
       color: #f39c12;
     }
 
+    /* Container */
     .container {
       margin-top: 40px;
     }
@@ -53,18 +67,52 @@
       margin-bottom: 20px;
     }
 
-    .tab-content {
-      margin-top: 20px;
+    /* Tab Styles */
+    .nav-tabs .nav-link {
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      transition: background-color 0.3s ease-in-out;
     }
 
+    .nav-tabs .nav-link.active {
+      background-color: #34495e;
+      color: white;
+    }
+
+    /* Booking List Styles */
     .list-group-item {
       background: white;
       border-radius: 10px;
       margin-bottom: 10px;
-      padding: 15px;
+      padding: 20px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
     }
 
+    .list-group-item img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+
+    .list-group-item .booking-info {
+      flex-grow: 1;
+    }
+
+    .list-group-item .booking-info h5 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .list-group-item .booking-info p {
+      margin: 5px 0;
+      font-size: 1rem;
+    }
+
+    /* Button Styles */
     .btn {
       border-radius: 5px;
       transition: background 0.3s, transform 0.2s;
@@ -75,15 +123,16 @@
     }
 
     .btn-reschedule, .btn-cancel {
-      background: #b0bec5; 
+      background: #b0bec5; /* Ash grey */
       color: white;
       border: none;
     }
 
     .btn-reschedule:hover, .btn-cancel:hover {
-      background: #90a4ae;
+      background: #90a4ae; /* Darker ash grey */
     }
 
+    /* Calendar Popup */
     .calendar-container {
       display: none;
       padding: 10px;
@@ -107,7 +156,7 @@
   <div class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="home.html">
-        <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> Medibooks
+        <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> MediBooks
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -166,13 +215,13 @@
   <script>
     // Sample data for active and past bookings
     const activeBookings = [
-      { id: 1, doctor: 'Dr. John Smith', specialty: 'Cardiologist', date: '2025-02-20', time: '10:00 AM', status: 'Active' },
-      { id: 2, doctor: 'Dr. Emma Davis', specialty: 'Neurologist', date: '2025-02-25', time: '2:00 PM', status: 'Active' }
+      { id: 1, doctor: 'Dr. John Smith', specialty: 'Cardiologist', date: '2025-02-20', time: '10:00 AM', status: 'Active', image: '../images/doctor1.jpg' },
+      { id: 2, doctor: 'Dr. Emma Davis', specialty: 'Neurologist', date: '2025-02-25', time: '2:00 PM', status: 'Active', image: '../images/doctor2.jpg' }
     ];
 
     const pastBookings = [
-      { id: 3, doctor: 'Dr. Michael Brown', specialty: 'Pediatrician', date: '2025-02-05', time: '9:00 AM', status: 'Completed' },
-      { id: 4, doctor: 'Dr. Olivia Wilson', specialty: 'Orthopedic Surgeon', date: '2025-02-10', time: '11:00 AM', status: 'Completed' }
+      { id: 3, doctor: 'Dr. Michael Brown', specialty: 'Pediatrician', date: '2025-02-05', time: '9:00 AM', status: 'Completed', image: '../images/doctor3.jpg' },
+      { id: 4, doctor: 'Dr. Olivia Wilson', specialty: 'Orthopedic Surgeon', date: '2025-02-10', time: '11:00 AM', status: 'Completed', image: '../images/doctor4.jpg' }
     ];
 
     // Function to render the bookings dynamically
@@ -185,7 +234,8 @@
       activeBookings.forEach(booking => {
         const activeBookingHTML = `
           <div class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
+            <img src="${booking.image}" alt="${booking.doctor}" class="img-thumbnail">
+            <div class="booking-info">
               <h5>${booking.doctor} - ${booking.specialty}</h5>
               <p>Appointment Date: ${booking.date}, ${booking.time}</p>
             </div>
@@ -203,7 +253,8 @@
       pastBookings.forEach(booking => {
         const pastBookingHTML = `
           <div class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
+            <img src="${booking.image}" alt="${booking.doctor}" class="img-thumbnail">
+            <div class="booking-info">
               <h5>${booking.doctor} - ${booking.specialty}</h5>
               <p>Appointment Date: ${booking.date}, ${booking.time}</p>
               <span class="text-muted">${booking.status}</span>
@@ -224,6 +275,7 @@
       const calendarContainer = document.createElement('div');
       calendarContainer.classList.add('calendar-container');
       
+      // Time slots available for rescheduling (for example)
       const timeSlots = ['10:00 AM', '11:00 AM', '1:00 PM', '2:00 PM'];
 
       let timeOptions = timeSlots.map(time => `<option value="${time}">${time}</option>`).join('');
@@ -266,11 +318,13 @@
       if (confirmCancel) {
         alert(`Booking with ID: ${bookingId} has been cancelled.`);
         
+        // Remove from the active bookings list for demonstration
         const index = activeBookings.findIndex(booking => booking.id === bookingId);
         if (index > -1) {
           activeBookings.splice(index, 1);
         }
 
+        // Re-render the bookings after cancellation
         renderBookings();
       }
     }
