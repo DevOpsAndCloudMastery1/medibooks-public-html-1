@@ -26,6 +26,9 @@
                         <a class="nav-link" href="admin-doctors.html">Manage Doctors</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="admin-users.html">Manage Users</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="admin-reports.html">View Reports</a>
                     </li>
                     <li class="nav-item">
@@ -38,40 +41,33 @@
 
     <!-- Main Content -->
     <div class="container content mt-4">
-        <h2 class="text-center mb-4">User Management</h2>
-        
-        <!-- Search Bar -->
-        <div class="mb-4">
-            <input type="text" id="searchInput" class="form-control" placeholder="Search users by name, email, or status..." onkeyup="searchUsers()">
-        </div>
-
-        <!-- Users Table -->
-        <div class="card shadow-sm border-light">
+        <h2 class="text-center">User Management</h2>
+        <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Users List</h5>
-                <table class="table table-striped table-bordered">
+                <input class="form-control mb-3" id="searchInput" type="text" placeholder="Search for users..." onkeyup="searchUsers()">
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Phone</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="user-list">
-                        <!-- Users will be loaded here dynamically -->
-                    </tbody>
+                    <tbody id="user-list"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
     <script>
-        // Sample users or fetch from localStorage
+        // Fetch users from localStorage or use sample data
         let users = JSON.parse(localStorage.getItem("users")) || [
-            { name: "Alice", email: "alice@example.com", status: "Active" },
-            { name: "Bob", email: "bob@example.com", status: "Inactive" },
-            { name: "Charlie", email: "charlie@example.com", status: "Active" }
+            { name: "Alice", email: "alice@example.com", phone: "123-456-7890", status: "Active" },
+            { name: "Bob", email: "bob@example.com", phone: "987-654-3210", status: "Inactive" },
+            { name: "Charlie", email: "charlie@example.com", phone: "555-123-4567", status: "Active" }
         ];
 
         // Save users to localStorage if they are not already stored
@@ -79,125 +75,49 @@
             localStorage.setItem("users", JSON.stringify(users));
         }
 
-        // Load users into the table
         function loadUsers() {
             const list = document.getElementById("user-list");
             list.innerHTML = "";
 
             users.forEach((user, index) => {
-                if (user.name && user.email) { // Check if name and email are defined
-                    const row = document.createElement("tr");
+                const listItem = document.createElement("tr");
 
-                    row.innerHTML = `
-                        <td><a href="../user-profile.html?user=${encodeURIComponent(user.name)}" class="text-decoration-none">${user.name}</a></td>
-                        <td>${user.email || 'N/A'}</td>
-                        <td><span class="badge bg-${user.status === "Active" ? "success" : "danger"}">${user.status}</span></td>
-                        <td>
-                            <button class="btn btn-sm btn-${user.status === "Active" ? "danger" : "success"}" onclick="toggleUser(${index})">
-                                ${user.status === "Active" ? "Deactivate" : "Activate"}
-                            </button>
-                        </td>
-                    `;
+                listItem.innerHTML = `
+                    <td>${user.name || 'N/A'}</td>
+                    <td>${user.email || 'N/A'}</td>
+                    <td>${user.phone || 'N/A'}</td>
+                    <td><span class="badge bg-${user.status === "Active" ? "success" : "danger"}">${user.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-${user.status === "Active" ? "danger" : "success"}" onclick="toggleUser(${index})">
+                            ${user.status === "Active" ? "Deactivate" : "Activate"}
+                        </button>
+                    </td>
+                `;
 
-                    list.appendChild(row);
-                }
+                list.appendChild(listItem);
             });
         }
 
-        // Toggle user status between Active/Inactive
         function toggleUser(index) {
             users[index].status = users[index].status === "Active" ? "Inactive" : "Active";
             localStorage.setItem("users", JSON.stringify(users));
             loadUsers();
         }
 
-        // Search functionality
         function searchUsers() {
-            const searchInput = document.getElementById("searchInput").value.toLowerCase();
+            const input = document.getElementById('searchInput').value.toLowerCase();
             const filteredUsers = users.filter(user => 
-                (user.name && user.name.toLowerCase().includes(searchInput)) || 
-                (user.email && user.email.toLowerCase().includes(searchInput)) || 
-                (user.status && user.status.toLowerCase().includes(searchInput))
+                user.name.toLowerCase().includes(input) || 
+                user.email.toLowerCase().includes(input) || 
+                user.phone.toLowerCase().includes(input) || 
+                user.status.toLowerCase().includes(input)
             );
-            displayFilteredUsers(filteredUsers);
-        }
-
-        // Display filtered users
-        function displayFilteredUsers(filteredUsers) {
-            const list = document.getElementById("user-list");
-            list.innerHTML = "";
-
-            filteredUsers.forEach((user, index) => {
-                if (user.name && user.email) { // Ensure valid name and email
-                    const row = document.createElement("tr");
-
-                    row.innerHTML = `
-                        <td><a href="../user-profile.html?user=${encodeURIComponent(user.name)}" class="text-decoration-none">${user.name}</a></td>
-                        <td>${user.email || 'N/A'}</td>
-                        <td><span class="badge bg-${user.status === "Active" ? "success" : "danger"}">${user.status}</span></td>
-                        <td>
-                            <button class="btn btn-sm btn-${user.status === "Active" ? "danger" : "success"}" onclick="toggleUser(${index})">
-                                ${user.status === "Active" ? "Deactivate" : "Activate"}
-                            </button>
-                        </td>
-                    `;
-
-                    list.appendChild(row);
-                }
-            });
+            users = filteredUsers;
+            loadUsers();
         }
 
         // Ensure the page loads users when it first runs
         document.addEventListener("DOMContentLoaded", loadUsers);
     </script>
-
-    <style>
-        /* Consistent Styles with Admin-Doctors Page */
-        .navbar {
-            background-color: #0056b3;
-        }
-
-        .navbar-brand img {
-            width: 100px;
-        }
-
-        .container.content {
-            max-width: 1000px;
-        }
-
-        .card {
-            border-radius: 10px;
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .table th, .table td {
-            vertical-align: middle;
-            text-align: center;
-        }
-
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: #f9f9f9;
-        }
-
-        .btn-sm {
-            font-size: 0.8rem;
-        }
-
-        .form-control {
-            border-radius: 5px;
-        }
-
-        .badge {
-            font-size: 0.9rem;
-            padding: 0.5rem;
-        }
-
-        .shadow-sm {
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
 </body>
 </html>
