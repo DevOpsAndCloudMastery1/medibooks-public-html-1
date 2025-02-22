@@ -421,3 +421,141 @@ h1 {
     background: linear-gradient(90deg, #2c3e50, #34495e);
     transform: scale(1.05);
 }
+/* Appointment Management Page Styles */
+.appointment-management-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-management-container h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.appointment-list {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.appointment-list th, .appointment-list td {
+    border: 1px solid #dee2e6;
+    padding: 15px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.appointment-list th {
+    background-color: #34495e;
+    color: white;
+}
+
+.appointment-list td {
+    background-color: #f8f9fa;
+}
+
+.appointment-list td .status {
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.appointment-list td .status.pending {
+    color: #f39c12;
+}
+
+.appointment-list td .status.cancelled {
+    color: #e74c3c;
+}
+
+.appointment-list td .status.completed {
+    color: #2ecc71;
+}
+
+/* Appointment Action Buttons */
+.btn-manage {
+    background: #f39c12;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-manage:hover {
+    background: #d35400;
+}
+
+/* Appointment Search Bar */
+.appointment-search {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 30px;
+    background-color: #ffffff;
+}
+
+/* Add Appointment Form */
+.add-appointment-form {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-appointment-form input,
+.add-appointment-form select,
+.add-appointment-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.add-appointment-form button {
+    background: #f39c12;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: background 0.3s;
+    cursor: pointer;
+}
+
+.add-appointment-form button:hover {
+    background: #d35400;
+}
+
+/* Responsive Design for Appointment Management */
+@media (max-width: 768px) {
+    .appointment-management-container {
+        padding: 20px;
+    }
+
+    .appointment-list th, .appointment-list td {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .add-appointment-form input,
+    .add-appointment-form select,
+    .add-appointment-form textarea {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .appointment-search {
+        font-size: 0.9rem;
+    }
+}
