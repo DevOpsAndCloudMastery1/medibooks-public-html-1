@@ -75,6 +75,7 @@
             localStorage.setItem("users", JSON.stringify(users));
         }
 
+        // Function to load users into the table
         function loadUsers(filteredUsers = users) {
             const list = document.getElementById("user-list");
             list.innerHTML = "";
@@ -99,15 +100,17 @@
             });
         }
 
+        // Function to toggle user status (active/inactive)
         function toggleUser(index) {
             users[index].status = users[index].status === "Active" ? "Inactive" : "Active";
             localStorage.setItem("users", JSON.stringify(users));
             loadUsers();
         }
 
+        // Function to search users based on the input
         function searchUsers() {
             const input = document.getElementById('searchInput').value.toLowerCase();
-            
+
             // Filter users based on the search input
             const filteredUsers = users.filter(user => 
                 user.name.toLowerCase().includes(input) || 
