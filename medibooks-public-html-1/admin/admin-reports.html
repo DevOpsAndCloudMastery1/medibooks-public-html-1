@@ -1,125 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Reports</title>
     <link rel="stylesheet" href="../styles/medibooks-styles.css">
     <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js for reports -->
-    <script src="https://cdn.jsdelivr.net/npm/file-saver"></script> <!-- FileSaver.js for export functionality -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx"></script> <!-- XLSX.js for Excel export -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx"></script>
 </head>
+
 <body>
-</header>
-    <div class="navbar-brand">
-        <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> Medibooks
-    </a>
-    </div>
-    <div class="admin-container">
-        <header class="admin-header">
-            <h1>Admin Panel - Reports</h1>
-            <nav>
-                <ul>
-                    <li><a href="admin-dashboard.html">Dashboard</a></li>
-                    <li><a href="admin-appointment.html">Appointments</a></li>
-                    <li><a href="admin-doctors.html">Doctors</a></li>
-                    <li><a href="admin-users.html">Users</a></li>
-                    <li><a href="admin-reports.html" class="active">Reports</a></li>
-                    <li><a href="admin-login.html">Logout</a></li>
-                </ul>
-            </nav>
-        </header>
+    <header>
+        <div class="navbar-brand">
+            <img src="../images /MediBooks-Logo-1.png" alt="MediBooks Logo"> MediBooks
+        </div>
+        <div class="admin-container">
+            <header class="admin-header">
+                <h1>Admin Panel - Reports</h1>
+                <nav>
+                    <ul>
+                        <li><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li><a href="admin-appointment.html">Appointments</a></li>
+                        <li><a href="admin-doctors.html">Doctors</a></li>
+                        <li><a href="admin-users.html">Users</a></li>
+                        <li><a href="admin-reports.html" class="active">Reports</a></li>
+                        <li><a href="admin-login.html">Logout</a></li>
+                    </ul>
+                </nav>
+            </header>
 
-        <main class="admin-main">
-            <section class="filter-section">
-                <h2>Filter Reports</h2>
-                <form id="filter-form">
-                    <label for="start-date">Start Date:</label>
-                    <input type="date" id="start-date" name="start-date">
+            <main class="admin-main">
+                <!-- Filter Section -->
+                <section class="filter-section">
+                    <h2>Filter Reports</h2>
+                    <form id="filter-form">
+                        <label for="start-date">Start Date:</label>
+                        <input type="date" id="start-date" name="start-date">
 
-                    <label for="end-date">End Date:</label>
-                    <input type="date" id="end-date" name="end-date">
+                        <label for="end-date">End Date:</label>
+                        <input type="date" id="end-date" name="end-date">
 
-                    <label for="doctor">Doctor:</label>
-                    <select id="doctor" name="doctor">
-                        <option value="" disabled selected>Select a Doctor</option>
-                        <option value="Dr. John Smith">Dr. John Smith - Cardiologist</option>
-                        <option value="Dr. Emma Davis">Dr. Emma Davis - Neurologist</option>
-                        <option value="Dr. Michael Brown">Dr. Michael Brown - Pediatrician</option>
-                        <option value="Dr. Olivia Wilson">Dr. Olivia Wilson - Orthopedic Surgeon</option>
-                        <option value="Dr. Liam Johnson">Dr. Liam Johnson - Dermatologist</option>
-                        <option value="Dr. Sophia Martinez">Dr. Sophia Martinez - Gynecologist</option>
-                    </select>
+                        <label for="doctor">Doctor:</label>
+                        <select id="doctor" name="doctor">
+                            <option value="" disabled selected>Select a Doctor</option>
+                            <option value="Dr. John Smith">Dr. John Smith - Cardiologist</option>
+                            <option value="Dr. Emma Davis">Dr. Emma Davis - Neurologist</option>
+                            <option value="Dr. Michael Brown">Dr. Michael Brown - Pediatrician</option>
+                            <option value="Dr. Olivia Wilson">Dr. Olivia Wilson - Orthopedic Surgeon</option>
+                            <option value="Dr. Liam Johnson">Dr. Liam Johnson - Dermatologist</option>
+                            <option value="Dr. Sophia Martinez">Dr. Sophia Martinez - Gynecologist</option>
+                        </select>
 
-                    <label for="specialization">Specialization:</label>
-                    <select id="specialization" name="specialization">
-                        <option value="" disabled selected>Select a Specialization</option>
-                        <option value="Cardiology">Cardiology</option>
-                        <option value="Neurology">Neurology</option>
-                        <option value="Pediatrics">Pediatrics</option>
-                        <option value="Orthopedics">Orthopedics</option>
-                        <option value="Dermatology">Dermatology</option>
-                        <option value="Gynecology">Gynecology</option>
-                    </select>
+                        <label for="specialization">Specialization:</label>
+                        <select id="specialization" name="specialization">
+                            <option value="" disabled selected>Select a Specialization</option>
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="Neurology">Neurology</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                            <option value="Orthopedics">Orthopedics</option>
+                            <option value="Dermatology">Dermatology</option>
+                            <option value="Gynecology">Gynecology</option>
+                        </select>
 
-                    <button type="button" id="filter-btn">Apply Filter</button>
-                </form>
-            </section>
+                        <button type="button" id="filter-btn" class="btn btn-primary">Apply Filter</button>
+                    </form>
+                </section>
 
-            <section class="report-section">
-                <h2>Overview</h2>
-                <div class="report-cards">
-                    <div class="card">
-                        <h3>Total Appointments</h3>
-                        <p id="total-appointments">Loading...</p>
+                <!-- Overview Report Cards -->
+                <section class="report-section">
+                    <h2>Overview</h2>
+                    <div class="report-cards">
+                        <div class="card">
+                            <h3>Total Appointments</h3>
+                            <p id="total-appointments">Loading...</p>
+                        </div>
+                        <div class="card">
+                            <h3>Active Users</h3>
+                            <p id="active-users">Loading...</p>
+                        </div>
+                        <div class="card">
+                            <h3>Active Doctors</h3>
+                            <p id="active-doctors">Loading...</p>
+                        </div>
                     </div>
-                    <div class="card">
-                        <h3>Active Users</h3>
-                        <p id="active-users">Loading...</p>
+                </section>
+
+                <!-- Doctor Report Table -->
+                <section class="report-details">
+                    <h2>Doctor-Specific Reports</h2>
+                    <table id="doctor-report-table" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Doctor</th>
+                                <th>Specialization</th>
+                                <th>Appointments</th>
+                            </tr>
+                        </thead>
+                        <tbody id="report-body">
+                            <!-- Dynamic content will be inserted here -->
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Charts Section -->
+                <section class="chart-section">
+                    <h2>Appointments Over Time</h2>
+                    <div class="chart-container">
+                        <canvas id="appointmentsChart"></canvas>
                     </div>
-                    <div class="card">
-                        <h3>Active Doctors</h3>
-                        <p id="active-doctors">Loading...</p>
-                    </div>
-                </div>
-            </section>
+                </section>
 
-            <section class="report-details">
-                <h2>Doctor-Specific Reports</h2>
-                <table id="doctor-report-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Doctor</th>
-                            <th>Specialization</th>
-                            <th>Appointments</th>
-                        </tr>
-                    </thead>
-                    <tbody id="report-body">
-                        <!-- Dynamic content will be inserted here -->
-                    </tbody>
-                </table>
-            </section>
+                <!-- Export Section -->
+                <section class="export-section">
+                    <h2>Export Data</h2>
+                    <button id="export-csv" class="btn btn-success">Export to CSV</button>
+                    <button id="export-excel" class="btn btn-success">Export to Excel</button>
+                </section>
+            </main>
 
-            <section class="chart-section">
-                <h2>Reports</h2>
-                <div class="chart-container">
-                    <canvas id="appointmentsChart"></canvas>
-                </div>
-            </section>
-
-            <section class="export-section">
-                <h2>Export Data</h2>
-                <button id="export-csv">Export to CSV</button>
-                <button id="export-excel">Export to Excel</button>
-            </section>
-        </main>
-
-        <footer class="admin-footer">
-            <p>&copy; 2025 Admin Panel. All Rights Reserved.</p>
-        </footer>
-    </div>
+            <footer class="admin-footer">
+                <p>&copy; 2025 Admin Panel. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </header>
 
     <script>
         // Dummy data for cards (replace with actual API calls)
@@ -137,14 +144,13 @@
             { date: '2025-01-06', doctor: 'Dr. Sophia Martinez', specialization: 'Gynecology', appointments: 22 }
         ];
 
-        // Filter button functionality
+        // Filter functionality
         document.getElementById('filter-btn').addEventListener('click', () => {
             const startDate = document.getElementById('start-date').value;
             const endDate = document.getElementById('end-date').value;
             const doctor = document.getElementById('doctor').value;
             const specialization = document.getElementById('specialization').value;
 
-            // Filter reports
             const filteredReports = doctorReports.filter(report => {
                 const isWithinDate = (!startDate || report.date >= startDate) && (!endDate || report.date <= endDate);
                 const isDoctorMatch = !doctor || report.doctor === doctor;
@@ -152,7 +158,7 @@
                 return isWithinDate && isDoctorMatch && isSpecializationMatch;
             });
 
-            // Update table
+            // Populate the table with filtered data
             const reportBody = document.getElementById('report-body');
             reportBody.innerHTML = '';
             filteredReports.forEach(report => {
@@ -232,4 +238,5 @@
         });
     </script>
 </body>
+
 </html>
