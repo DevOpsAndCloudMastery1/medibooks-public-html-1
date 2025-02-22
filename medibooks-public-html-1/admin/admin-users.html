@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Manage Users</title>
     <link rel="stylesheet" href="../styles/medibooks-styles.css">
-    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="../js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -20,13 +20,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="../home.html">Home</a>
+                        <a class="nav-link" href="admin-appointments.html">Manage Appointments</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../user-profile.html">Manage Users</a>
+                        <a class="nav-link" href="admin-doctors.html">Manage Doctors</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../login.html">Sign Out</a>
+                        <a class="nav-link" href="admin-users.html">Manage Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-reports.html">View Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-login.html">Sign Out</a>
                     </li>
                 </ul>
             </div>
@@ -89,8 +95,6 @@
 
         // Ensure the page loads users when it first runs
         document.addEventListener("DOMContentLoaded", loadUsers);
-
-    
     </script>
 </body>
 </html>
